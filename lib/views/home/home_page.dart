@@ -15,11 +15,15 @@ class MyHomePage extends StatelessWidget {
               cacheExtent: 2000,
               children: [
                 SizedBox(height: height * 0.1),
-                Container(
-                  width: double.infinity,
-                  height: height * 0.8,
-                  color: Colors.blue,
-                ),
+                SizedBox(
+                    width: double.infinity,
+                    height: height * 0.5,
+                    child: const Image(
+                      image: NetworkImage(
+                        'https://picsum.photos/id/237/200/300',
+                      ),
+                      fit: BoxFit.cover,
+                    )),
                 Container(
                   width: double.infinity,
                   height: height * 0.8,
@@ -59,7 +63,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'La Terza Spiaggia',
+                    'Business Name',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,

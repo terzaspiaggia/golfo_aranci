@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:terza_spiaggia_web/views/home_page.dart';
+import 'package:get/route_manager.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import 'package:terza_spiaggia_web/router/app_pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Terza Spiaggia',
       theme: ThemeData(
@@ -19,7 +21,18 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      builder: (context, child) {
+        return ResponsiveBreakpoints.builder(
+          child: child!,
+          breakpoints: [
+            const Breakpoint(start: 0, end: 450, name: MOBILE),
+            const Breakpoint(start: 451, end: 900, name: TABLET),
+            const Breakpoint(start: 901, end: double.infinity, name: DESKTOP),
+          ],
+        );
+      },
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
     );
   }
 }
