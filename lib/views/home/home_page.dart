@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
+import 'package:terza_spiaggia_web/views/widgets/container_widget.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
+    const double height = 600;
     return Scaffold(
       body: Stack(
         children: [
@@ -14,37 +16,173 @@ class MyHomePage extends StatelessWidget {
               shrinkWrap: true,
               cacheExtent: 2000,
               children: [
-                SizedBox(height: height * 0.1),
+                const SizedBox(height: height * 0.1),
                 SizedBox(
-                    width: double.infinity,
-                    height: height * 0.5,
-                    child: const Image(
-                      image: NetworkImage(
-                        'https://picsum.photos/id/237/200/300',
-                      ),
-                      fit: BoxFit.cover,
-                    )),
-                Container(
-                  width: double.infinity,
-                  height: height * 0.8,
-                  color: Colors.green,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: height * 0.8,
-                  color: Colors.yellow,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: height * 0.8,
-                  color: Colors.purple,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: height * 0.8,
-                  color: Colors.orange,
+                  width: height,
+                  child: ContainerWidget(
+                    height: height,
+                    image: const NetworkImage(
+                        'https://picsum.photos/id/28/${height * 3}/${height * 1.5}'),
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc.',
+                    title: 'Terza Spiaggia',
+                    padding: 20,
+                    left: responsiveValue(
+                      context,
+                      defaultVal: 0,
+                      mobileVal: 0,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    right: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    bottom: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.2,
+                      desktopVal: 30,
+                    ),
+                  ),
                 ),
                 SizedBox(
+                  width: height,
+                  child: ContainerWidget(
+                    height: height,
+                    image: const NetworkImage(
+                        'https://picsum.photos/id/29/${height * 3}/${height * 1.5}'),
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc.',
+                    title: 'Terza Spiaggia',
+                    padding: 20,
+                    left: responsiveValue(
+                      context,
+                      defaultVal: 0,
+                      mobileVal: 0,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    right: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    bottom: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.2,
+                      desktopVal: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: height,
+                  child: ContainerWidget(
+                    height: height,
+                    image: const NetworkImage(
+                        'https://picsum.photos/id/30/${height * 3}/${height * 1.5}'),
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc.',
+                    title: 'Terza Spiaggia',
+                    padding: 20,
+                    left: responsiveValue(
+                      context,
+                      defaultVal: 0,
+                      mobileVal: 0,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    right: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    bottom: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.2,
+                      desktopVal: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: height,
+                  child: ContainerWidget(
+                    height: height,
+                    image: const NetworkImage(
+                        'https://picsum.photos/id/31/${height * 3}/${height * 1.5}'),
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc.',
+                    title: 'Terza Spiaggia',
+                    padding: 20,
+                    left: responsiveValue(
+                      context,
+                      defaultVal: 0,
+                      mobileVal: 0,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    right: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    bottom: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.2,
+                      desktopVal: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: height,
+                  child: ContainerWidget(
+                    height: height,
+                    image: const NetworkImage(
+                        'https://picsum.photos/id/32/${height * 3}/${height * 1.5}'),
+                    text:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc. Donec auctor, nisl eget ultricies aliquam, nunc nisl ultricies nisi, vitae ultricies nisl nisl eget nunc.',
+                    title: 'Terza Spiaggia',
+                    padding: 20,
+                    left: responsiveValue(
+                      context,
+                      defaultVal: 0,
+                      mobileVal: 0,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    right: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.1,
+                      desktopVal: height - (height / 1.66),
+                    ),
+                    bottom: responsiveValue(
+                      context,
+                      defaultVal: height * 0.1,
+                      mobileVal: 10,
+                      tabletVal: height * 0.2,
+                      desktopVal: 30,
+                    ),
+                  ),
+                ),
+                const SizedBox(
                   width: double.infinity,
                   height: height * 0.2,
                 ),
