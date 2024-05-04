@@ -35,13 +35,13 @@ class ContainerWidget extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: image,
-              scale: responsiveValue(
-                context,
-                defaultVal: 1,
-                mobileVal: 0.2,
-                tabletVal: 0.5,
-                desktopVal: 1,
-              ),
+              // scale: responsiveValue(
+              //   context,
+              //   defaultVal: 1,
+              //   mobileVal: 0.2,
+              //   tabletVal: 0.5,
+              //   desktopVal: 1,
+              // ),
             ),
           ),
         ),

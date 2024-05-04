@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Terza Spiaggia',
       theme: ThemeData(
+       
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
         ),
