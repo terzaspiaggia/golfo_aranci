@@ -9,13 +9,18 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.home,
-      page: () => MyHomePage(),
+      page: () => const MyHomePage(),
+    ),
+    GetPage(
+      name: _Paths.product,
+      page: () => const MyHomePage(),
     ),
   ];
 }
 
 abstract class Routes {
   static const home = _Paths.home;
+  static const product = _Paths.product;
 
   Routes._();
 }
@@ -24,4 +29,5 @@ abstract class _Paths {
   _Paths._();
 
   static const home = '/login';
+  static const product = '/product';
 }
