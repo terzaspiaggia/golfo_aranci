@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/route_manager.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -21,9 +22,10 @@ class ProductDetails extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: 300,
@@ -48,29 +50,64 @@ class ProductDetails extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const SizedBox(
-              width: 300,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'alergeni : etc . . .',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'alergeni : ',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                ],
-              ),
-            ),
-            Text(
-              '${product.price}',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+                ),
+                SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: Wrap(
+                    children: product.alergeni != null
+                        ? (product.alergeni! as List<dynamic>).map((e) {
+                            return Container(
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                '$e',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          }).toList()
+                        : const <Widget>[],
+                  ),
+                  //  ListView.builder(
+                  //   itemCount: product.alergeni.length,
+                  //   itemBuilder: (context, index) {
+                  //     return Container(
+                  //       margin: const EdgeInsets.all(5),
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.red,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //       ),
+                  //       child: Text(
+                  //         '${product.alergeni[index]}',
+                  //         style: const TextStyle(
+                  //           fontSize: 16,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
+                )
+              ],
             ),
           ],
         ),

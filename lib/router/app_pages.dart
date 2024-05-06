@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/views/home/home_page.dart';
+import 'package:terza_spiaggia_web/views/product/product_detail.dart';
 
 class AppPages {
   AppPages._();
@@ -13,7 +14,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.product,
-      page: () => const MyHomePage(),
+      page: () => const ProductDetails(),
     ),
   ];
 }
@@ -28,6 +29,6 @@ abstract class Routes {
 abstract class _Paths {
   _Paths._();
 
-  static const home = '/login';
+  static const home = '/';
   static const product = '/product';
 }

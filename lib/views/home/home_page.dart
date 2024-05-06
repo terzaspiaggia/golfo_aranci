@@ -271,7 +271,7 @@ class ProductWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          product.id,
+                          product.number,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
