@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 import 'package:terza_spiaggia_web/views/product/product_detail.dart';
@@ -233,98 +231,197 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //  Get.toNamed('/product/${product.id}');
         Get.to(() => const ProductDetails(), arguments: product);
       },
       child: Container(
+        height: height * 0.16,
+        width: double.infinity,
         margin: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
+          horizontal: 10,
         ),
-        height: height * 0.3,
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 2),
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(product.image),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          // margin: const EdgeInsets.fromLTRB(30, 20, 50, 10),
-          padding: const EdgeInsets.fromLTRB(30, 30, 30, 10),
-          width: 400,
-          height: height * 0.26,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 80,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          product.number,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Bodoni_Moda',
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          product.title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Bodoni_Moda',
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      product.price,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Bodoni_Moda',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                top: 110,
-                left: 0,
-                bottom: 0,
-                child: SizedBox(
-                  width: 300,
-                  child: Text(
-                    product.description,
-                    maxLines: 3,
-                    overflow: TextOverflow.clip,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'Bodoni_Moda',
-                    ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  product.number,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(width: 15),
+                Text(
+                  product.title,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  product.price,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            Text(
+              product.description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 14,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'DETAILS',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
+
+// class ProductWidget extends StatelessWidget {
+//   const ProductWidget({
+//     super.key,
+//     required this.height,
+//     required this.product,
+//   });
+
+//   final double height;
+//   final Product product;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         //  Get.toNamed('/product/${product.id}');
+//         Get.to(() => const ProductDetails(), arguments: product);
+//       },
+//       child: Container(
+//         height: height * 0.2,
+//         width: double.infinity,
+//         margin: const EdgeInsets.symmetric(
+//           horizontal: 20,
+//           vertical: 10,
+//         ),
+//         padding: const EdgeInsets.all(10),
+//         decoration: BoxDecoration(
+//           color: Colors.grey.withOpacity(0.5),
+//           borderRadius: BorderRadius.circular(10),
+//         ),
+//         child: Stack(
+//           children: [
+//             Positioned(
+//               top: 0,
+//               left: 0,
+//               bottom: 0,
+//               child: Container(
+//                 width: 100,
+//                 height: height * 0.2,
+//                 decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(10),
+//                   image: DecorationImage(
+//                     image: NetworkImage(product.image),
+//                     fit: BoxFit.cover,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Positioned(
+//               top: 50,
+//               left: 120,
+//               right: 10,
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Row(
+//                     children: [
+//                       Text(
+//                         product.number,
+//                         style: const TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 16,
+//                           fontWeight: FontWeight.bold,
+//                           fontFamily: 'Bodoni_Moda',
+//                         ),
+//                       ),
+//                       const SizedBox(width: 5),
+//                       Text(
+//                         product.title,
+//                         style: const TextStyle(
+//                           color: Colors.white,
+//                           fontSize: 20,
+//                           fontWeight: FontWeight.bold,
+//                           fontFamily: 'Bodoni_Moda',
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   Text(
+//                     product.price,
+//                     style: const TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.bold,
+//                       fontFamily: 'Bodoni_Moda',
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Positioned(
+//               top: 90,
+//               left: 120,
+//               bottom: 20,
+//               child: SizedBox(
+//                 width: 300,
+//                 child: Text(
+//                   product.description,
+//                   maxLines: 3,
+//                   overflow: TextOverflow.clip,
+//                   style: const TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 14,
+//                     fontFamily: 'Bodoni_Moda',
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

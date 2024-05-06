@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
         ),
         useMaterial3: true,
+        fontFamily: 'Bodoni_Moda',
       ),
       builder: (context, child) {
         return ResponsiveBreakpoints.builder(

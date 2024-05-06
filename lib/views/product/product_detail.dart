@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/route_manager.dart';
+import 'package:terza_spiaggia_web/models/product_model.dart';
 
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.arguments;
+    final product = Get.arguments as Product;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -16,7 +17,7 @@ class ProductDetails extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
         title: Text(
-          '${product.title}',
+          product.title,
           style: const TextStyle(
             color: Colors.white,
           ),
