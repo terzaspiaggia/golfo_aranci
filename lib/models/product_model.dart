@@ -5,7 +5,7 @@ class Product {
   final String description;
   final String image;
   final String price;
-  final List<String>? alergeni;
+  final List<String>? allergens;
 
   Product({
     required this.id,
@@ -14,7 +14,7 @@ class Product {
     required this.description,
     required this.image,
     required this.price,
-    this.alergeni,
+    this.allergens,
   });
 
   static List<Product> products = [
@@ -25,7 +25,7 @@ class Product {
       description:
           'salmone e cream cheese all’interno e  gambero rosso, tartufo nero al esterno',
       image: 'https://picsum.photos/id/28/600/900',
-      alergeni: [
+      allergens: [
         'lupini',
         'sesamo',
         'uova',
@@ -43,7 +43,7 @@ class Product {
       title: 'MANGO ROLL',
       image: 'https://picsum.photos/id/29/600/900',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-      alergeni: [
+      allergens: [
         'lupini',
         'sesamo',
         'uova',
@@ -61,7 +61,7 @@ class Product {
       title: 'Terza Spiaggia',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       image: 'https://picsum.photos/id/35/600/900',
-      alergeni: [
+      allergens: [
         'lupini',
         'sesamo',
         'uova',
@@ -79,7 +79,7 @@ class Product {
       title: 'Terza Spiaggia',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       image: 'https://picsum.photos/id/31/600/900',
-      alergeni: [
+      allergens: [
         'lupini',
         'sesamo',
         'uova',
@@ -97,7 +97,7 @@ class Product {
       title: 'Terza Spiaggia',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       image: 'https://picsum.photos/id/32/600/900',
-      alergeni: [
+      allergens: [
         'lupini',
         'sesamo',
         'uova',
