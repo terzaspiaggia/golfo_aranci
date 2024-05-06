@@ -23,93 +23,105 @@ class ProductDetails extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: NetworkImage(product.image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: 300,
-              child: Text(
-                product.description,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'alergeni : ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(product.image),
+                    fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: Wrap(
-                    children: product.allergens != null
-                        ? (product.allergens! as List<dynamic>).map((e) {
-                            return Container(
-                              margin: const EdgeInsets.all(5),
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                '$e',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 300,
+                child: Column(
+                  children: [
+                    const Text(
+                      'INGREDIENTI :',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      product.description,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'ALERGENI: ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: Wrap(
+                      children: product.allergens != null
+                          ? (product.allergens! as List<dynamic>).map((e) {
+                              return Container(
+                                margin: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                              ),
-                            );
-                          }).toList()
-                        : const <Widget>[],
-                  ),
-                  //  ListView.builder(
-                  //   itemCount: product.alergeni.length,
-                  //   itemBuilder: (context, index) {
-                  //     return Container(
-                  //       margin: const EdgeInsets.all(5),
-                  //       padding: const EdgeInsets.all(5),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.red,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //       ),
-                  //       child: Text(
-                  //         '${product.alergeni[index]}',
-                  //         style: const TextStyle(
-                  //           fontSize: 16,
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
-                )
-              ],
-            ),
-          ],
+                                child: Text(
+                                  '$e',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
+                            }).toList()
+                          : const <Widget>[],
+                    ),
+                    //  ListView.builder(
+                    //   itemCount: product.alergeni.length,
+                    //   itemBuilder: (context, index) {
+                    //     return Container(
+                    //       margin: const EdgeInsets.all(5),
+                    //       padding: const EdgeInsets.all(5),
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.red,
+                    //         borderRadius: BorderRadius.circular(5),
+                    //       ),
+                    //       child: Text(
+                    //         '${product.alergeni[index]}',
+                    //         style: const TextStyle(
+                    //           fontSize: 16,
+                    //           color: Colors.white,
+                    //         ),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
