@@ -66,8 +66,8 @@ class ProductDetails extends StatelessWidget {
                   width: 300,
                   height: 300,
                   child: Wrap(
-                    children: product.alergeni != null
-                        ? (product.alergeni! as List<dynamic>).map((e) {
+                    children: product.allergens != null
+                        ? (product.allergens! as List<dynamic>).map((e) {
                             return Container(
                               margin: const EdgeInsets.all(5),
                               padding: const EdgeInsets.all(5),
