@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 import 'package:terza_spiaggia_web/views/product/product_detail.dart';
@@ -186,10 +190,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             color: Colors.black.withOpacity(0.5),
             width: double.infinity,
             height: height * 0.18,
-            child: const Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Terza Spiaggia',
                   style: TextStyle(
                     color: Colors.white,
@@ -197,13 +201,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Divider(
-                  color: Colors.white,
-                  thickness: 1,
-                  indent: 190,
-                  endIndent: 190,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                  height: 1,
+                  width: responsiveValue(
+                    context,
+                    defaultVal: 10,
+                    mobileVal: 13,
+                    tabletVal: 140,
+                    desktopVal: 120,
+                  ),
+                  child: const Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                  ),
                 ),
-                Text(
+                const Text(
                   'MENU SUSHI',
                   style: TextStyle(
                     color: Colors.white,
@@ -224,10 +238,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 //     required this.height,
 //     required this.product,
 //   });
-
 //   final double height;
 //   final Product product;
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return GestureDetector(
@@ -328,13 +340,26 @@ class ProductWidget extends StatelessWidget {
       onTap: () {
         Get.to(() => const ProductDetails(), arguments: product);
       },
-      child: Container(
-        height: height * 0.2,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+        height: height * 0.21,
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
+        margin: EdgeInsets.symmetric(
+            horizontal: responsiveValue(
+              context,
+              defaultVal: 20,
+              mobileVal: 10,
+              tabletVal: 15,
+              desktopVal: 300,
+            ),
+            vertical: responsiveValue(
+              context,
+              defaultVal: 10,
+              mobileVal: 5,
+              tabletVal: 10,
+              desktopVal: 10,
+            )),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.5),
@@ -347,7 +372,7 @@ class ProductWidget extends StatelessWidget {
               left: 0,
               bottom: 0,
               child: Container(
-                width: 100,
+                width: 110,
                 height: height * 0.2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -362,29 +387,27 @@ class ProductWidget extends StatelessWidget {
               top: 50,
               left: 120,
               right: 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
                 children: [
-                  Row(
+                  Wrap(
                     children: [
                       Text(
                         product.number,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Bodoni_Moda',
-                        ),
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
                       ),
-                      const SizedBox(width: 5),
+                      const SizedBox(width: 15),
                       Text(
                         product.title,
                         style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Bodoni_Moda',
-                        ),
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
                       ),
                     ],
                   ),
@@ -394,26 +417,22 @@ class ProductWidget extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Bodoni_Moda',
                     ),
                   ),
                 ],
               ),
             ),
             Positioned(
-              top: 90,
-              left: 120,
-              bottom: 20,
-              child: SizedBox(
-                width: 300,
-                child: Text(
-                  product.description,
-                  maxLines: 3,
-                  overflow: TextOverflow.clip,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
+              top: 80,
+              left: 122,
+              bottom: 10,
+              child: Text(
+                product.description,
+                maxLines: 3,
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
                 ),
               ),
             ),

@@ -2,27 +2,29 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/controllers/product_controller.dart';
+import 'package:terza_spiaggia_web/models/product_model.dart';
 
 class ProductDetails extends GetView<ProductController> {
   const ProductDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.arguments;
+    final product = Get.arguments as Product;
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.black,
-        title: Text(
-          product.title,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   iconTheme: const IconThemeData(
+      //     color: Colors.white, //change your color here
+      //   ), // 1
+
+      //   backgroundColor: Colors.black,
+      //   title: Text(
+      //     product.title,
+      //     style: const TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -61,7 +63,7 @@ class ProductDetails extends GetView<ProductController> {
               ),
               const SizedBox(height: 20),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const Text(
                     'ALERGENI: ',
@@ -72,23 +74,24 @@ class ProductDetails extends GetView<ProductController> {
                     ),
                   ),
                   SizedBox(
-                      width: 300,
-                      height: 80,
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          '${product.allergens}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )),
+                    width: 300,
+                    height: 150,
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: product.allergens
+                            .split(',')
+                            .map(
+                              (e) => Container(
+                                  margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(e)),
+                            )
+                            .toList()),
+                  ),
                 ],
               ),
             ],
