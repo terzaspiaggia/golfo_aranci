@@ -33,8 +33,7 @@ class ProductDetails extends GetView<ProductController> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
                 child: CachedNetworkImage(
-                  imageUrl: 
-                  product.imageUrl,
+                  imageUrl: product.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -74,51 +73,22 @@ class ProductDetails extends GetView<ProductController> {
                   ),
                   SizedBox(
                       width: 300,
-                      height: 300,
-                      child: Text(
-                        product.allergens,
-                      )
-
-                      // product.allergens != null
-                      //     ? (product.allergens! as List<dynamic>).map((e) {
-                      //         return Container(
-                      //           margin: const EdgeInsets.all(5),
-                      //           padding: const EdgeInsets.all(5),
-                      //           decoration: BoxDecoration(
-                      //             color: Colors.red,
-                      //             borderRadius: BorderRadius.circular(5),
-                      //           ),
-                      //           child: Text(
-                      //             '$e',
-                      //             style: const TextStyle(
-                      //               fontSize: 16,
-                      //               color: Colors.white,
-                      //             ),
-                      //           ),
-                      //         );
-                      //       }).toList()
-                      //     : const <Widget>[],
-                      ),
-                  //  ListView.builder(
-                  //   itemCount: product.alergeni.length,
-                  //   itemBuilder: (context, index) {
-                  //     return Container(
-                  //       margin: const EdgeInsets.all(5),
-                  //       padding: const EdgeInsets.all(5),
-                  //       decoration: BoxDecoration(
-                  //         color: Colors.red,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //       ),
-                  //       child: Text(
-                  //         '${product.alergeni[index]}',
-                  //         style: const TextStyle(
-                  //           fontSize: 16,
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
+                      height: 80,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          '${product.allergens}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )),
                 ],
               ),
             ],
