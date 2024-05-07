@@ -31,6 +31,20 @@ class ProductDetails extends GetView<ProductController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 100,
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(),
+                child: Text(
+                  product.title,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
@@ -73,24 +87,29 @@ class ProductDetails extends GetView<ProductController> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
-                    width: 300,
-                    height: 150,
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: product.allergens
-                            .split(',')
-                            .map(
-                              (e) => Container(
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Text(e)),
-                            )
-                            .toList()),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: product.allergens
+                        .split(',')
+                        .map(
+                          (e) => Container(
+                              margin: const EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(e)),
+                        )
+                        .toList(),
+                  ),
+                  const Text(
+                    'Informiamo la gentile clientela che il pesce destinato ad essere consumato crudo o praticamente crudo è stato sottoposto a trattamento di bonifica preventiva conforme alle prescrizioni del Regolamento CE 853/2004, allegato III, sezione VIII, capitolo 3, lettera D, punto 3.',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
