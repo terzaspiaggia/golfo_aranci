@@ -1,15 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:terza_spiaggia_web/controllers/product_controller.dart';
 
-import 'package:get/route_manager.dart';
-import 'package:terza_spiaggia_web/models/product_model.dart';
-
-class ProductDetails extends StatelessWidget {
+class ProductDetails extends GetView<ProductController> {
   const ProductDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.arguments as Product;
+    final product = Get.arguments;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -34,15 +33,8 @@ class ProductDetails extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
                 child: CachedNetworkImage(
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  imageUrl: product.imageUrl ?? product.imageUrl,
+                  imageUrl: 
+                  product.imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),
