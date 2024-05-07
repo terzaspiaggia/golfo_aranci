@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1097885486130",
+    "project_id": "terza-spiaggia-flutton",
+    "storage_bucket": "terza-spiaggia-flutton.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097885486130:android:95b205928997b25d92402b",
+        "android_client_info": {
+          "package_name": "com.example.spiaggia_backoffice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA46tdWeHCpsS1mHpehRIBTcsSOHCsjbck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097885486130:android:7a51160757f4a8ad92402b",
+        "android_client_info": {
+          "package_name": "com.example.terza_spiaggia_web"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA46tdWeHCpsS1mHpehRIBTcsSOHCsjbck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

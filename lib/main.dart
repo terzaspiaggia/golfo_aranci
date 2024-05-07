@@ -1,9 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:terza_spiaggia_web/bindings/product_binding.dart';
+import 'package:terza_spiaggia_web/firebase_options.dart';
 import 'package:terza_spiaggia_web/router/app_pages.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  ).whenComplete(
+    () => ProductBinding().dependencies(),
+  );
   runApp(const MyApp());
 }
 

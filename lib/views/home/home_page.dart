@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 import 'package:terza_spiaggia_web/views/product/product_detail.dart';
 
@@ -138,28 +139,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             right: 0,
             height: height,
             child: const Stack(
-              children: [
-                //  il dente
-                // Positioned(
-                //   top: height * 0.55 - 0.55 * _offset,
-                //   right: 0,
-                //   left: 0,
-                //   height: height * 0.4,
-                //   child: AnimatedContainer(
-                //     transform: Matrix4.translationValues(0, 0.5 * _offset, 0),
-                //     duration: const Duration(milliseconds: 1000),
-                //     width: double.infinity,
-                //     child: SizedBox(
-                //       width: 600,
-                //       child: Image.asset(
-                //         'assets/images/IMG_0556.PNG',
-                //         fit: BoxFit.contain,
-                //         alignment: const Alignment(0, -0.2),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-              ],
+              children: [],
             ),
           ),
           Scrollbar(
@@ -169,16 +149,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 SizedBox(
                   height: height * 0.12,
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  controller: _scrollController,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProductWidget(
-                      height: height,
-                      product: Product.products[index],
-                    );
-                  },
+                Obx(
+                  () => ListView.builder(
+                    shrinkWrap: true,
+                    controller: _scrollController,
+                    itemCount: productController.products.length,
+                    itemBuilder: (context, index) {
+                      return ProductWidget(
+                        height: height,
+                        product: productController.products[index],
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -276,7 +258,7 @@ class ProductWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  product.price,
+                  product.price.toString(),
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -310,7 +292,6 @@ class ProductWidget extends StatelessWidget {
     );
   }
 }
-
 
 // class ProductWidget extends StatelessWidget {
 //   const ProductWidget({

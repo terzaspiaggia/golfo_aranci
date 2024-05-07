@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/route_manager.dart';
@@ -29,15 +30,20 @@ class ProductDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(product.image),
-                    fit: BoxFit.cover,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                width: MediaQuery.of(context).size.height * 0.5,
+                child: CachedNetworkImage(
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
+                  imageUrl: product.imageUrl ?? product.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(height: 20),
@@ -75,50 +81,52 @@ class ProductDetails extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 300,
-                    height: 300,
-                    child: Wrap(
-                      children: product.allergens != null
-                          ? (product.allergens! as List<dynamic>).map((e) {
-                              return Container(
-                                margin: const EdgeInsets.all(5),
-                                padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Text(
-                                  '$e',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              );
-                            }).toList()
-                          : const <Widget>[],
-                    ),
-                    //  ListView.builder(
-                    //   itemCount: product.alergeni.length,
-                    //   itemBuilder: (context, index) {
-                    //     return Container(
-                    //       margin: const EdgeInsets.all(5),
-                    //       padding: const EdgeInsets.all(5),
-                    //       decoration: BoxDecoration(
-                    //         color: Colors.red,
-                    //         borderRadius: BorderRadius.circular(5),
-                    //       ),
-                    //       child: Text(
-                    //         '${product.alergeni[index]}',
-                    //         style: const TextStyle(
-                    //           fontSize: 16,
-                    //           color: Colors.white,
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                  )
+                      width: 300,
+                      height: 300,
+                      child: Text(
+                        product.allergens,
+                      )
+
+                      // product.allergens != null
+                      //     ? (product.allergens! as List<dynamic>).map((e) {
+                      //         return Container(
+                      //           margin: const EdgeInsets.all(5),
+                      //           padding: const EdgeInsets.all(5),
+                      //           decoration: BoxDecoration(
+                      //             color: Colors.red,
+                      //             borderRadius: BorderRadius.circular(5),
+                      //           ),
+                      //           child: Text(
+                      //             '$e',
+                      //             style: const TextStyle(
+                      //               fontSize: 16,
+                      //               color: Colors.white,
+                      //             ),
+                      //           ),
+                      //         );
+                      //       }).toList()
+                      //     : const <Widget>[],
+                      ),
+                  //  ListView.builder(
+                  //   itemCount: product.alergeni.length,
+                  //   itemBuilder: (context, index) {
+                  //     return Container(
+                  //       margin: const EdgeInsets.all(5),
+                  //       padding: const EdgeInsets.all(5),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.red,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //       ),
+                  //       child: Text(
+                  //         '${product.alergeni[index]}',
+                  //         style: const TextStyle(
+                  //           fontSize: 16,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ],

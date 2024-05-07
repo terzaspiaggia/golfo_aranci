@@ -1,113 +1,72 @@
-class Product {
-  final String id;
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class Product extends Equatable {
+  final String? id;
   final String number;
   final String title;
   final String description;
-  final String image;
-  final String price;
-  final List<String>? allergens;
+  final String imageUrl;
+  late double price;
+  final String allergens;
 
   Product({
-    required this.id,
+    this.id,
     required this.number,
     required this.title,
     required this.description,
-    required this.image,
+    required this.imageUrl,
     required this.price,
-    this.allergens,
+    required this.allergens,
   });
 
-  static List<Product> products = [
-    Product(
-      id: '1',
-      number: '1.1',
-      title: 'RED TRUFFLE ROLL',
-      description:
-          'salmone e cream cheese all’interno e  gambero rosso, tartufo nero al esterno',
-      image: 'https://picsum.photos/id/28/600/900',
-      allergens: [
-        'lupini',
-        'sesamo',
-        'uova',
-        'crostacei',
-        'pesce',
-        'soia',
-        'glutine',
-        'latte',
-      ],
-      price: '€ 22.00',
-    ),
-    Product(
-      id: '2',
-      number: '1.2',
-      title: 'MANGO ROLL',
-      image: 'https://picsum.photos/id/29/600/900',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-      allergens: [
-        'lupini',
-        'sesamo',
-        'uova',
-        'crostacei',
-        'pesce',
-        'soia',
-        'glutine',
-        'latte',
-      ],
-      price: '€ 18.00',
-    ),
-    Product(
-      id: '3',
-      number: '1.3',
-      title: 'Terza Spiaggia',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-      image: 'https://picsum.photos/id/35/600/900',
-      allergens: [
-        'lupini',
-        'sesamo',
-        'uova',
-        'crostacei',
-        'pesce',
-        'soia',
-        'glutine',
-        'latte',
-      ],
-      price: '€ 20.00',
-    ),
-    Product(
-      id: '4',
-      number: '1.4',
-      title: 'Terza Spiaggia',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-      image: 'https://picsum.photos/id/31/600/900',
-      allergens: [
-        'lupini',
-        'sesamo',
-        'uova',
-        'crostacei',
-        'pesce',
-        'soia',
-        'glutine',
-        'latte',
-      ],
-      price: '€ 25.00',
-    ),
-    Product(
-      id: '5',
-      number: '1.5',
-      title: 'Terza Spiaggia',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-      image: 'https://picsum.photos/id/32/600/900',
-      allergens: [
-        'lupini',
-        'sesamo',
-        'uova',
-        'crostacei',
-        'pesce',
-        'soia',
-        'glutine',
-        'latte',
-      ],
-      price: '€ 30.00',
-    ),
-  ];
+  static Product fromJson(
+    Map<String, dynamic> json, [
+    String? id,
+  ]) {
+    final product = Product(
+      id: id ?? json['id'],
+      number: json['number'],
+      title: json['title'],
+      description: json['description'],
+      imageUrl: json['imageUrl'],
+      price: json['price'],
+      allergens: json['allergens'],
+    );
+    return product;
+  }
+
+  @override
+  List<Object?> get props {
+    return [
+      id,
+      number,
+      title,
+      description,
+      imageUrl,
+      price,
+      allergens,
+    ];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'number': number,
+      'title': title,
+      'description': description,
+      'imageUrl': imageUrl,
+      'price': price,
+      'allergens': allergens,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  @override
+  String toString() {
+    return 'Product { id: $id, number: $number, title: $title, description: $description, imageUrl: $imageUrl, price: $price, allergens: $allergens }';
+  }
 }
