@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
@@ -129,23 +130,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButton: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              backgroundColor: Colors.transparent,
-              onPressed: () {},
-              child: const Icon(Icons.download, color: Colors.white),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            onPressed: () {},
+            child: const Icon(Icons.download, color: Colors.white),
+          ),
+          const Text(
+            'scarica',
+            style: TextStyle(
+              color: Colors.white,
             ),
-            const Text(
-              'scarica',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       backgroundColor: Colors.black,
       key: const Key('homeView'),
@@ -210,22 +209,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     color: Colors.white,
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     const SizedBox(
-                //       width: 20,
-                //     ),
-                //     const SizedBox(width: 20),
-                //     IconButton(
-                //       onPressed: () {},
-                //       icon: const Icon(
-                //         Icons.download,
-                //         color: Colors.white,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -343,7 +326,6 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //  Get.toNamed('/product/${product.id}');
         Get.to(() => const ProductDetails(), arguments: product);
       },
       child: Container(
@@ -369,10 +351,10 @@ class ProductWidget extends StatelessWidget {
                 height: height * 0.2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(product.imageUrl),
-                    fit: BoxFit.cover,
-                  ),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
