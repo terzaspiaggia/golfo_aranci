@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
@@ -166,65 +167,78 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ),
           Scrollbar(
             controller: _scrollController,
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: height * 0.18,
-                ),
-                Obx(
-                  () => ListView.builder(
-                    shrinkWrap: true,
-                    controller: _scrollController,
-                    itemCount: productController.products.length,
-                    itemBuilder: (context, index) {
-                      return ProductWidget(
+            child: Obx(
+              () => ListView.builder(
+                shrinkWrap: true,
+                controller: _scrollController,
+                itemCount: productController.products.length + 2,
+                itemBuilder: (context, index) {
+                  // Check if it's the first item in the list
+                  if (index == 0) {
+                    // Return a SizedBox to add 200 points space at the top
+                    return const SizedBox(height: 120);
+                  } else if (index == productController.products.length + 1) {
+                    // Check if it's the last item in the list
+                    // Return a SizedBox to add space at the bottom
+                    return const SizedBox(height: 120);
+                  } else {
+                    // Subtract 1 from index to get the correct product index
+                    final productIndex = index - 1;
+                    return AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: 1,
+                      child: ProductWidget(
                         height: height,
-                        product: productController.products[index],
-                      );
-                    },
-                  ),
-                ),
-              ],
+                        product: productController.products[productIndex],
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
-          Container(
-            color: Colors.black.withOpacity(0.5),
-            width: double.infinity,
-            height: height * 0.18,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Terza Spiaggia',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 500),
+            opacity: _offset < 100 ? 1 : 0,
+            child: Container(
+              color: Colors.black.withOpacity(0.8),
+              width: double.infinity,
+              height: height * 0.18,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Terza Spiaggia',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeIn,
-                  height: 1,
-                  width: responsiveValue(
-                    context,
-                    defaultVal: 10,
-                    mobileVal: 13,
-                    tabletVal: 140,
-                    desktopVal: 120,
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeIn,
+                    height: 1,
+                    width: responsiveValue(
+                      context,
+                      defaultVal: 10,
+                      mobileVal: 13,
+                      tabletVal: 140,
+                      desktopVal: 120,
+                    ),
+                    child: const Divider(
+                      color: Colors.white,
+                      thickness: 1,
+                    ),
                   ),
-                  child: const Divider(
-                    color: Colors.white,
-                    thickness: 1,
+                  const Text(
+                    'MENU SUSHI',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                const Text(
-                  'MENU SUSHI',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
