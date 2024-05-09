@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
-class Product extends Equatable {
+class ProductModel extends Equatable {
   final String? id;
   final String number;
   final String title;
@@ -12,7 +12,7 @@ class Product extends Equatable {
   late double price;
   final String allergens;
 
-  Product({
+  ProductModel({
     this.id,
     required this.number,
     required this.title,
@@ -22,11 +22,11 @@ class Product extends Equatable {
     required this.allergens,
   });
 
-  static Product fromJson(
+  static ProductModel fromJson(
     Map<String, dynamic> json, [
     String? id,
   ]) {
-    final product = Product(
+    final product = ProductModel(
       id: id ?? json['id'],
       number: json['number'],
       title: json['title'],

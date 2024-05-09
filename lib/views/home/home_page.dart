@@ -136,7 +136,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         children: [
           FloatingActionButton(
             backgroundColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () {
+              Future.delayed(const Duration(seconds: 3), () {
+                downloadController.generatePdfAndDownload();
+              });
+            },
             child: const Icon(Icons.download, color: Colors.white),
           ),
           const Text(
@@ -329,7 +333,7 @@ class ProductWidget extends StatelessWidget {
   });
 
   final double height;
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {

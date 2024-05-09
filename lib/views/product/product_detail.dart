@@ -9,7 +9,7 @@ class ProductDetails extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    final product = Get.arguments as Product;
+    final product = Get.arguments as ProductModel;
     return Scaffold(
       backgroundColor: Colors.black,
       // appBar: AppBar(
