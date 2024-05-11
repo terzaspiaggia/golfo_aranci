@@ -405,20 +405,21 @@ class ProductWidget extends StatelessWidget {
         curve: Curves.easeIn,
         height: height * 0.21,
         margin: EdgeInsets.symmetric(
-            horizontal: responsiveValue(
-              context,
-              defaultVal: 20,
-              mobileVal: 10,
-              tabletVal: 15,
-              desktopVal: 300,
-            ),
-            vertical: responsiveValue(
-              context,
-              defaultVal: 10,
-              mobileVal: 5,
-              tabletVal: 10,
-              desktopVal: 10,
-            )),
+          // horizontal: responsiveValue(
+          //   context,
+          //   defaultVal: 20,
+          //   mobileVal: 10,
+          //   tabletVal: 15,
+          //   desktopVal: 300,
+          // ),
+          vertical: responsiveValue(
+            context,
+            defaultVal: 10,
+            mobileVal: 5,
+            tabletVal: 10,
+            desktopVal: 10,
+          ),
+        ),
         padding: const EdgeInsets.all(10),
         child: Stack(
           children: [
