@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 import 'package:terza_spiaggia_web/views/product/product_detail.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -365,135 +365,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
 // TODO DINAMIC WIDGET
 
-class ProductWidget extends StatelessWidget {
-  const ProductWidget({
-    super.key,
-    required this.height,
-    required this.product,
-  });
-
-  final double height;
-  final ProductModel product;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => const ProductDetails(), arguments: product);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-        height: height * 0.21,
-        width: double.infinity,
-        margin: EdgeInsets.symmetric(
-            horizontal: responsiveValue(
-              context,
-              defaultVal: 20,
-              mobileVal: 10,
-              tabletVal: 15,
-              desktopVal: 300,
-            ),
-            vertical: responsiveValue(
-              context,
-              defaultVal: 10,
-              mobileVal: 5,
-              tabletVal: 10,
-              desktopVal: 10,
-            )),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          // color: Colors.grey.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              bottom: 0,
-              child: Container(
-                width: 110,
-                height: height * 0.2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 50,
-              left: 120,
-              right: 10,
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                children: [
-                  Wrap(
-                    children: [
-                      Text(
-                        product.number,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        product.title,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '€ ${product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Positioned(
-              top: 85,
-              left: 120,
-              right: 10,
-              child: Divider(
-                color: Colors.white,
-                thickness: 1,
-                height: 5,
-              ),
-            ),
-            Positioned(
-              top: 90,
-              left: 122,
-              bottom: 10,
-              child: Text(
-                product.description,
-                maxLines: 3,
-                overflow: TextOverflow.clip,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 // class ProductWidget extends StatelessWidget {
 //   const ProductWidget({
 //     super.key,
@@ -504,18 +375,6 @@ class ProductWidget extends StatelessWidget {
 //   final double height;
 //   final ProductModel product;
 
-//   descriptionTextHeight(
-//     BuildContext context,
-//   ) {
-//     return responsiveValue(context,
-//         defaultVal: 14, mobileVal: 14, tabletVal: 16, desktopVal: 18);
-//   }
-
-//   titleTextHeiht(BuildContext context) {
-//     return responsiveValue(context,
-//         defaultVal: 20, mobileVal: 16, tabletVal: 20, desktopVal: 22);
-//   }
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return GestureDetector(
@@ -523,35 +382,31 @@ class ProductWidget extends StatelessWidget {
 //         Get.to(() => const ProductDetails(), arguments: product);
 //       },
 //       child: AnimatedContainer(
-//         constraints: BoxConstraints(
-//           maxWidth: responsiveValue(
-//             context,
-//             defaultVal: 100,
-//             mobileVal: 50,
-//             tabletVal: 80,
-//             desktopVal: 100,
-//           ),
-//         ),
 //         duration: const Duration(milliseconds: 350),
 //         curve: Curves.easeIn,
-//         height: height * 0.21,
+//         height: height * 0.20,
+//         // width: double.infinity,
 //         margin: EdgeInsets.symmetric(
-//           // horizontal: responsiveValue(
-//           //   context,
-//           //   defaultVal: 20,
-//           //   mobileVal: 10,
-//           //   tabletVal: 15,
-//           //   desktopVal: 300,
-//           // ),
-//           vertical: responsiveValue(
+//           horizontal: responsiveValue(
 //             context,
-//             defaultVal: 10,
-//             mobileVal: 5,
-//             tabletVal: 10,
-//             desktopVal: 10,
+//             defaultVal: 20,
+//             mobileVal: 10,
+//             tabletVal: 20,
+//             desktopVal: 300,
 //           ),
+//           // vertical: responsiveValue(
+//           //   context,
+//           //   defaultVal: 10,
+//           //   mobileVal: 5,
+//           //   tabletVal: 10,
+//           //   desktopVal: 10,
+//           // )
 //         ),
 //         padding: const EdgeInsets.all(10),
+//         decoration: const BoxDecoration(
+//             // color: Colors.grey.withOpacity(0.5),
+//             // borderRadius: BorderRadius.circular(10),
+//             ),
 //         child: Stack(
 //           children: [
 //             Positioned(
@@ -562,22 +417,17 @@ class ProductWidget extends StatelessWidget {
 //                 tabletVal: 35,
 //                 desktopVal: 20,
 //               ),
-//               left: responsiveValue(
-//                 context,
-//                 defaultVal: 200,
-//                 mobileVal: 20,
-//                 tabletVal: 10,
-//                 desktopVal: 0,
-//               ),
-//               child: Container(
-//                 height: responsiveValue(
+//               child: AnimatedContainer(
+//                 duration: const Duration(milliseconds: 350),
+//                 curve: Curves.easeIn,
+//                 width: responsiveValue(
 //                   context,
-//                   defaultVal: 100,
+//                   defaultVal: 200,
 //                   mobileVal: 60,
 //                   tabletVal: 80,
 //                   desktopVal: 100,
 //                 ),
-//                 width: responsiveValue(
+//                 height: responsiveValue(
 //                   context,
 //                   defaultVal: 100,
 //                   mobileVal: 60,
@@ -595,7 +445,7 @@ class ProductWidget extends StatelessWidget {
 //             ),
 //             Positioned(
 //               top: 50,
-//               left: 110,
+//               left: 120,
 //               right: 10,
 //               child: Wrap(
 //                 alignment: WrapAlignment.spaceBetween,
@@ -604,18 +454,18 @@ class ProductWidget extends StatelessWidget {
 //                     children: [
 //                       Text(
 //                         product.number,
-//                         style: TextStyle(
-//                             color: Colors.grey[400],
-//                             fontSize: titleTextHeiht(context),
+//                         style: const TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 22,
 //                             fontWeight: FontWeight.bold,
 //                             overflow: TextOverflow.clip),
 //                       ),
 //                       const SizedBox(width: 15),
 //                       Text(
 //                         product.title,
-//                         style: TextStyle(
-//                             color: Colors.grey[400],
-//                             fontSize: titleTextHeiht(context),
+//                         style: const TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 20,
 //                             fontWeight: FontWeight.bold,
 //                             overflow: TextOverflow.clip),
 //                       ),
@@ -623,36 +473,36 @@ class ProductWidget extends StatelessWidget {
 //                   ),
 //                   Text(
 //                     '€ ${product.price.toStringAsFixed(2)}',
-//                     style: TextStyle(
-//                       color: Colors.grey[400],
-//                       fontSize: titleTextHeiht(context),
+//                     style: const TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 16,
 //                       fontWeight: FontWeight.bold,
 //                     ),
 //                   ),
 //                 ],
 //               ),
 //             ),
-//             Positioned(
-//               top: 80,
-//               left: 110,
+//             const Positioned(
+//               top: 85,
+//               left: 120,
 //               right: 10,
 //               child: Divider(
-//                 color: Colors.grey[400],
+//                 color: Colors.white,
 //                 thickness: 1,
 //                 height: 5,
 //               ),
 //             ),
 //             Positioned(
 //               top: 90,
-//               left: 112,
-//               bottom: 0,
+//               left: 122,
+//               bottom: 10,
 //               child: Text(
 //                 product.description,
 //                 maxLines: 3,
 //                 overflow: TextOverflow.clip,
-//                 style: TextStyle(
-//                   color: Colors.grey[400],
-//                   fontSize: descriptionTextHeight(context),
+//                 style: const TextStyle(
+//                   color: Colors.white,
+//                   fontSize: 14,
 //                 ),
 //               ),
 //             ),
@@ -662,3 +512,196 @@ class ProductWidget extends StatelessWidget {
 //     );
 //   }
 // }
+
+class ProductWidget extends StatelessWidget {
+  const ProductWidget({
+    super.key,
+    required this.height,
+    required this.product,
+  });
+
+  final double height;
+  final ProductModel product;
+
+  descriptionTextHeight(
+    BuildContext context,
+  ) {
+    return responsiveValue(context,
+        defaultVal: 14, mobileVal: 14, tabletVal: 16, desktopVal: 18);
+  }
+
+  titleTextHeiht(BuildContext context) {
+    return responsiveValue(context,
+        defaultVal: 20, mobileVal: 16, tabletVal: 20, desktopVal: 22);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.to(() => const ProductDetails(), arguments: product);
+      },
+      child: AnimatedContainer(
+        constraints: BoxConstraints(
+          maxWidth: responsiveValue(
+            context,
+            defaultVal: 100,
+            mobileVal: 50,
+            tabletVal: 80,
+            desktopVal: 100,
+          ),
+        ),
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+        height: responsiveValue(
+          context,
+          defaultVal: 200,
+          mobileVal: 110,
+          tabletVal: 150,
+          desktopVal: 200,
+        ),
+        margin: EdgeInsets.symmetric(
+          horizontal: responsiveValue(
+            context,
+            defaultVal: 20,
+            mobileVal: 10,
+            tabletVal: 25,
+            desktopVal: 300,
+          ),
+          vertical: responsiveValue(
+            context,
+            defaultVal: 10,
+            mobileVal: 0,
+            tabletVal: 10,
+            desktopVal: 10,
+          ),
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Stack(
+          children: [
+            Positioned(
+              top: responsiveValue(
+                context,
+                defaultVal: 0,
+                mobileVal: 20,
+                tabletVal: 35,
+                desktopVal: 20,
+              ),
+              left: responsiveValue(
+                context,
+                defaultVal: 200,
+                mobileVal: 20,
+                tabletVal: 10,
+                desktopVal: 0,
+              ),
+              child: Container(
+                height: responsiveValue(
+                  context,
+                  defaultVal: 100,
+                  mobileVal: 60,
+                  tabletVal: 80,
+                  desktopVal: 100,
+                ),
+                width: responsiveValue(
+                  context,
+                  defaultVal: 100,
+                  mobileVal: 60,
+                  tabletVal: 80,
+                  desktopVal: 100,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Positioned(
+              top: responsiveValue(
+                context,
+                defaultVal: 50,
+                mobileVal: 30,
+                tabletVal: 50,
+                desktopVal: 50,
+              ),
+              left: 110,
+              right: 10,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                children: [
+                  Wrap(
+                    children: [
+                      Text(
+                        product.number,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
+                      ),
+                      const SizedBox(width: 15),
+                      Text(
+                        product.title,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '€ ${product.price.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: titleTextHeiht(context),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: responsiveValue(
+                context,
+                defaultVal: 50,
+                mobileVal: 50,
+                tabletVal: 80,
+                desktopVal: 80,
+              ),
+              left: 110,
+              right: 10,
+              child: Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 5,
+              ),
+            ),
+            Positioned(
+              top: responsiveValue(
+                context,
+                defaultVal: 50,
+                mobileVal: 60,
+                tabletVal: 90,
+                desktopVal: 90,
+              ),
+              left: 112,
+              bottom: 0,
+              child: Text(
+                product.description,
+                maxLines: 3,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: descriptionTextHeight(context),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
