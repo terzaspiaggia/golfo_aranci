@@ -144,10 +144,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             },
             child: const Icon(Icons.download, color: Colors.white),
           ),
-          const Text(
+          Text(
             'scarica',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.grey[400],
             ),
           ),
         ],
@@ -176,7 +176,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   // Check if it's the first item in the list
                   if (index == 0) {
                     // Return a SizedBox to add 200 points space at the top
-                    return const SizedBox(height: 120);
+                    return SizedBox(
+                      height: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'Menu Sushi',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   } else if (index == productController.products.length + 1) {
                     // Check if it's the last item in the list
                     // Return a SizedBox to add space at the bottom
@@ -207,10 +223,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'Terza Spiaggia',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.grey[400],
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -226,17 +242,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       tabletVal: 140,
                       desktopVal: 120,
                     ),
-                    child: const Divider(
-                      color: Colors.white,
+                    child: Divider(
+                      color: Colors.grey[400],
                       thickness: 1,
                     ),
                   ),
-                  const Text(
-                    'MENU SUSHI',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                  // Text(
+                  //   'MENU SUSHI',
+                  //   style: TextStyle(
+                  //     color: Colors.grey[400],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -349,6 +365,18 @@ class ProductWidget extends StatelessWidget {
   final double height;
   final ProductModel product;
 
+  descriptionTextHeight(
+    BuildContext context,
+  ) {
+    return responsiveValue(context,
+        defaultVal: 14, mobileVal: 10, tabletVal: 12, desktopVal: 14);
+  }
+
+  titleTextHeiht(BuildContext context) {
+    return responsiveValue(context,
+        defaultVal: 20, mobileVal: 15, tabletVal: 18, desktopVal: 20);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -356,10 +384,19 @@ class ProductWidget extends StatelessWidget {
         Get.to(() => const ProductDetails(), arguments: product);
       },
       child: AnimatedContainer(
+        constraints: BoxConstraints(
+          maxWidth: responsiveValue(
+            context,
+            defaultVal: 100,
+            mobileVal: 50,
+            tabletVal: 80,
+            desktopVal: 100,
+          ),
+        ),
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeIn,
         height: height * 0.21,
-        width: double.infinity,
+        // width: double.infinity,
         margin: EdgeInsets.symmetric(
             horizontal: responsiveValue(
               context,
@@ -377,18 +414,48 @@ class ProductWidget extends StatelessWidget {
             )),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Stack(
           children: [
             Positioned(
-              top: 0,
-              left: 0,
-              bottom: 0,
+              top: responsiveValue(
+                context,
+                defaultVal: 0,
+                mobileVal: 50,
+                tabletVal: 35,
+                desktopVal: 20,
+              ),
+              left: responsiveValue(
+                context,
+                defaultVal: 200,
+                mobileVal: 20,
+                tabletVal: 10,
+                desktopVal: 0,
+              ),
               child: Container(
-                width: 110,
-                height: height * 0.2,
+                height: responsiveValue(
+                  context,
+                  defaultVal: 100,
+                  mobileVal: 50,
+                  tabletVal: 80,
+                  desktopVal: 100,
+                ),
+                width: responsiveValue(
+                  context,
+                  defaultVal: 100,
+                  mobileVal: 50,
+                  tabletVal: 80,
+                  desktopVal: 100,
+                ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -409,18 +476,18 @@ class ProductWidget extends StatelessWidget {
                     children: [
                       Text(
                         product.number,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.clip),
                       ),
                       const SizedBox(width: 15),
                       Text(
                         product.title,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.clip),
                       ),
@@ -428,9 +495,9 @@ class ProductWidget extends StatelessWidget {
                   ),
                   Text(
                     '€ ${product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                    style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: titleTextHeiht(context),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -439,15 +506,25 @@ class ProductWidget extends StatelessWidget {
             ),
             Positioned(
               top: 80,
+              left: 120,
+              right: 10,
+              child: Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 5,
+              ),
+            ),
+            Positioned(
+              top: 90,
               left: 122,
-              bottom: 10,
+              bottom: 0,
               child: Text(
                 product.description,
                 maxLines: 3,
                 overflow: TextOverflow.clip,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: descriptionTextHeight(context),
                 ),
               ),
             ),

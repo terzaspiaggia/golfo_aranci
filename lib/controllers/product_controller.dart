@@ -4,7 +4,8 @@ import 'package:terza_spiaggia_web/models/product_model.dart';
 
 class ProductController extends GetxController {
   static ProductController instance = Get.find();
-  final RxList products = <ProductModel>[].obs;
+
+  final products = <ProductModel>[].obs;
 
   @override
   void onInit() {

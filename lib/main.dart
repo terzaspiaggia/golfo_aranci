@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:terza_spiaggia_web/bindings/download_binding.dart';
 import 'package:terza_spiaggia_web/bindings/product_binding.dart';
+import 'package:terza_spiaggia_web/bindings/search_binding.dart';
 import 'package:terza_spiaggia_web/firebase_options.dart';
 import 'package:terza_spiaggia_web/router/app_pages.dart';
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   ).whenComplete(() {
     ProductBinding().dependencies();
     DownloadBinding().dependencies();
+    SearchBinding().dependencies();
   });
   runApp(const MyApp());
 }
@@ -32,6 +34,47 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
         fontFamily: 'Bodoni_Moda',
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 72,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFc5b357),
+          ),
+          displayMedium: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+              color: Color(0xFFc5b357),
+          ),
+          displaySmall: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+
+              color: Color(0xFFc5b357),
+          ),
+          headlineMedium: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+              color: Color(0xFFc5b357),
+          ),
+          headlineSmall: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+              color: Color(0xFFc5b357),
+          ),
+          titleLarge: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+              color: Color(0xFFc5b357),
+          ),
+          bodyLarge: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.normal,
+          ),
+      ),
       ),
       builder: (context, child) {
         return ResponsiveBreakpoints.builder(
