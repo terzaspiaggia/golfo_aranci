@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 import 'package:terza_spiaggia_web/views/product/product_detail.dart';
-import 'package:dotted_line/dotted_line.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -583,7 +583,7 @@ class ProductWidget extends StatelessWidget {
               top: responsiveValue(
                 context,
                 defaultVal: 0,
-                mobileVal: 20,
+                mobileVal: 30,
                 tabletVal: 35,
                 desktopVal: 20,
               ),
@@ -598,7 +598,7 @@ class ProductWidget extends StatelessWidget {
                 height: responsiveValue(
                   context,
                   defaultVal: 100,
-                  mobileVal: 60,
+                  mobileVal: 50,
                   tabletVal: 80,
                   desktopVal: 100,
                 ),

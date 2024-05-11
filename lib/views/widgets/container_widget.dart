@@ -66,9 +66,9 @@ class ContainerWidget extends StatelessWidget {
                     fontSize: responsiveValue(
                       context,
                       defaultVal: 30,
-                      mobileVal: 20,
-                      tabletVal: 15,
-                      desktopVal: 30,
+                      // mobileVal: 20,
+                      // tabletVal: 15,
+                      // desktopVal: 30,
                     ),
                     fontWeight: FontWeight.bold,
                   ),

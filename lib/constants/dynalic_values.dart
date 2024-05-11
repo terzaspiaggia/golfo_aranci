@@ -3,7 +3,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 
 responsiveValue(
   BuildContext context, {
-
   required double defaultVal,
   double? tabletVal,
   double? desktopVal,
