@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   if (index == 0) {
                     // Return a SizedBox to add 200 points space at the top
                     return SizedBox(
-                      height: 200,
+                      height: 150,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -185,7 +185,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             'Menu Sushi',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 40,
+                              fontSize: responsiveValue(context,
+                                  defaultVal: 40,
+                                  mobileVal: 30,
+                                  tabletVal: 35,
+                                  desktopVal: 40),
                               fontWeight: FontWeight.bold,
                               color: Colors.grey[400],
                             ),
@@ -196,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   } else if (index == productController.products.length + 1) {
                     // Check if it's the last item in the list
                     // Return a SizedBox to add space at the bottom
-                    return const SizedBox(height: 120);
+                    return const SizedBox(height: 50);
                   } else {
                     // Subtract 1 from index to get the correct product index
                     final productIndex = index - 1;
@@ -219,15 +223,19 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Container(
               color: Colors.black.withOpacity(0.8),
               width: double.infinity,
-              height: height * 0.18,
+              height: height * 0.10,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     'Terza Spiaggia',
                     style: TextStyle(
                       color: Colors.grey[400],
-                      fontSize: 20,
+                      fontSize: responsiveValue(context,
+                          defaultVal: 20,
+                          mobileVal: 15,
+                          tabletVal: 18,
+                          desktopVal: 20),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -238,9 +246,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     width: responsiveValue(
                       context,
                       defaultVal: 10,
-                      mobileVal: 13,
+                      mobileVal: 120,
                       tabletVal: 140,
-                      desktopVal: 120,
+                      desktopVal: 160,
                     ),
                     child: Divider(
                       color: Colors.grey[400],
@@ -369,12 +377,12 @@ class ProductWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return responsiveValue(context,
-        defaultVal: 14, mobileVal: 10, tabletVal: 12, desktopVal: 14);
+        defaultVal: 14, mobileVal: 14, tabletVal: 16, desktopVal: 18);
   }
 
   titleTextHeiht(BuildContext context) {
     return responsiveValue(context,
-        defaultVal: 20, mobileVal: 15, tabletVal: 18, desktopVal: 20);
+        defaultVal: 20, mobileVal: 16, tabletVal: 20, desktopVal: 22);
   }
 
   @override
@@ -396,7 +404,6 @@ class ProductWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 350),
         curve: Curves.easeIn,
         height: height * 0.21,
-        // width: double.infinity,
         margin: EdgeInsets.symmetric(
             horizontal: responsiveValue(
               context,
@@ -413,17 +420,6 @@ class ProductWidget extends StatelessWidget {
               desktopVal: 10,
             )),
         padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
         child: Stack(
           children: [
             Positioned(
@@ -445,14 +441,14 @@ class ProductWidget extends StatelessWidget {
                 height: responsiveValue(
                   context,
                   defaultVal: 100,
-                  mobileVal: 50,
+                  mobileVal: 60,
                   tabletVal: 80,
                   desktopVal: 100,
                 ),
                 width: responsiveValue(
                   context,
                   defaultVal: 100,
-                  mobileVal: 50,
+                  mobileVal: 60,
                   tabletVal: 80,
                   desktopVal: 100,
                 ),
@@ -467,7 +463,7 @@ class ProductWidget extends StatelessWidget {
             ),
             Positioned(
               top: 50,
-              left: 120,
+              left: 110,
               right: 10,
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
@@ -506,7 +502,7 @@ class ProductWidget extends StatelessWidget {
             ),
             Positioned(
               top: 80,
-              left: 120,
+              left: 110,
               right: 10,
               child: Divider(
                 color: Colors.grey[400],
@@ -516,7 +512,7 @@ class ProductWidget extends StatelessWidget {
             ),
             Positioned(
               top: 90,
-              left: 122,
+              left: 112,
               bottom: 0,
               child: Text(
                 product.description,
