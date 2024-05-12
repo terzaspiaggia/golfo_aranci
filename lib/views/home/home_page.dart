@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   } else if (index == productController.products.length + 1) {
                     // Check if it's the last item in the list
                     // Return a SizedBox to add space at the bottom
-                    return const SizedBox(height: 50);
+                    return const SizedBox(height: 100);
                   } else {
                     // Subtract 1 from index to get the correct product index
                     final productIndex = index - 1;
@@ -271,248 +271,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 }
 
-// // class ProductWidget extends StatelessWidget {
-// //   const ProductWidget({
-// //     super.key,
-// //     required this.height,
-// //     required this.product,
-// //   });
-// //   final double height;
-// //   final Product product;
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return GestureDetector(
-// //       onTap: () {
-// //         Get.to(() => const ProductDetails(), arguments: product);
-// //       },
-// //       child: Container(
-// //         height: height * 0.16,
-// //         width: double.infinity,
-// //         margin: const EdgeInsets.symmetric(
-// //           horizontal: 10,
-// //         ),
-// //         padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 2),
-// //         decoration: BoxDecoration(
-// //           color: Colors.white,
-// //           boxShadow: [
-// //             BoxShadow(
-// //               color: Colors.black.withOpacity(0.1),
-// //               spreadRadius: 1,
-// //               blurRadius: 5,
-// //               offset: const Offset(0, 3), // changes position of shadow
-// //             ),
-// //           ],
-// //         ),
-// //         child: Column(
-// //           crossAxisAlignment: CrossAxisAlignment.start,
-// //           children: [
-// //             Row(
-// //               mainAxisAlignment: MainAxisAlignment.start,
-// //               children: [
-// //                 Text(
-// //                   product.number,
-// //                   style: const TextStyle(
-// //                     color: Colors.black,
-// //                     fontSize: 16,
-// //                     fontWeight: FontWeight.bold,
-// //                   ),
-// //                 ),
-// //                 const SizedBox(width: 15),
-// //                 Text(
-// //                   product.title,
-// //                   style: const TextStyle(
-// //                     color: Colors.black,
-// //                     fontSize: 20,
-// //                     fontWeight: FontWeight.bold,
-// //                   ),
-// //                 ),
-// //                 const Spacer(),
-// //                 Text(
-// //                   product.price.toString(),
-// //                   style: const TextStyle(
-// //                     color: Colors.black,
-// //                     fontSize: 16,
-// //                     fontWeight: FontWeight.bold,
-// //                   ),
-// //                 ),
-// //               ],
-// //             ),
-// //             const SizedBox(height: 5),
-// //             Text(
-// //               product.description,
-// //               maxLines: 3,
-// //               overflow: TextOverflow.ellipsis,
-// //               style: const TextStyle(
-// //                 color: Colors.black,
-// //                 fontSize: 14,
-// //               ),
-// //             ),
-// //             const SizedBox(height: 15),
-// //             const Text(
-// //               'DETAILS',
-// //               style: TextStyle(
-// //                 color: Colors.black,
-// //                 fontSize: 10,
-// //                 fontWeight: FontWeight.bold,
-// //               ),
-// //             ),
-// //           ],
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-
-// TODO DINAMIC WIDGET
-
-// class ProductWidget extends StatelessWidget {
-//   const ProductWidget({
-//     super.key,
-//     required this.height,
-//     required this.product,
-//   });
-
-//   final double height;
-//   final ProductModel product;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () {
-//         Get.to(() => const ProductDetails(), arguments: product);
-//       },
-//       child: AnimatedContainer(
-//         duration: const Duration(milliseconds: 350),
-//         curve: Curves.easeIn,
-//         height: height * 0.20,
-//         // width: double.infinity,
-//         margin: EdgeInsets.symmetric(
-//           horizontal: responsiveValue(
-//             context,
-//             defaultVal: 20,
-//             mobileVal: 10,
-//             tabletVal: 20,
-//             desktopVal: 300,
-//           ),
-//           // vertical: responsiveValue(
-//           //   context,
-//           //   defaultVal: 10,
-//           //   mobileVal: 5,
-//           //   tabletVal: 10,
-//           //   desktopVal: 10,
-//           // )
-//         ),
-//         padding: const EdgeInsets.all(10),
-//         decoration: const BoxDecoration(
-//             // color: Colors.grey.withOpacity(0.5),
-//             // borderRadius: BorderRadius.circular(10),
-//             ),
-//         child: Stack(
-//           children: [
-//             Positioned(
-//               top: responsiveValue(
-//                 context,
-//                 defaultVal: 0,
-//                 mobileVal: 50,
-//                 tabletVal: 35,
-//                 desktopVal: 20,
-//               ),
-//               child: AnimatedContainer(
-//                 duration: const Duration(milliseconds: 350),
-//                 curve: Curves.easeIn,
-//                 width: responsiveValue(
-//                   context,
-//                   defaultVal: 200,
-//                   mobileVal: 60,
-//                   tabletVal: 80,
-//                   desktopVal: 100,
-//                 ),
-//                 height: responsiveValue(
-//                   context,
-//                   defaultVal: 100,
-//                   mobileVal: 60,
-//                   tabletVal: 80,
-//                   desktopVal: 100,
-//                 ),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//                 child: CachedNetworkImage(
-//                   imageUrl: product.imageUrl,
-//                   fit: BoxFit.cover,
-//                 ),
-//               ),
-//             ),
-//             Positioned(
-//               top: 50,
-//               left: 120,
-//               right: 10,
-//               child: Wrap(
-//                 alignment: WrapAlignment.spaceBetween,
-//                 children: [
-//                   Wrap(
-//                     children: [
-//                       Text(
-//                         product.number,
-//                         style: const TextStyle(
-//                             color: Colors.white,
-//                             fontSize: 22,
-//                             fontWeight: FontWeight.bold,
-//                             overflow: TextOverflow.clip),
-//                       ),
-//                       const SizedBox(width: 15),
-//                       Text(
-//                         product.title,
-//                         style: const TextStyle(
-//                             color: Colors.white,
-//                             fontSize: 20,
-//                             fontWeight: FontWeight.bold,
-//                             overflow: TextOverflow.clip),
-//                       ),
-//                     ],
-//                   ),
-//                   Text(
-//                     '€ ${product.price.toStringAsFixed(2)}',
-//                     style: const TextStyle(
-//                       color: Colors.white,
-//                       fontSize: 16,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             const Positioned(
-//               top: 85,
-//               left: 120,
-//               right: 10,
-//               child: Divider(
-//                 color: Colors.white,
-//                 thickness: 1,
-//                 height: 5,
-//               ),
-//             ),
-//             Positioned(
-//               top: 90,
-//               left: 122,
-//               bottom: 10,
-//               child: Text(
-//                 product.description,
-//                 maxLines: 3,
-//                 overflow: TextOverflow.clip,
-//                 style: const TextStyle(
-//                   color: Colors.white,
-//                   fontSize: 14,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class ProductWidget extends StatelessWidget {
   const ProductWidget({
     super.key,
@@ -557,8 +315,8 @@ class ProductWidget extends StatelessWidget {
           context,
           defaultVal: 200,
           mobileVal: 110,
-          tabletVal: 150,
-          desktopVal: 200,
+          tabletVal: 115,
+          desktopVal: 160,
         ),
         margin: EdgeInsets.symmetric(
           horizontal: responsiveValue(
@@ -566,7 +324,7 @@ class ProductWidget extends StatelessWidget {
             defaultVal: 20,
             mobileVal: 10,
             tabletVal: 25,
-            desktopVal: 300,
+            desktopVal: 280,
           ),
           vertical: responsiveValue(
             context,
@@ -576,7 +334,6 @@ class ProductWidget extends StatelessWidget {
             desktopVal: 10,
           ),
         ),
-        padding: const EdgeInsets.all(10),
         child: Stack(
           children: [
             Positioned(
@@ -584,15 +341,8 @@ class ProductWidget extends StatelessWidget {
                 context,
                 defaultVal: 0,
                 mobileVal: 30,
-                tabletVal: 35,
+                tabletVal: 20,
                 desktopVal: 20,
-              ),
-              left: responsiveValue(
-                context,
-                defaultVal: 200,
-                mobileVal: 20,
-                tabletVal: 10,
-                desktopVal: 0,
               ),
               child: Container(
                 height: responsiveValue(
@@ -623,7 +373,7 @@ class ProductWidget extends StatelessWidget {
                 context,
                 defaultVal: 50,
                 mobileVal: 30,
-                tabletVal: 50,
+                tabletVal: 30,
                 desktopVal: 50,
               ),
               left: 110,
@@ -668,7 +418,7 @@ class ProductWidget extends StatelessWidget {
                 context,
                 defaultVal: 50,
                 mobileVal: 50,
-                tabletVal: 80,
+                tabletVal: 63,
                 desktopVal: 80,
               ),
               left: 110,
@@ -684,7 +434,7 @@ class ProductWidget extends StatelessWidget {
                 context,
                 defaultVal: 50,
                 mobileVal: 60,
-                tabletVal: 90,
+                tabletVal: 70,
                 desktopVal: 90,
               ),
               left: 112,
