@@ -337,37 +337,60 @@ class ProductWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 0,
-                mobileVal: 30,
-                tabletVal: 20,
-                desktopVal: 20,
-              ),
-              child: Container(
-                height: responsiveValue(
+                top: responsiveValue(
                   context,
-                  defaultVal: 100,
-                  mobileVal: 50,
-                  tabletVal: 80,
-                  desktopVal: 100,
-                ),
-                width: responsiveValue(
-                  context,
-                  defaultVal: 100,
-                  mobileVal: 60,
-                  tabletVal: 80,
-                  desktopVal: 100,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  defaultVal: 0,
+                  mobileVal: 30,
+                  tabletVal: 20,
+                  desktopVal: 20,
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  fit: BoxFit.cover,
+                    imageUrl: (product.imageUrl),
+                    imageBuilder: (context, imageProvider) => Container(
+                          height: responsiveValue(
+                            context,
+                            defaultVal: 100,
+                            mobileVal: 50,
+                            tabletVal: 80,
+                            desktopVal: 100,
+                          ),
+                          width: responsiveValue(
+                            context,
+                            defaultVal: 100,
+                            mobileVal: 60,
+                            tabletVal: 80,
+                            desktopVal: 100,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const SizedBox.shrink()
+                    // Image.asset("PathToImage"),
+                    )
+
+                // CachedNetworkImage(
+                //   imageBuilder: (context, imageProvider) => Container(
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10),
+                //       image: DecorationImage(
+                //         image: imageProvider,
+                //         fit: BoxFit.cover,
+                //       ),
+                //     ),
+                //   ),
+                //   imageUrl: product.imageUrl,
+                //   fit: BoxFit.cover,
+                // ),
+
                 ),
-              ),
-            ),
             Positioned(
               top: responsiveValue(
                 context,
