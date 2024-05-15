@@ -12,6 +12,19 @@ class ProductDetails extends GetView<ProductController> {
   Widget build(BuildContext context) {
     final product = Get.arguments as ProductModel;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          product.title,
+          style: TextStyle(
+            color: Colors.grey[400],
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.grey[400],
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Center(
@@ -19,26 +32,50 @@ class ProductDetails extends GetView<ProductController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                height: 100,
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(),
-                child: Text(
-                  product.title,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                  ),
-                ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   width: double.infinity,
+              //   height: 100,
+              //   padding: const EdgeInsets.all(10),
+              //   decoration: const BoxDecoration(),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.start,
+              //         children: [
+              //           IconButton(
+              //             onPressed: () => Get.back(),
+              //             icon: const Icon(
+              //               Icons.arrow_back,
+              //               color: Colors.white,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //       Text(
+              //         product.title,
+              //         style: const TextStyle(
+              //           fontSize: 30,
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              const SizedBox(
+                height: 20,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  fit: BoxFit.cover,
+                child: Row(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: product.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
@@ -59,11 +96,11 @@ class ProductDetails extends GetView<ProductController> {
                 ),
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       'INGREDIENTI :',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: Colors.grey[400],
                       ),
                     ),
                     Text(
@@ -80,12 +117,12 @@ class ProductDetails extends GetView<ProductController> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'ALERGENI: ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.grey[400],
                     ),
                   ),
                   Row(
@@ -101,7 +138,12 @@ class ProductDetails extends GetView<ProductController> {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: Text(e)),
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                  color: Colors.grey[400],
+                                ),
+                              )),
                         )
                         .toList(),
                   ),
@@ -113,10 +155,10 @@ class ProductDetails extends GetView<ProductController> {
                       tabletVal: 500,
                       desktopVal: 500,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Informiamo la gentile clientela che il pesce destinato ad essere consumato crudo o praticamente crudo è stato sottoposto a trattamento di bonifica preventiva conforme alle prescrizioni del Regolamento CE 853/2004, allegato III, sezione VIII, capitolo 3, lettera D, punto 3.',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey[400],
                       ),
                       textAlign: TextAlign.center,
                     ),

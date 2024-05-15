@@ -63,6 +63,8 @@ class ProductModel extends Equatable {
     };
   }
 
+   
+
   String toJson() => json.encode(toMap());
 
   @override
