@@ -69,13 +69,9 @@ class ProductDetails extends GetView<ProductController> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: product.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(height: 20),
