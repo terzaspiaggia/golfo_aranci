@@ -13,7 +13,7 @@ class DownloadController extends GetxController {
   final pdf = pw.Document();
 
   final RxList<ProductModel> products =
-      productController.products as RxList<ProductModel>;
+      productController.products;
   RxString? pdfFilePath = ''.obs;
 
   Rx<DateTime> get _timestamp => DateTime.now().obs;

@@ -69,10 +69,16 @@ class ProductDetails extends GetView<ProductController> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: MediaQuery.of(context).size.height * 0.5,
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+                child: product.imageUrl.isEmpty
+                    ? Center(child: Image.asset('assets/images/abreve.jpeg'))
+                    : CachedNetworkImage(
+                        imageUrl: product.imageUrl,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
               ),
               const SizedBox(height: 20),
               SizedBox(

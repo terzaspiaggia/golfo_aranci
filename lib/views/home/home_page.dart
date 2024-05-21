@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
@@ -285,196 +283,155 @@ class ProductWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return responsiveValue(context,
-        defaultVal: 14, mobileVal: 14, tabletVal: 16, desktopVal: 18);
+        defaultVal: 14, mobileVal: 12, tabletVal: 16, desktopVal: 18);
   }
 
   titleTextHeiht(BuildContext context) {
     return responsiveValue(context,
-        defaultVal: 20, mobileVal: 16, tabletVal: 20, desktopVal: 22);
+        defaultVal: 20, mobileVal: 14, tabletVal: 20, desktopVal: 22);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => const ProductDetails(), arguments: product);
-      },
-      child: AnimatedContainer(
-        constraints: BoxConstraints(
-          maxWidth: responsiveValue(
-            context,
-            defaultVal: 100,
-            mobileVal: 50,
-            tabletVal: 80,
-            desktopVal: 100,
-          ),
-        ),
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-        height: responsiveValue(
+    return AnimatedContainer(
+      constraints: BoxConstraints(
+        maxWidth: responsiveValue(
           context,
-          defaultVal: 200,
-          mobileVal: 110,
-          tabletVal: 115,
-          desktopVal: 160,
+          defaultVal: 100,
+          mobileVal: 50,
+          tabletVal: 80,
+          desktopVal: 100,
         ),
-        margin: EdgeInsets.symmetric(
-          horizontal: responsiveValue(
-            context,
-            defaultVal: 20,
-            mobileVal: 10,
-            tabletVal: 25,
-            desktopVal: 280,
-          ),
-          vertical: responsiveValue(
-            context,
-            defaultVal: 10,
-            mobileVal: 0,
-            tabletVal: 10,
-            desktopVal: 10,
-          ),
+      ),
+      duration: const Duration(microseconds: 2000),
+      curve: Curves.easeIn,
+      height: responsiveValue(
+        context,
+        defaultVal: 200,
+        mobileVal: 110,
+        tabletVal: 115,
+        desktopVal: 160,
+      ),
+      margin: EdgeInsets.symmetric(
+        horizontal: responsiveValue(
+          context,
+          defaultVal: 20,
+          mobileVal: 5,
+          tabletVal: 20,
+          desktopVal: 280,
         ),
-        child: Stack(
-          children: [
-            Positioned(
-                top: responsiveValue(
-                  context,
-                  defaultVal: 0,
-                  mobileVal: 30,
-                  tabletVal: 20,
-                  desktopVal: 20,
-                ),
-                child: CachedNetworkImage(
-                    imageUrl: (product.imageUrl),
-                    imageBuilder: (context, imageProvider) => Container(
-                          height: responsiveValue(
-                            context,
-                            defaultVal: 100,
-                            mobileVal: 50,
-                            tabletVal: 80,
-                            desktopVal: 100,
-                          ),
-                          width: responsiveValue(
-                            context,
-                            defaultVal: 100,
-                            mobileVal: 60,
-                            tabletVal: 80,
-                            desktopVal: 100,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const SizedBox.shrink()
-                    // Image.asset("PathToImage"),
-                    )
-
-                // CachedNetworkImage(
-                //   imageBuilder: (context, imageProvider) => Container(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       image: DecorationImage(
-                //         image: imageProvider,
-                //         fit: BoxFit.cover,
-                //       ),
-                //     ),
-                //   ),
-                //   imageUrl: product.imageUrl,
-                //   fit: BoxFit.cover,
-                // ),
-
-                ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 30,
-                tabletVal: 30,
-                desktopVal: 50,
-              ),
-              left: 110,
-              right: 10,
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
+        vertical: responsiveValue(
+          context,
+          defaultVal: 10,
+          mobileVal: 0,
+          tabletVal: 10,
+          desktopVal: 10,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Wrap(
                 children: [
-                  Wrap(
-                    children: [
-                      Text(
-                        product.number,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        product.title,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                    ],
-                  ),
                   Text(
-                    '€ ${product.price.toStringAsFixed(2)}',
+                    product.number,
                     style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: titleTextHeiht(context),
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.grey[400],
+                        fontSize: titleTextHeiht(context),
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.clip),
+                  ),
+                  const SizedBox(width: 15),
+                  Text(
+                    product.title,
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: titleTextHeiht(context),
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.clip),
                   ),
                 ],
               ),
-            ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 50,
-                tabletVal: 63,
-                desktopVal: 80,
-              ),
-              left: 110,
-              right: 10,
-              child: Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 5,
-              ),
-            ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 60,
-                tabletVal: 70,
-                desktopVal: 90,
-              ),
-              left: 112,
-              bottom: 0,
-              child: Text(
-                product.description,
-                maxLines: 3,
-                overflow: TextOverflow.clip,
+              Text(
+                '€ ${product.price.toStringAsFixed(2)}',
                 style: TextStyle(
                   color: Colors.grey[400],
-                  fontSize: descriptionTextHeight(context),
+                  fontSize: titleTextHeiht(context),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey[400],
+            thickness: 1,
+            height: 5,
+          ),
+          Text(
+            product.description,
+            maxLines: 3,
+            textAlign: TextAlign.start,
+            // overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: Colors.grey[400],
+              fontSize: descriptionTextHeight(context),
             ),
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: () =>
+                    Get.to(() => const ProductDetails(), arguments: product),
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(Colors.grey[400]),
+                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+                ),
+                child: const Text('DETAGLIO'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
+
+
+
+//  CachedNetworkImage(
+//               imageUrl: (product.imageUrl),
+//               imageBuilder: (context, imageProvider) => Container(
+//                     height: responsiveValue(
+//                       context,
+//                       defaultVal: 100,
+//                       mobileVal: 40,
+//                       tabletVal: 70,
+//                       desktopVal: 100,
+//                     ),
+//                     width: responsiveValue(
+//                       context,
+//                       defaultVal: 100,
+//                       mobileVal: 40,
+//                       tabletVal: 70,
+//                       desktopVal: 100,
+//                     ),
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(10),
+//                       image: DecorationImage(
+//                         image: imageProvider,
+//                         fit: BoxFit.cover,
+//                       ),
+//                     ),
+//                   ),
+//               placeholder: (context, url) =>
+//                   const Center(child: CircularProgressIndicator()),
+//               errorWidget: (context, url, error) => const SizedBox.shrink()
+//               // Image.asset("PathToImage"),
+//               ),

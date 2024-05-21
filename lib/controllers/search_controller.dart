@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
-import 'package:terza_spiaggia_web/controllers/product_controller.dart';
 
 import 'package:terza_spiaggia_web/models/product_model.dart';
 
