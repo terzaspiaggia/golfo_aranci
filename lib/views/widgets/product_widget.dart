@@ -40,7 +40,7 @@ class ProductWidget extends StatelessWidget {
         ),
       ),
       duration: const Duration(microseconds: 2000),
-      curve: Curves.easeIn,
+      curve: Curves.easeInOutBack,
       height: responsiveValue(
         context,
         defaultVal: 200,
@@ -53,8 +53,8 @@ class ProductWidget extends StatelessWidget {
           context,
           defaultVal: 20,
           mobileVal: 10,
-          tabletVal: 22,
-          desktopVal: 280,
+          tabletVal: 40,
+          desktopVal: 275,
         ),
         vertical: responsiveValue(
           context,

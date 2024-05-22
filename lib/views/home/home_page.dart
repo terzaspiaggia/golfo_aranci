@@ -130,7 +130,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButton: const DownloadButton(),
+      floatingActionButton:
+          _offset < 100 || _offset > 3000 ? const DownloadButton() : null,
       backgroundColor: Colors.black,
       key: const Key('homeView'),
       body: Stack(
@@ -185,32 +186,45 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          TextButton(
-                            onPressed: () {
-                              print('SITO CREATO DA ANTONIO');
-                            },
-                            style: ButtonStyle(
-                              overlayColor: WidgetStateProperty.all(
-                                Colors.white.withOpacity(0.9),
-                              ),
-                              backgroundColor: WidgetStateProperty.all(
-                                Colors.white.withOpacity(0.9),
-                              ),
-                            ),
-                            child: AnimatedTextKit(
-                              totalRepeatCount: 1,
-                              animatedTexts: [
-                                TyperAnimatedText(
-                                  'CREATED BY ANTONIO',
-                                  speed: const Duration(milliseconds: 100),
-                                  textStyle: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 10,
-                                    fontFamily: 'Open Sans',
-                                    fontWeight: FontWeight.w200,
-                                  ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: TextButton(
+                              onPressed: () {
+                                print('SITO CREATO DA ANTONIO');
+                              },
+                              style: ButtonStyle(
+                                overlayColor: WidgetStateProperty.all(
+                                  Colors.white.withOpacity(0.9),
                                 ),
-                              ],
+                                backgroundColor: WidgetStateProperty.all(
+                                  Colors.white.withOpacity(0.9),
+                                ),
+                              ),
+                              child: AnimatedTextKit(
+                                totalRepeatCount: 1,
+                                animatedTexts: [
+                                  TyperAnimatedText(
+                                    'CREATED BY ANTONIO',
+                                    speed: const Duration(milliseconds: 100),
+                                    textStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontFamily: 'Open Sans',
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                  TyperAnimatedText(
+                                    'GUARDA I DETAGLI',
+                                    speed: const Duration(milliseconds: 100),
+                                    textStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontFamily: 'Open Sans',
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
