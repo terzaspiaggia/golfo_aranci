@@ -33,48 +33,39 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.deepPurple,
         ),
         useMaterial3: true,
-        fontFamily: 'Bodoni_Moda',
+        fontFamily: 'OpenSans',
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontSize: 72,
-            fontWeight: FontWeight.bold,
             color: Color(0xFFc5b357),
           ),
           displayMedium: TextStyle(
             fontSize: 48,
-            fontWeight: FontWeight.bold,
-              color: Color(0xFFc5b357),
+            color: Color(0xFFc5b357),
           ),
           displaySmall: TextStyle(
             fontSize: 36,
-            fontWeight: FontWeight.bold,
-
-              color: Color(0xFFc5b357),
+            color: Color(0xFFc5b357),
           ),
           headlineMedium: TextStyle(
             fontSize: 24,
-            fontWeight: FontWeight.bold,
-              color: Color(0xFFc5b357),
+            color: Color(0xFFc5b357),
           ),
           headlineSmall: TextStyle(
             fontSize: 18,
-            fontWeight: FontWeight.bold,
-              color: Color(0xFFc5b357),
+            color: Color(0xFFc5b357),
           ),
           titleLarge: TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.bold,
-              color: Color(0xFFc5b357),
+            color: Color(0xFFc5b357),
           ),
           bodyLarge: TextStyle(
             fontSize: 14,
-            fontWeight: FontWeight.normal,
           ),
           bodyMedium: TextStyle(
             fontSize: 12,
-            fontWeight: FontWeight.normal,
           ),
-      ),
+        ),
       ),
       builder: (context, child) {
         return ResponsiveBreakpoints.builder(

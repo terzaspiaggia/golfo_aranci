@@ -67,8 +67,8 @@ class ProductDetails extends GetView<ProductController> {
                 height: 20,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                width: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.4,
+                width: MediaQuery.of(context).size.height * 0.4,
                 child: product.imageUrl.isEmpty
                     ? Center(child: Image.asset('assets/images/abreve.jpeg'))
                     : CachedNetworkImage(
@@ -81,7 +81,8 @@ class ProductDetails extends GetView<ProductController> {
                       ),
               ),
               const SizedBox(height: 20),
-              SizedBox(
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 width: responsiveValue(
                   context,
                   defaultVal: 500,
@@ -92,7 +93,7 @@ class ProductDetails extends GetView<ProductController> {
                 height: responsiveValue(
                   context,
                   defaultVal: 500,
-                  mobileVal: 80,
+                  mobileVal: 100,
                   tabletVal: 90,
                   desktopVal: 100,
                 ),
@@ -128,28 +129,31 @@ class ProductDetails extends GetView<ProductController> {
                       color: Colors.grey[400],
                     ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: product.allergens
-                        .split(',')
-                        .map(
-                          (e) => Container(
-                              margin: const EdgeInsets.all(5),
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Text(
-                                e,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: product.allergens
+                          .split(',')
+                          .map(
+                            (e) => Container(
+                                margin: const EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                              )),
-                        )
-                        .toList(),
+                                child: Text(
+                                  e,
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          )
+                          .toList(),
+                    ),
                   ),
                   SizedBox(
                     width: responsiveValue(
@@ -159,12 +163,15 @@ class ProductDetails extends GetView<ProductController> {
                       tabletVal: 500,
                       desktopVal: 500,
                     ),
-                    child: Text(
-                      'Informiamo la gentile clientela che il pesce destinato ad essere consumato crudo o praticamente crudo è stato sottoposto a trattamento di bonifica preventiva conforme alle prescrizioni del Regolamento CE 853/2004, allegato III, sezione VIII, capitolo 3, lettera D, punto 3.',
-                      style: TextStyle(
-                        color: Colors.grey[400],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Text(
+                        'Informiamo la gentile clientela che il pesce destinato ad essere consumato crudo o praticamente crudo è stato sottoposto a trattamento di bonifica preventiva conforme alle prescrizioni del Regolamento CE 853/2004, allegato III, sezione VIII, capitolo 3, lettera D, punto 3.',
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ],

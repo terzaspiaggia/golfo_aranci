@@ -130,42 +130,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButton: Obx(
-        () => Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              backgroundColor: Colors.transparent,
-              onPressed: () {
-                Future.delayed(const Duration(seconds: 3), () {
-                  downloadController.generatePdfAndDownload();
-                });
-              },
-              child: downloadController.isLoading.value
-                  ? const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : const Icon(
-                      Icons.download,
-                      color: Colors.white,
-                    ),
-            ),
-            downloadController.isLoading.value
-                ? Text(
-                    'scaricando',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                    ),
-                  )
-                : Text(
-                    'scarica',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                    ),
-                  ),
-          ],
-        ),
-      ),
+      floatingActionButton: const DownloadButton(),
       backgroundColor: Colors.black,
       key: const Key('homeView'),
       body: Stack(
@@ -191,7 +156,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   if (index == 0) {
                     // Return a SizedBox to add 200 points space at the top
                     return SizedBox(
-                      height: 150,
+                      height: 160,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -233,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             child: AnimatedTextKit(
-                              totalRepeatCount: 5,
+                              totalRepeatCount: 1,
                               animatedTexts: [
                                 TyperAnimatedText(
                                   'CREATED BY ANTONIO',
@@ -309,6 +274,52 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class DownloadButton extends StatelessWidget {
+  const DownloadButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            onPressed: () {
+              Future.delayed(const Duration(seconds: 3), () {
+                downloadController.generatePdfAndDownload();
+              });
+            },
+            child: downloadController.isLoading.value
+                ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : const Icon(
+                    Icons.download,
+                    color: Colors.white,
+                  ),
+          ),
+          downloadController.isLoading.value
+              ? Text(
+                  'scaricando',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                )
+              : Text(
+                  'scarica',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                ),
         ],
       ),
     );

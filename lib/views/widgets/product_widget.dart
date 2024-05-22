@@ -19,7 +19,7 @@ class ProductWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return responsiveValue(context,
-        defaultVal: 14, mobileVal: 12, tabletVal: 16, desktopVal: 18);
+        defaultVal: 14, mobileVal: 14, tabletVal: 18, desktopVal: 20);
   }
 
   titleTextHeiht(BuildContext context) {
@@ -45,15 +45,15 @@ class ProductWidget extends StatelessWidget {
         context,
         defaultVal: 200,
         mobileVal: 160,
-        tabletVal: 215,
-        desktopVal: 260,
+        tabletVal: 225,
+        desktopVal: 283,
       ),
       margin: EdgeInsets.symmetric(
         horizontal: responsiveValue(
           context,
           defaultVal: 20,
-          mobileVal: 5,
-          tabletVal: 20,
+          mobileVal: 10,
+          tabletVal: 22,
           desktopVal: 280,
         ),
         vertical: responsiveValue(
@@ -130,28 +130,27 @@ class ProductWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Wrap(
-                    children: [
-                      Text(
-                        product.number,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        product.title,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                    ],
+                  Text(
+                    product.number,
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: titleTextHeiht(context),
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.clip),
+                  ),
+                  const SizedBox(width: 15),
+                  Text(
+                    product.title,
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: titleTextHeiht(context),
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.clip),
+                  ),
+                  const Spacer(
+                    flex: 1,
                   ),
                   Text(
                     '€ ${product.price.toStringAsFixed(2)}',
@@ -170,7 +169,7 @@ class ProductWidget extends StatelessWidget {
               ),
               Text(
                 product.description,
-                maxLines: 3,
+                maxLines: 5,
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -178,23 +177,6 @@ class ProductWidget extends StatelessWidget {
                   fontSize: descriptionTextHeight(context),
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     ElevatedButton(
-              //       onPressed: () => Get.to(() => const ProductDetails(),
-              //           arguments: product),
-              //       style: ButtonStyle(
-              //         backgroundColor:
-              //             WidgetStateProperty.all(Colors.grey[400]),
-              //         shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //         )),
-              //       ),
-              //       child: const Text('DETAGLIO'),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ],
