@@ -107,6 +107,7 @@ class ProductDetails extends GetView<ProductController> {
                     ),
                     Text(
                       product.description,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
@@ -142,8 +143,9 @@ class ProductDetails extends GetView<ProductController> {
                               ),
                               child: Text(
                                 e,
-                                style: TextStyle(
-                                  color: Colors.grey[400],
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.white,
                                 ),
                               )),
                         )
