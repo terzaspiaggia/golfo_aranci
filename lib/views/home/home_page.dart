@@ -308,9 +308,9 @@ class ProductWidget extends StatelessWidget {
       height: responsiveValue(
         context,
         defaultVal: 200,
-        mobileVal: 110,
-        tabletVal: 115,
-        desktopVal: 160,
+        mobileVal: 160,
+        tabletVal: 215,
+        desktopVal: 260,
       ),
       margin: EdgeInsets.symmetric(
         horizontal: responsiveValue(
@@ -330,71 +330,123 @@ class ProductWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Wrap(
-                children: [
-                  Text(
-                    product.number,
-                    style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: titleTextHeiht(context),
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.clip),
+              Container(
+                height: responsiveValue(
+                  context,
+                  defaultVal: 200,
+                  mobileVal: 80,
+                  tabletVal: 115,
+                  desktopVal: 160,
+                ),
+                width: responsiveValue(
+                  context,
+                  defaultVal: 200,
+                  mobileVal: 80,
+                  tabletVal: 115,
+                  desktopVal: 160,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(product.imageUrl),
+                    fit: BoxFit.cover,
                   ),
-                  const SizedBox(width: 15),
-                  Text(
-                    product.title,
-                    style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: titleTextHeiht(context),
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.clip),
-                  ),
-                ],
-              ),
-              Text(
-                '€ ${product.price.toStringAsFixed(2)}',
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: titleTextHeiht(context),
-                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
-          Divider(
-            color: Colors.grey[400],
-            thickness: 1,
-            height: 5,
-          ),
-          Text(
-            product.description,
-            maxLines: 3,
-            textAlign: TextAlign.start,
-            // overflow: TextOverflow.clip,
-            style: TextStyle(
-              color: Colors.grey[400],
-              fontSize: descriptionTextHeight(context),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
               ElevatedButton(
                 onPressed: () =>
                     Get.to(() => const ProductDetails(), arguments: product),
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.grey[400]),
+                  backgroundColor: WidgetStateProperty.all(
+                    Colors.transparent,
+                  ),
+                  side: WidgetStateProperty.all(BorderSide(
+                    color: Colors.grey[400]!,
+                    width: 1,
+                  )),
                   shape: WidgetStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   )),
                 ),
-                child: const Text('DETAGLIO'),
+                child:
+                    Text('DETAGLIO', style: TextStyle(color: Colors.grey[400])),
               ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Wrap(
+                    children: [
+                      Text(
+                        product.number,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
+                      ),
+                      const SizedBox(width: 15),
+                      Text(
+                        product.title,
+                        style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: titleTextHeiht(context),
+                            fontWeight: FontWeight.bold,
+                            overflow: TextOverflow.clip),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '€ ${product.price.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: titleTextHeiht(context),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
+                height: 5,
+              ),
+              Text(
+                product.description,
+                maxLines: 3,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: descriptionTextHeight(context),
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     ElevatedButton(
+              //       onPressed: () => Get.to(() => const ProductDetails(),
+              //           arguments: product),
+              //       style: ButtonStyle(
+              //         backgroundColor:
+              //             WidgetStateProperty.all(Colors.grey[400]),
+              //         shape: WidgetStateProperty.all(RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //         )),
+              //       ),
+              //       child: const Text('DETAGLIO'),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ],
