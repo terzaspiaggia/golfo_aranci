@@ -120,8 +120,8 @@ class ProductWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   )),
                 ),
-                child:
-                    Text('DETAGLIO', style: TextStyle(color: Colors.grey[400])),
+                child: Text('DETTAGLIO',
+                    style: TextStyle(color: Colors.grey[400])),
               ),
             ],
           ),

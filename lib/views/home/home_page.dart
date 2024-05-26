@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   TyperAnimatedText(
-                                    'GUARDA I DETAGLI',
+                                    'GUARDA I DETTAGLI',
                                     speed: const Duration(milliseconds: 100),
                                     textStyle: const TextStyle(
                                       color: Colors.black,
