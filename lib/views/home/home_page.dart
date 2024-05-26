@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
+import 'package:terza_spiaggia_web/views/marketing/site_marketing.dart';
 import 'package:terza_spiaggia_web/views/widgets/product_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -190,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             padding: const EdgeInsets.all(12.0),
                             child: TextButton(
                               onPressed: () {
-                                print('SITO CREATO DA ANTONIO');
+                                Get.to(() => const MarketingSite());
                               },
                               style: ButtonStyle(
                                 overlayColor: WidgetStateProperty.all(
