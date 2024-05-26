@@ -11,12 +11,11 @@ class DownloadController extends GetxController {
 
   RxString filePath = ''.obs;
   final pdf = pw.Document();
-
-  final RxList<ProductModel> products =
-      productController.products as RxList<ProductModel>;
+  final RxList<ProductModel> products = productController.products;
   RxString? pdfFilePath = ''.obs;
-
   Rx<DateTime> get _timestamp => DateTime.now().obs;
+
+  RxBool isLoading = false.obs;
 
   String get timeHumanReadable =>
       '${_timestamp.value.day}/${_timestamp.value.month}/${_timestamp.value.year}';
@@ -34,126 +33,27 @@ class DownloadController extends GetxController {
   }
 
   Future<void> generatePdfAndDownload() async {
-    var fontSelected = await rootBundle
-        .load('assets/fonts/BodoniModa-VariableFont_opsz,wght.ttf');
-    pdf.addPage(
-      pw.MultiPage(
-        build: (context) {
-          return [
-            pw.Header(
-              level: 0,
-              child: pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
-                  pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.center,
-                    children: [
-                      pw.Text(
-                        'Terza Spiaggia',
-                        style: pw.TextStyle(
-                          fontSize: 20,
-                          fontWeight: pw.FontWeight.bold,
-                          fontFallback: [
-                            pw.Font.ttf(
-                              fontSelected,
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Text(
-                        'MENU SUSHI',
-                        style: pw.TextStyle(
-                          fontSize: 18,
-                          fontWeight: pw.FontWeight.bold,
-                          fontFallback: [
-                            pw.Font.ttf(
-                              fontSelected,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.center,
-                    children: [
-                      pw.Text(
-                        'Golfo Aranci',
-                        style: pw.TextStyle(
-                          fontSize: 20,
-                          fontWeight: pw.FontWeight.bold,
-                          fontFallback: [
-                            pw.Font.ttf(
-                              fontSelected,
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Text(
-                        'Via degli Asfodeli, snc, \n07020 Golfo Aranci (SS)',
-                        style: pw.TextStyle(
-                          fontFallback: [
-                            pw.Font.ttf(
-                              fontSelected,
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Text(
-                        '+39 351 532 6140',
-                        style: pw.TextStyle(
-                          fontFallback: [
-                            pw.Font.ttf(fontSelected),
-                          ],
-                        ),
-                      ),
-                      pw.Text(
-                        'info@terzaspiaggia.com',
-                        style: pw.TextStyle(
-                          fontFallback: [
-                            pw.Font.ttf(
-                              fontSelected,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            pw.SizedBox(height: 20),
-            pw.ListView.separated(
-              separatorBuilder: (context, index) => pw.SizedBox(
-                height: 10,
-                child: pw.Divider(),
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final product = products[index];
+    isLoading.value = true; // Start loading
 
-                return pw.Row(
+    try {
+      var fontSelected = await rootBundle
+          .load('assets/fonts/BodoniModa-VariableFont_opsz,wght.ttf');
+      pdf.addPage(
+        pw.MultiPage(
+          build: (context) {
+            return [
+              pw.Header(
+                level: 0,
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text(
-                      product.number,
-                      style: pw.TextStyle(
-                        fontSize: 16,
-                        fontWeight: pw.FontWeight.bold,
-                        fontFallback: [
-                          pw.Font.ttf(
-                            fontSelected,
-                          ),
-                        ],
-                      ),
-                    ),
-                    pw.SizedBox(width: 10),
                     pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
                       children: [
                         pw.Text(
-                          product.title,
+                          'Terza Spiaggia',
                           style: pw.TextStyle(
-                            fontSize: 16,
+                            fontSize: 20,
                             fontWeight: pw.FontWeight.bold,
                             fontFallback: [
                               pw.Font.ttf(
@@ -163,9 +63,10 @@ class DownloadController extends GetxController {
                           ),
                         ),
                         pw.Text(
-                          product.description,
+                          'MENU SUSHI',
                           style: pw.TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
+                            fontWeight: pw.FontWeight.bold,
                             fontFallback: [
                               pw.Font.ttf(
                                 fontSelected,
@@ -175,132 +76,141 @@ class DownloadController extends GetxController {
                         ),
                       ],
                     ),
-                    pw.Spacer(),
-                    pw.Text(
-                      '€ ${product.price.toStringAsFixed(2)}',
-                      style: pw.TextStyle(
-                        fontSize: 16,
-                        fontWeight: pw.FontWeight.bold,
-                        fontFallback: [
-                          pw.Font.ttf(
-                            fontSelected,
+                    pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        pw.Text(
+                          'Golfo Aranci',
+                          style: pw.TextStyle(
+                            fontSize: 20,
+                            fontWeight: pw.FontWeight.bold,
+                            fontFallback: [
+                              pw.Font.ttf(
+                                fontSelected,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        pw.Text(
+                          'Via degli Asfodeli, snc, \n07020 Golfo Aranci (SS)',
+                          style: pw.TextStyle(
+                            fontFallback: [
+                              pw.Font.ttf(
+                                fontSelected,
+                              ),
+                            ],
+                          ),
+                        ),
+                        pw.Text(
+                          '+39 351 532 6140',
+                          style: pw.TextStyle(
+                            fontFallback: [
+                              pw.Font.ttf(fontSelected),
+                            ],
+                          ),
+                        ),
+                        pw.Text(
+                          'info@terzaspiaggia.com',
+                          style: pw.TextStyle(
+                            fontFallback: [
+                              pw.Font.ttf(
+                                fontSelected,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                );
-                //     return pw.Container(
-                //       height: 120,
-                //       width: double.infinity,
-                //       margin:
-                //           const pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                //       padding: const pw.EdgeInsets.all(10),
-                //       decoration: pw.BoxDecoration(
-                //         color: PdfColor.fromHex('#3f51b5'),
-                //         borderRadius: pw.BorderRadius.circular(10),
-                //       ),
-                //       child: pw.Stack(
-                //         children: [
-                //           pw.Positioned(
-                //             top: 0,
-                //             left: 0,
-                //             bottom: 0,
-                //             child: pw.Container(
-                //               width: 110,
-                //               height: 200 * 0.2,
-                //               decoration: pw.BoxDecoration(
-                //                 borderRadius: pw.BorderRadius.circular(10),
-                //               ),
-                //               child: pw.Builder(
-                //                 builder: (context) {
-                //                   return pw.Image(
-                //                     pw.MemoryImage(imageData),
-                //                     fit: pw.BoxFit.cover,
-                //                   );
-                //                 },
-                //               ),
-                //             ),
-                //           ),
-                //           pw.Positioned(
-                //             top: 50,
-                //             left: 120,
-                //             right: 10,
-                //             child: pw.Wrap(
-                //               alignment: pw.WrapAlignment.spaceBetween,
-                //               children: [
-                //                 pw.Wrap(
-                //                   children: [
-                //                     pw.Text(
-                //                       product.number,
-                //                       style: pw.TextStyle(
-                //                         color: PdfColors.white,
-                //                         fontSize: 22,
-                //                         fontWeight: pw.FontWeight.bold,
-                //                       ),
-                //                     ),
-                //                     pw.SizedBox(width: 15),
-                //                     pw.Text(
-                //                       product.title,
-                //                       style: pw.TextStyle(
-                //                         color: PdfColors.white,
-                //                         fontSize: 20,
-                //                         fontWeight: pw.FontWeight.bold,
-                //                       ),
-                //                     ),
-                //                   ],
-                //                 ),
-                //                 pw.Text(
-                //                   '€ ${product.price.toStringAsFixed(2)}',
-                //                   style: pw.TextStyle(
-                //                     color: PdfColors.white,
-                //                     fontSize: 16,
-                //                     fontWeight: pw.FontWeight.bold,
-                //                   ),
-                //                 ),
-                //               ],
-                //             ),
-                //           ),
-                //           pw.Positioned(
-                //             top: 80,
-                //             left: 122,
-                //             bottom: 10,
-                //             child: pw.Text(
-                //               product.description,
-                //               maxLines: 3,
-                //               overflow: pw.TextOverflow.clip,
-                //               style: const pw.TextStyle(
-                //                 color: PdfColors.white,
-                //                 fontSize: 14,
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     );
-                //   },
-                // ),
-                // for (var product in products)
-                //   pw.Row(
-                //     children: [
-                //       pw.Text(product.number),
-                //       pw.SizedBox(width: 10),
-                //       pw.Text(product.title),
-                //       pw.Spacer(),
-                //       pw.Text(
-                //         product.price.toStringAsFixed(2),
-                //       ),
-                //     ],
-                //   )
-              },
-            )
-          ];
-        },
-      ),
-    );
+                ),
+              ),
+              pw.SizedBox(height: 20),
+              pw.ListView.separated(
+                separatorBuilder: (context, index) => pw.SizedBox(
+                  height: 25,
+                  width: double.infinity,
+                  child: pw.Divider(),
+                ),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
 
-    pdf.save().then((value) {
-      final blob = html.Blob([value], 'application/pdf');
+                  return pw.Row(
+                    children: [
+                      pw.Text(
+                        product.number,
+                        style: pw.TextStyle(
+                          fontSize: 16,
+                          fontWeight: pw.FontWeight.bold,
+                          fontFallback: [
+                            pw.Font.ttf(
+                              fontSelected,
+                            ),
+                          ],
+                        ),
+                      ),
+                      pw.SizedBox(width: 10),
+                      pw.Expanded(
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Row(
+                              mainAxisAlignment:
+                                  pw.MainAxisAlignment.spaceBetween,
+                              children: [
+                                pw.Text(
+                                  product.title,
+                                  style: pw.TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontFallback: [
+                                      pw.Font.ttf(
+                                        fontSelected,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                pw.Text(
+                                  '€ ${product.price.toStringAsFixed(2)}',
+                                  style: pw.TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: pw.FontWeight.bold,
+                                    fontFallback: [
+                                      pw.Font.ttf(
+                                        fontSelected,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            pw.Text(
+                              product.description,
+                              style: pw.TextStyle(
+                                fontSize: 16,
+                                fontFallback: [
+                                  pw.Font.ttf(
+                                    fontSelected,
+                                  ),
+                                ],
+                              ),
+                              maxLines: 3,
+                              overflow: pw.TextOverflow.clip,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              )
+            ];
+          },
+        ),
+      );
+
+      final pdfData = await pdf.save();
+      final blob = html.Blob([pdfData], 'application/pdf');
       final url = html.Url.createObjectUrlFromBlob(blob);
       final anchor = html.AnchorElement(href: url)
         ..setAttribute('style', 'display: none;')
@@ -309,12 +219,17 @@ class DownloadController extends GetxController {
       anchor.click();
       html.document.body!.children.remove(anchor);
       html.Url.revokeObjectUrl(url);
-    });
+    } catch (e) {
+      // Handle error
+      print('Error generating PDF: $e');
+    } finally {
+      isLoading.value = false; // Stop loading
+    }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    generatePdfAndDownload();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   generatePdfAndDownload();
+  // }
 }

@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
-import 'package:terza_spiaggia_web/models/product_model.dart';
-import 'package:terza_spiaggia_web/views/product/product_detail.dart';
+import 'package:terza_spiaggia_web/views/widgets/product_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -132,26 +130,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            backgroundColor: Colors.transparent,
-            onPressed: () {
-              Future.delayed(const Duration(seconds: 3), () {
-                downloadController.generatePdfAndDownload();
-              });
-            },
-            child: const Icon(Icons.download, color: Colors.white),
-          ),
-          Text(
-            'scarica',
-            style: TextStyle(
-              color: Colors.grey[400],
-            ),
-          ),
-        ],
-      ),
+      floatingActionButton:
+          _offset < 100 || _offset > 3000 ? const DownloadButton() : null,
       backgroundColor: Colors.black,
       key: const Key('homeView'),
       body: Stack(
@@ -177,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   if (index == 0) {
                     // Return a SizedBox to add 200 points space at the top
                     return SizedBox(
-                      height: 150,
+                      height: 160,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -200,7 +180,56 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   } else if (index == productController.products.length + 1) {
                     // Check if it's the last item in the list
                     // Return a SizedBox to add space at the bottom
-                    return const SizedBox(height: 100);
+                    return SizedBox(
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: TextButton(
+                              onPressed: () {
+                                print('SITO CREATO DA ANTONIO');
+                              },
+                              style: ButtonStyle(
+                                overlayColor: WidgetStateProperty.all(
+                                  Colors.white.withOpacity(0.9),
+                                ),
+                                backgroundColor: WidgetStateProperty.all(
+                                  Colors.white.withOpacity(0.9),
+                                ),
+                              ),
+                              child: AnimatedTextKit(
+                                totalRepeatCount: 1,
+                                animatedTexts: [
+                                  TyperAnimatedText(
+                                    'CREATED BY ANTONIO',
+                                    speed: const Duration(milliseconds: 100),
+                                    textStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontFamily: 'Open Sans',
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                  TyperAnimatedText(
+                                    'GUARDA I DETTAGLI',
+                                    speed: const Duration(milliseconds: 100),
+                                    textStyle: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 10,
+                                      fontFamily: 'Open Sans',
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   } else {
                     // Subtract 1 from index to get the correct product index
                     final productIndex = index - 1;
@@ -255,12 +284,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       thickness: 1,
                     ),
                   ),
-                  // Text(
-                  //   'MENU SUSHI',
-                  //   style: TextStyle(
-                  //     color: Colors.grey[400],
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -271,209 +294,47 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 }
 
-class ProductWidget extends StatelessWidget {
-  const ProductWidget({
+class DownloadButton extends StatelessWidget {
+  const DownloadButton({
     super.key,
-    required this.height,
-    required this.product,
   });
-
-  final double height;
-  final ProductModel product;
-
-  descriptionTextHeight(
-    BuildContext context,
-  ) {
-    return responsiveValue(context,
-        defaultVal: 14, mobileVal: 14, tabletVal: 16, desktopVal: 18);
-  }
-
-  titleTextHeiht(BuildContext context) {
-    return responsiveValue(context,
-        defaultVal: 20, mobileVal: 16, tabletVal: 20, desktopVal: 22);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => const ProductDetails(), arguments: product);
-      },
-      child: AnimatedContainer(
-        constraints: BoxConstraints(
-          maxWidth: responsiveValue(
-            context,
-            defaultVal: 100,
-            mobileVal: 50,
-            tabletVal: 80,
-            desktopVal: 100,
-          ),
-        ),
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-        height: responsiveValue(
-          context,
-          defaultVal: 200,
-          mobileVal: 110,
-          tabletVal: 115,
-          desktopVal: 160,
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: responsiveValue(
-            context,
-            defaultVal: 20,
-            mobileVal: 10,
-            tabletVal: 25,
-            desktopVal: 280,
-          ),
-          vertical: responsiveValue(
-            context,
-            defaultVal: 10,
-            mobileVal: 0,
-            tabletVal: 10,
-            desktopVal: 10,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-                top: responsiveValue(
-                  context,
-                  defaultVal: 0,
-                  mobileVal: 30,
-                  tabletVal: 20,
-                  desktopVal: 20,
-                ),
-                child: CachedNetworkImage(
-                    imageUrl: (product.imageUrl),
-                    imageBuilder: (context, imageProvider) => Container(
-                          height: responsiveValue(
-                            context,
-                            defaultVal: 100,
-                            mobileVal: 50,
-                            tabletVal: 80,
-                            desktopVal: 100,
-                          ),
-                          width: responsiveValue(
-                            context,
-                            defaultVal: 100,
-                            mobileVal: 60,
-                            tabletVal: 80,
-                            desktopVal: 100,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const SizedBox.shrink()
-                    // Image.asset("PathToImage"),
-                    )
-
-                // CachedNetworkImage(
-                //   imageBuilder: (context, imageProvider) => Container(
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(10),
-                //       image: DecorationImage(
-                //         image: imageProvider,
-                //         fit: BoxFit.cover,
-                //       ),
-                //     ),
-                //   ),
-                //   imageUrl: product.imageUrl,
-                //   fit: BoxFit.cover,
-                // ),
-
-                ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 30,
-                tabletVal: 30,
-                desktopVal: 50,
-              ),
-              left: 110,
-              right: 10,
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                children: [
-                  Wrap(
-                    children: [
-                      Text(
-                        product.number,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                      const SizedBox(width: 15),
-                      Text(
-                        product.title,
-                        style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: titleTextHeiht(context),
-                            fontWeight: FontWeight.bold,
-                            overflow: TextOverflow.clip),
-                      ),
-                    ],
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            onPressed: () {
+              Future.delayed(const Duration(seconds: 3), () {
+                downloadController.generatePdfAndDownload();
+              });
+            },
+            child: downloadController.isLoading.value
+                ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : const Icon(
+                    Icons.download,
+                    color: Colors.white,
                   ),
-                  Text(
-                    '€ ${product.price.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: titleTextHeiht(context),
-                      fontWeight: FontWeight.bold,
-                    ),
+          ),
+          downloadController.isLoading.value
+              ? Text(
+                  'scaricando',
+                  style: TextStyle(
+                    color: Colors.grey[400],
                   ),
-                ],
-              ),
-            ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 50,
-                tabletVal: 63,
-                desktopVal: 80,
-              ),
-              left: 110,
-              right: 10,
-              child: Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 5,
-              ),
-            ),
-            Positioned(
-              top: responsiveValue(
-                context,
-                defaultVal: 50,
-                mobileVal: 60,
-                tabletVal: 70,
-                desktopVal: 90,
-              ),
-              left: 112,
-              bottom: 0,
-              child: Text(
-                product.description,
-                maxLines: 3,
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: descriptionTextHeight(context),
+                )
+              : Text(
+                  'scarica',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
