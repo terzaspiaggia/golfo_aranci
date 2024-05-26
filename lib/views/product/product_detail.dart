@@ -122,7 +122,7 @@ class ProductDetails extends GetView<ProductController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'ALERGENI: ',
+                    'ALLERGENI: ',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

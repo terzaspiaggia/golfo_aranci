@@ -1,35 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:terza_spiaggia_web/controllers/product_controller.dart';
 
 import 'package:terza_spiaggia_web/models/product_model.dart';
 
-class SearchController extends GetxController {
-  static SearchController get instance => Get.find();
-
+class SearchControler extends GetxController {
+  static SearchControler get instance => Get.find();
 
   var searchList = <ProductModel>[].obs;
-
-  TextEditingController searchTextController = TextEditingController();
+  final products = Get.find<ProductController>().products;
+  TextEditingController sercheTextEditing = TextEditingController();
 
   @override
   void onClose() {
-    searchTextController.dispose();
+    sercheTextEditing.dispose();
     super.onClose();
   }
 
   @override
   void onReady() {
     super.onReady();
-    searchList;
+    searchList.value = products;
   }
 
+  void searchByNumber() {
+    if (sercheTextEditing.text.isEmpty) {
+      // Reset to the full list or handle as needed
+      searchList.value = []; // Or set it to the full list if you have it stored
+    } else {
+      var searchText = sercheTextEditing.text
+          // .replaceAll(' ', '').
+          .toLowerCase();
+      var result = searchList.where((ProductModel product) {
+        var productNumber = product.number.toLowerCase();
+        var productTitle = product.title.trim().toLowerCase();
+        return productNumber.contains(searchText) ||
+            productTitle.contains(searchText);
+      }).toList();
+      searchList.value = result;
 
-  searchByNumber (){
-    
+      update();
+    }
+    update();
   }
+}
 
-
-   
 
   // searchProductByEAN(String query) {
   //   List<ProductModel> result = <ProductModel>[];
@@ -52,5 +67,4 @@ class SearchController extends GetxController {
   //     searchList.value = result;
   //     update();
   //   }
-  }
 

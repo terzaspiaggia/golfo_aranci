@@ -6,4 +6,4 @@ import 'package:terza_spiaggia_web/controllers/search_controller.dart';
 
 ProductController productController = ProductController.instance;
 DownloadController downloadController = DownloadController.instance;
-SearchController  searchController = SearchController.instance;
+SearchControler  searchCtrl = SearchControler.instance;
