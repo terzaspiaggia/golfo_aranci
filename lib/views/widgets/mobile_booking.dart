@@ -1,16 +1,46 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-import 'package:terza_spiaggia_web/animations/translate_animations.dart';
-import 'package:terza_spiaggia_web/constants/strings.dart';
-import 'package:terza_spiaggia_web/views/widgets/body_text_widget.dart';
+import 'package:terza_spiaggia_web/constants/custom_colors.dart';
+import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 
-class MobileBooking extends StatelessWidget {
+class MobileBooking extends StatefulWidget {
   const MobileBooking({
-    super.key,
+    Key? key,
     required this.screenWidth,
-  });
+    required this.firstTime,
+  }) : super(key: key);
 
   final double screenWidth;
+  final bool firstTime;
+
+  @override
+  State<MobileBooking> createState() => _MobileBookingState();
+}
+
+class _MobileBookingState extends State<MobileBooking>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(microseconds: 1000),
+    );
+    animation = CurvedAnimation(
+      curve: Curves.easeOutCubic,
+      parent: _animationController,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,39 +48,58 @@ class MobileBooking extends StatelessWidget {
       children: [
         Positioned(
           top: MediaQuery.of(context).size.height / 2.5,
-          left: 0,
-          right: 0,
-          child: ResponsiveVisibility(
-            visible: false,
-            visibleConditions: [
-              Condition.smallerThan(
-                name: DESKTOP,
-                value: true,
-                // breakpoint: 30,
-              ),
-            ],
+          left: responsiveValue(context,
+              defaultVal: 0.0,
+              mobileVal: 0.0,
+              tabletVal: 100.0,
+              desktopVal: 250.0),
+          right: 0.0,
+          child: AnimatedOpacity(
+            opacity: widget.firstTime ? 1.0 : 0.0,
+            duration: const Duration(milliseconds: 500),
             child: Container(
-              width: screenWidth,
-              decoration: BoxDecoration(
-                color: const Color(0xFF266980).withOpacity(0.5),
-              ),
-              child: ResponsiveRowColumn(
-                layout: ResponsiveBreakpoints.of(context).isDesktop
-                    ? ResponsiveRowColumnType.ROW
-                    : ResponsiveRowColumnType.COLUMN,
-                columnMainAxisAlignment: MainAxisAlignment.center,
-                columnCrossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  // ResponsiveRowColumnItem(
-                  //   // child: ButtonWidget(),
-                  // ),
-                  ResponsiveRowColumnItem(
-                    child: TranslateAnimationContainer(
-                      child: BodyTextWidget(
-                        // alignment: TextAlign.start,
-                        text: ConstStrings.body_9,
-                        color: Colors.white,
-                      ),
+              color: CustomColors.kDentalColor,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const SizedBox(width: 20.0, height: 100.0),
+                  const Text(
+                    'SII',
+                    style: TextStyle(
+                      fontSize: 63.0,
+                      fontFamily: 'Horizon',
+                      color: CustomColors.kIconsColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 20.0, height: 100.0),
+                  DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 40.0,
+                      fontFamily: 'Horizon',
+                    ),
+                    child: AnimatedTextKit(
+                      repeatForever: true,
+                      animatedTexts: [
+                        RotateAnimatedText(
+                          'INNOVATIVO',
+                          textStyle: const TextStyle(
+                            color: CustomColors.kTextColor,
+                          ),
+                        ),
+                        RotateAnimatedText(
+                          'DINAMICO',
+                          textStyle: const TextStyle(
+                            color: CustomColors.kTextColor,
+                          ),
+                        ),
+                        RotateAnimatedText(
+                          'UNICO',
+                          textStyle: const TextStyle(
+                            color: CustomColors.kTextColor,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

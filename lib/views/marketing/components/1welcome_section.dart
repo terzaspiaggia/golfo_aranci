@@ -111,11 +111,12 @@ class _WelcomeSectionState extends State<WelcomeSection>
                       children: [
                         BodyTitleWidget(
                           text: ConstStrings.welcome,
-                          colour: CustomColors.kTextColor,
+                          colour: CustomColors.kDentalColor,
                           alignment: TextAlign.center,
+                          
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 50,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +124,7 @@ class _WelcomeSectionState extends State<WelcomeSection>
                           children: [
                             Icon(
                               FontAwesomeIcons.check,
-                              color: CustomColors.kIconsColor,
+                              color: CustomColors.kDentalColor,
                             ),
                             SizedBox(
                               width: 5,
@@ -131,54 +132,13 @@ class _WelcomeSectionState extends State<WelcomeSection>
                             Expanded(
                               child: BodyTextWidget(
                                 text: ConstStrings.body_1,
-                                color: CustomColors.kTextColor,
+                                color: CustomColors.kDentalColor,
                               ),
                             ),
                           ],
                         ),
                         SizedBox(
                           height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.check,
-                              color: CustomColors.kIconsColor,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            // Expanded(
-                            //   child: BodyTextWidget(
-                            //     text: ConstStrings.body_2,
-                            //     color: CustomColors.kTextColor,
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.check,
-                              color: CustomColors.kIconsColor,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            // Expanded(
-                            //   child: BodyTextWidget(
-                            //     text: ConstStrings.body_3,
-                            //     color: CustomColors.kTextColor,
-                            //   ),
-                            // ),
-                          ],
                         ),
                       ],
                     ),

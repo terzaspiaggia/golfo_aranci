@@ -31,21 +31,21 @@ class BodyTitleWidget extends StatelessWidget {
             context,
             defaultValue: 16.0,
             conditionalValues: [
-              Condition.equals(
+              const Condition.equals(
                 name: MOBILE,
                 value: 12.0,
               ),
-              Condition.equals(
+              const Condition.equals(
                 name: TABLET,
                 value: 18.0,
               ),
-              Condition.largerThan(
+              const Condition.largerThan(
                 name: TABLET,
                 value: 24.0,
               ),
             ],
           ).value,
-          overflow: TextOverflow.clip,
+          overflow: TextOverflow.ellipsis,
           color: colour,
           fontWeight: FontWeight.w700,
         ),

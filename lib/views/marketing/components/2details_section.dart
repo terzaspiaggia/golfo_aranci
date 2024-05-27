@@ -135,7 +135,7 @@ class _DetailsSectionState extends State<DetailsSection>
                       ),
                       child: const Wrap(
                         alignment: WrapAlignment.center,
-                        runAlignment: WrapAlignment.center,
+                        runAlignment: WrapAlignment.spaceAround,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

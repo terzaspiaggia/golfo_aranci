@@ -19,7 +19,7 @@ class _HomeViewState extends State<MarketingSite>
     with TickerProviderStateMixin {
   final GlobalKey welcomeKey1 = GlobalKey();
 
-  late AnimationController controller;
+  late AnimationController animationController;
   late Animation _animation;
 
   double get _offset =>
@@ -38,7 +38,7 @@ class _HomeViewState extends State<MarketingSite>
   int selectedWidgetIndex = 0;
 
   double scrollToWidgetCenter(BuildContext context, int targetIndex) {
-    double totalHeight = 0.0;
+    double totalHeight = 0.0 + widgetHeight * 0.130;
 
     // Calculate total height of widgets up to the target widget
     for (int i = 0; i < targetIndex; i++) {
@@ -68,14 +68,14 @@ class _HomeViewState extends State<MarketingSite>
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
+    animationController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(microseconds: 2000),
     );
 
     _animation = CurvedAnimation(
       curve: Curves.easeOutCubic,
-      parent: controller,
+      parent: animationController,
     );
 
     // Initialize animation controllers
@@ -126,8 +126,8 @@ class _HomeViewState extends State<MarketingSite>
   }
 
   void repeatOnce() async {
-    await controller.forward();
-    await controller.reverse();
+    await animationController.forward();
+    await animationController.reverse();
   }
 
   @override
@@ -218,10 +218,19 @@ class _HomeViewState extends State<MarketingSite>
                 shrinkWrap: true,
                 cacheExtent: screenHeight * 1,
                 children: [
-                  SizedBox(
-                    height: screenHeight,
-                    // child: MobileBooking(screenWidth: screenWidth),
+                  Container(
+                    color: Colors.white,
+                    height: screenHeight * 0.1,
                   ),
+
+                  // SizedBox(
+                  //   height: screenHeight * 0.8,
+                  //   child: MobileBooking(
+                  //     screenWidth: 200,
+                  //     firstTime: widgetBooleans[0],
+                  //     key: const Key('mobileBooking'),
+                  //   ),
+                  // ),
                   WelcomeSection(
                     firstTime: widgetBooleans[0],
                     scrollController: _scrollController,
@@ -231,14 +240,14 @@ class _HomeViewState extends State<MarketingSite>
                     firstTime: widgetBooleans[1],
                     scrollController: _scrollController,
                   ),
-                  // ServicesSection(
+                  // ServicesSectiorn(
                   //   firstTime: widgetBooleans[2],
                   //   scrollController: _scrollController,
                   // ),
-                  // ContactSection(
-                  //   firstTime: widgetBooleans[3],
-                  //   scrollController: _scrollController,
-                  // ),
+                  ContactSection(
+                    firstTime: widgetBooleans[2],
+                    scrollController: _scrollController,
+                  ),
                   Container(
                     color: Colors.white,
                     height: widgetHeight * 0.1,
@@ -247,20 +256,76 @@ class _HomeViewState extends State<MarketingSite>
               ),
             ),
           ),
-          // Positioned(
-          //   top: 0.0,
-          //   left: 0.0,
-          //   right: 0.0,
-          //   child: AnimatedOpacity(
-          //     opacity: _offset <= 600.0 ? 0.0 : 1.0,
-          //     duration: const Duration(milliseconds: 1000),
-          //     child: Container(
-          //       height: _offset <= 600.0 ? 0.15 : 80.0,
-          //       width: double.infinity,
-          //       color: _offset <= 600.0 ? Colors.transparent : Colors.white,
-          //     ),
-          //   ),
-          // ),
+          Positioned(
+            top: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: Stack(
+              children: [
+                AnimatedBuilder(
+                    animation: _scrollController,
+                    builder: (context, child) {
+                      return AnimatedOpacity(
+                          opacity: _offset >= 200 ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 500),
+                          child: Container(
+                              height: 80.0,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              )));
+                    }),
+                Positioned(
+                  top: 20.0,
+                  left: 0.0,
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          scrollToWidgetCenter(context, 0);
+                        },
+                        child: Text(
+                          'WEB',
+                          style: TextStyle(
+                            color: _offset >= 200 ? Colors.black : Colors.red,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          scrollToWidgetCenter(context, 1);
+                        },
+                        child: Text(
+                          'MOBILE',
+                          style: TextStyle(
+                            color: _offset >= 200 ? Colors.black : Colors.red,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          scrollToWidgetCenter(context, 2);
+                        },
+                        child: Text(
+                          'MARKETING',
+                          style: TextStyle(
+                            color: _offset >= 200 ? Colors.black : Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           // Positioned(
           //   top: -8,
           //   left: 0,

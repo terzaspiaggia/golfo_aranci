@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -14,7 +15,6 @@ import 'package:terza_spiaggia_web/views/widgets/body_title_widget.dart';
 import 'package:terza_spiaggia_web/views/widgets/caroussel_widget.dart';
 import 'package:terza_spiaggia_web/views/widgets/section_container.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class ContactSection extends StatefulWidget {
   final ScrollController? scrollController;
@@ -151,10 +151,10 @@ class _ContactSectionState extends State<ContactSection>
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ImageWidget(
-                                  image: 'assets/doctors/image2.jpg',
+                                  image: PathImages.image0,
                                 ),
                                 ImageWidget(
-                                  image: 'assets/doctors/image3.jpg',
+                                  image: PathImages.image2,
                                 )
                               ],
                             ),
@@ -163,10 +163,10 @@ class _ContactSectionState extends State<ContactSection>
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 ImageWidget(
-                                  image: 'assets/doctors/image4.jpg',
+                                  image: PathImages.image3,
                                 ),
                                 ImageWidget(
-                                  image: 'assets/doctors/image5.jpg',
+                                  image: PathImages.image4,
                                 )
                               ],
                             ),
@@ -179,7 +179,6 @@ class _ContactSectionState extends State<ContactSection>
                     rowFit: FlexFit.loose,
                     rowFlex: 1,
                     child: Container(
-                      // color: Colors.red,
                       margin: EdgeInsets.only(
                         bottom: responsiveValue(
                           context,
@@ -217,8 +216,39 @@ class _ContactSectionState extends State<ContactSection>
                               ),
                             ],
                           ),
+                          Row(
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.person,
+                                color: CustomColors.kDentalColor,
+                                size: responsiveValue(
+                                  context,
+                                  defaultVal: 20,
+                                  mobileVal: 20,
+                                  tabletVal: 25,
+                                  desktopVal: 30,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                ConstStrings.myName,
+                                style: TextStyle(
+                                  color: CustomColors.kDentalColor,
+                                  fontSize: responsiveValue(
+                                    context,
+                                    defaultVal: 20,
+                                    mobileVal: 20,
+                                    tabletVal: 25,
+                                    desktopVal: 30,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           const SizedBox(
-                            height: 30,
+                            height: 10,
                           ),
                           Row(
                             children: [
@@ -274,46 +304,6 @@ class _ContactSectionState extends State<ContactSection>
                           const SizedBox(
                             height: 10,
                           ),
-                          ResponsiveVisibility(
-                            visible: false,
-                            visibleConditions: [
-                              Condition.smallerThan(
-                                value: true,
-                                name: DESKTOP,
-                              ),
-                            ],
-                            child: Row(
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.mapLocation,
-                                  color: CustomColors.kDentalColor,
-                                  size: responsiveValue(
-                                    context,
-                                    defaultVal: 20,
-                                    mobileVal: 20,
-                                    tabletVal: 25,
-                                    desktopVal: 30,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    _launchMaps(lat, lon);
-                                  },
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    elevation: 0,
-                                  ),
-                                  child: const BodyTextWidget(
-                                    text: ConstStrings.addresMap,
-                                    color: Color(0xFF266980),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -322,81 +312,6 @@ class _ContactSectionState extends State<ContactSection>
               ),
               const SizedBox(
                 height: 20,
-              ),
-              ResponsiveVisibility(
-                visible: false,
-                visibleConditions: [
-                  Condition.largerThan(
-                    value: true,
-                    name: TABLET,
-                  ),
-                ],
-                child: SizedBox(
-                  height: height * 0.22,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        child: AnimatedOpacity(
-                          opacity: 1,
-                          duration: const Duration(milliseconds: 500),
-                          child: GoogleMap(
-                            webGestureHandling: WebGestureHandling.cooperative,
-                            markers: {
-                              Marker(
-                                markerId: const MarkerId('dentalCare'),
-                                icon: BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueViolet),
-                                position: const LatLng(
-                                    51.20482774631489, 6.410287954234193),
-                                infoWindow: const InfoWindow(
-                                  title: 'Dental Care Plus',
-                                  snippet: 'Dental Care Plus',
-                                ),
-                              ),
-                            },
-                            zoomGesturesEnabled: false,
-                            mapType: MapType.normal,
-                            initialCameraPosition: _kGooglePlex,
-                            onMapCreated: (GoogleMapController controller) {
-                              _controller.complete(controller);
-                            },
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        child: GestureDetector(
-                          onTap: () {
-                            _launchMaps(lat, lon);
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 20, left: 20),
-                            color: Colors.white,
-                            height: 60,
-                            width: 400,
-                            child: const Column(
-                              children: [
-                                Text(
-                                  ConstStrings.title,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  ConstStrings.address,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
@@ -439,13 +354,20 @@ class ImageWidget extends StatelessWidget {
         width: responsiveValue(
           context,
           defaultVal: 200,
-          mobileVal: 150,
-          tabletVal: 240,
-          desktopVal: 300,
+          mobileVal: 110,
+          tabletVal: 140,
+          desktopVal: 200,
+        ),
+        height: responsiveValue(
+          context,
+          defaultVal: 200,
+          mobileVal: 110,
+          tabletVal: 140,
+          desktopVal: 200,
         ),
         child: Image.asset(
           image,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );

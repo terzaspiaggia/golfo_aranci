@@ -26,33 +26,22 @@ class ConstStrings {
   static const body_6 =
       'Creazione app gestionali, inviare e ricevere ordinazioni, controllare e gestione clienti. App gestionale dynamic. ';
 
-  static const body_7 =
-      'Wir beraten sie eingehend über alle Behandlungsmöglichkeiten auch beim Zahnersatz. Mit der professionellen Zahnreinigung und individuellen Bleachingverfahren bieten wir Ihnen alle wichtigen Behandlungsmöglichkeiten für schöne und gesunde Zähne. Bei DentalCare Plus erwartet Sie ein engagiertes Praxisteam und ein hochmotivierter, erfahrener Zahnarzt. ';
-  static const body_8 =
-      'Unsere Praxis erreichen Sie mit der Buslinien 8 und 10 halten in etwa 2 bis 5 Minuten Gehzeit zur Praxis.Öffentliche, gebührenfreie Parkmöglichkeiten befinden sich bei uns in unmittelbarer Nähe.';
-
-  static const body_9 =
-      'Vereinbaren Sie gerne einen Termin bei uns unter der \nNummer 02161/86806. Unsere \nTeam und ich freuen uns auf ihren Besuch.';
-
   // static const body_10 = 'Vereinbaren Sie gerne einen Termin bei uns unter der';
-  static const phoneNumber = 'Nummer 02161/86806.';
+  static const phoneNumber = 'Tel. 388 387 9487';
   static const callNumm =
-      'Vereinbaren Sie gerne einen Termin bei uns unter der Nummer 02161/86806.';
+      'Chiamami per un preventivo gratuito o per una consulenza';
 
-  static const address = '41063 Mönchengladbach, Windberg 1, Annakirchstr. 35';
-
-  static const body_11 = 'Unsere Team und ich freuen uns auf ihren Besuch.';
+  static const address = 'Olbia, Sardegna';
 
   static const continueStrsing = 'CONTINUE';
 
-  static const addressDescriptin =
-      'Zahnarztpraxis Dentalcare PLUS in Windberg/Mönchengladbach.';
-  static const addresMap = 'Öffne die Karte';
+  static const addressDescriptin = '';
+  static const myName = 'Antoniu Stratulat';
 
-  static const visitTitle = 'Besuchen Sie uns!';
+  static const visitTitle = '';
 
-  static const call = 'OR CALL (720) 730-9140';
-  static const bookOnline = 'TERMIN ONLINE';
+  static const call = '';
+  static const bookOnline = ' Antonio ';
 
   // services
 
