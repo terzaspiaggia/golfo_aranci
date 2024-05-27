@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:terza_spiaggia_web/views/marketing/components/1welcome_section.dart';
 import 'package:terza_spiaggia_web/views/marketing/components/2details_section.dart';
 import 'package:terza_spiaggia_web/views/marketing/components/3services_section.dart';
@@ -286,6 +287,16 @@ class _HomeViewState extends State<MarketingSite>
                   left: 0.0,
                   child: Row(
                     children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.arrowLeft,
+                          color: Colors.black,
+                          size: 10,
+                        ),
+                      ),
                       TextButton(
                         onPressed: () {
                           scrollToWidgetCenter(context, 0);
