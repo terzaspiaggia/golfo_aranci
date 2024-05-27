@@ -6,7 +6,7 @@ import 'package:terza_spiaggia_web/views/product/product_detail.dart';
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.marketting;
+  static const initial = Routes.home;
 
   static final routes = [
     GetPage(
