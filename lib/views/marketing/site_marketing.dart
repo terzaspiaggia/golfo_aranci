@@ -21,7 +21,7 @@ class _HomeViewState extends State<MarketingSite>
   final GlobalKey welcomeKey1 = GlobalKey();
 
   late AnimationController animationController;
-  late Animation _animation;
+  late Animation animation;
 
   double get _offset =>
       _scrollController.hasClients ? _scrollController.offset : 0;
@@ -66,15 +66,20 @@ class _HomeViewState extends State<MarketingSite>
     return index == selectedWidgetIndex;
   }
 
+  void initScrolling() {
+    _scrollController.jumpTo(20);
+  }
+
   @override
   void initState() {
     super.initState();
+
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(microseconds: 2000),
     );
 
-    _animation = CurvedAnimation(
+    animation = CurvedAnimation(
       curve: Curves.easeOutCubic,
       parent: animationController,
     );
@@ -102,13 +107,19 @@ class _HomeViewState extends State<MarketingSite>
     _scrollController.addListener(onScrollOffsetChanged);
     // Start the first animation
     controllers[currentIndex].forward();
+
+    // Start the first animation after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controllers[0].forward();
+      initScrolling();
+    });
   }
 
   onScrollOffsetChanged() {
     // Logic to determine when to trigger animations based on scroll offset
     setState(() {
       for (int i = 0; i < widgetBooleans.length; i++) {
-        if (_scrollController.offset > widgetHeight * (i + 1)) {
+        if (_scrollController.offset == widgetHeight * (i + 1)) {
           widgetBooleans[i] = false;
           controllers[i].forward();
         }
@@ -213,48 +224,46 @@ class _HomeViewState extends State<MarketingSite>
 
           Scrollbar(
             controller: _scrollController,
-            child: AnimationLimiter(
-              child: ListView(
-                controller: _scrollController,
-                shrinkWrap: true,
-                cacheExtent: screenHeight * 1,
-                children: [
-                  Container(
-                    color: Colors.white,
-                    height: screenHeight * 0.1,
-                  ),
+            child: ListView(
+              controller: _scrollController,
+              shrinkWrap: true,
+              cacheExtent: screenHeight * 1,
+              children: [
+                Container(
+                  color: Colors.white,
+                  height: screenHeight * 0.1,
+                ),
 
-                  // SizedBox(
-                  //   height: screenHeight * 0.8,
-                  //   child: MobileBooking(
-                  //     screenWidth: 200,
-                  //     firstTime: widgetBooleans[0],
-                  //     key: const Key('mobileBooking'),
-                  //   ),
-                  // ),
-                  WelcomeSection(
-                    firstTime: widgetBooleans[0],
-                    scrollController: _scrollController,
-                    key: welcomeKey1,
-                  ),
-                  DetailsSection(
-                    firstTime: widgetBooleans[1],
-                    scrollController: _scrollController,
-                  ),
-                  // ServicesSectiorn(
-                  //   firstTime: widgetBooleans[2],
-                  //   scrollController: _scrollController,
-                  // ),
-                  ContactSection(
-                    firstTime: widgetBooleans[2],
-                    scrollController: _scrollController,
-                  ),
-                  Container(
-                    color: Colors.white,
-                    height: widgetHeight * 0.1,
-                  ),
-                ],
-              ),
+                // SizedBox(
+                //   height: screenHeight * 0.8,
+                //   child: MobileBooking(
+                //     screenWidth: 200,
+                //     firstTime: widgetBooleans[0],
+                //     key: const Key('mobileBooking'),
+                //   ),
+                // ),
+                WelcomeSection(
+                  firstTime: widgetBooleans[0],
+                  scrollController: _scrollController,
+                  key: welcomeKey1,
+                ),
+                DetailsSection(
+                  firstTime: widgetBooleans[1],
+                  scrollController: _scrollController,
+                ),
+                // ServicesSectiorn(
+                //   firstTime: widgetBooleans[2],
+                //   scrollController: _scrollController,
+                // ),
+                ContactSection(
+                  firstTime: widgetBooleans[2],
+                  scrollController: _scrollController,
+                ),
+                Container(
+                  color: Colors.white,
+                  height: widgetHeight * 0.1,
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -264,24 +273,27 @@ class _HomeViewState extends State<MarketingSite>
             child: Stack(
               children: [
                 AnimatedBuilder(
-                    animation: _scrollController,
-                    builder: (context, child) {
-                      return AnimatedOpacity(
-                          opacity: _offset >= 200 ? 1.0 : 0.0,
-                          duration: const Duration(milliseconds: 500),
-                          child: Container(
-                              height: 80.0,
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 10,
-                                  ),
-                                ],
-                              )));
-                    }),
+                  animation: _scrollController,
+                  builder: (context, child) {
+                    return AnimatedOpacity(
+                      opacity: _offset >= 200 ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: Container(
+                        height: 80.0,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 Positioned(
                   top: 20.0,
                   left: 0.0,
@@ -292,9 +304,9 @@ class _HomeViewState extends State<MarketingSite>
                           Get.back();
                         },
                         icon: const Icon(
-                          FontAwesomeIcons.arrowLeft,
+                          Icons.arrow_back_ios,
                           color: Colors.black,
-                          size: 10,
+                          size: 17,
                         ),
                       ),
                       TextButton(
@@ -324,7 +336,7 @@ class _HomeViewState extends State<MarketingSite>
                           scrollToWidgetCenter(context, 2);
                         },
                         child: Text(
-                          'MARKETING',
+                          'CONTACT',
                           style: TextStyle(
                             color: _offset >= 200 ? Colors.black : Colors.red,
                           ),
@@ -547,3 +559,328 @@ class _WhenShownListenerState extends State<WhenShownListener> {
     return widget.child;
   }
 }
+
+// class MarketingSite extends StatefulWidget {
+//   const MarketingSite({super.key});
+
+//   @override
+//   State<MarketingSite> createState() => _HomeViewState();
+// }
+
+// class _HomeViewState extends State<MarketingSite>
+//     with TickerProviderStateMixin {
+//   late AnimationController animationController;
+//   late Animation animation;
+
+//   double get _offset =>
+//       _scrollController.hasClients ? _scrollController.offset : 0;
+
+//   late final ScrollController _scrollController = ScrollController();
+
+//   double get screenHeight => MediaQuery.of(context).size.height;
+//   double get screenWidth => MediaQuery.of(context).size.width;
+//   double widgetHeight = 800;
+
+//   List<bool> widgetBooleans = [true, true, true, true];
+//   List<AnimationController> controllers = [];
+//   int currentIndex = 0;
+//   double initialOffsett = 0.0;
+//   int selectedWidgetIndex = 0;
+
+//   final GlobalKey welcomeKey = GlobalKey();
+//   final GlobalKey detailsKey = GlobalKey();
+//   final GlobalKey servicesKey = GlobalKey();
+//   final GlobalKey contactKey = GlobalKey();
+
+//   void scrollToWidgetCenter(GlobalKey key) {
+//     final context = key.currentContext;
+//     if (context != null) {
+//       final box = context.findRenderObject() as RenderBox?;
+//       if (box != null) {
+//         final offset =
+//             box.localToGlobal(Offset.zero).dy + _scrollController.offset;
+//         final screenHeight = MediaQuery.of(context).size.height;
+//         _scrollController.animateTo(
+//           offset - screenHeight / 2 + box.size.height / 2,
+//           duration: const Duration(milliseconds: 1500),
+//           curve: Curves.easeInOut,
+//         );
+//       }
+//     }
+//   }
+
+//   bool isWidgetSelected(int index) {
+//     return index == selectedWidgetIndex;
+//   }
+
+//   void initScrolling() {
+//     _scrollController.jumpTo(20);
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     animationController = AnimationController(
+//       vsync: this,
+//       duration: const Duration(milliseconds: 2000),
+//     );
+
+//     animation = CurvedAnimation(
+//       curve: Curves.easeOutCubic,
+//       parent: animationController,
+//     );
+
+//     // Initialize animation controllers
+//     for (int i = 0; i < widgetBooleans.length; i++) {
+//       AnimationController controller = AnimationController(
+//         vsync: this,
+//         duration: const Duration(seconds: 2),
+//       );
+
+//       controller.addStatusListener((status) {
+//         if (status == AnimationStatus.dismissed) {
+//           // When animation is dismissed, start the next animation
+//           if (i < widgetBooleans.length - 1) {
+//             controllers[i + 1].forward();
+//           }
+//         }
+//       });
+
+//       controllers.add(controller);
+//     }
+
+//     // Listen to scroll events
+//     _scrollController.addListener(onScrollOffsetChanged);
+
+//     // Start the first animation after the first frame is rendered
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       controllers[0].forward();
+//       initScrolling();
+//     });
+//   }
+
+//   onScrollOffsetChanged() {
+//     // Logic to determine when to trigger animations based on scroll offset
+//     setState(() {
+//       for (int i = 0; i < widgetBooleans.length; i++) {
+//         if (_scrollController.offset == widgetHeight * (i + 1)) {
+//           widgetBooleans[i] = false;
+//           controllers[i].forward();
+//         }
+//       }
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     // Dispose animation controllers
+//     for (var controller in controllers) {
+//       controller.dispose();
+//     }
+//     _scrollController.dispose();
+//     super.dispose();
+//   }
+
+//   void repeatOnce() async {
+//     await animationController.forward();
+//     await animationController.reverse();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       key: const Key('homeView'),
+//       floatingActionButton: _offset >= 400
+//           ? Padding(
+//               padding: const EdgeInsets.only(bottom: 20.0, right: 20),
+//               child: IconButton(
+//                 onPressed: () {
+//                   scrollToWidgetCenter(welcomeKey);
+//                 },
+//                 icon: const Icon(
+//                   FontAwesomeIcons.arrowUpLong,
+//                   color: Colors.white,
+//                   size: 30,
+//                 ),
+//                 color: Colors.white,
+//               ),
+//             )
+//           : const SizedBox.shrink(),
+//       body: Stack(
+//         children: [
+//           Positioned(
+//             top: -0.2 * _offset,
+//             left: 0,
+//             right: 0,
+//             height: screenHeight,
+//             child: Stack(
+//               children: [
+//                 Positioned(
+//                   top: 0,
+//                   left: 0,
+//                   right: 0,
+//                   bottom: 0,
+//                   child: Image.asset(
+//                     'assets/images/background.png',
+//                     fit: BoxFit.cover,
+//                     alignment: Alignment.topCenter,
+//                   ),
+//                 ),
+//                 Positioned(
+//                   top: 0,
+//                   left: 0,
+//                   right: 0,
+//                   bottom: 0,
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       gradient: LinearGradient(
+//                         colors: [
+//                           Colors.transparent.withOpacity(0.7),
+//                           Colors.transparent,
+//                         ],
+//                         end: Alignment.center,
+//                         begin: Alignment.topCenter,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Scrollbar(
+//             controller: _scrollController,
+//             child: ListView(
+//               controller: _scrollController,
+//               shrinkWrap: true,
+//               cacheExtent: screenHeight * 1,
+//               children: [
+//                 Container(
+//                   color: Colors.white,
+//                   height: screenHeight * 0.09,
+//                 ),
+//                 WelcomeSection(
+//                   key: welcomeKey,
+//                   firstTime: widgetBooleans[0],
+//                   scrollController: _scrollController,
+//                 ),
+//                 DetailsSection(
+//                   key: detailsKey,
+//                   firstTime: widgetBooleans[1],
+//                   scrollController: _scrollController,
+//                 ),
+//                 ServicesSection(
+//                   key: servicesKey,
+//                   firstTime: widgetBooleans[2],
+//                   scrollController: _scrollController,
+//                 ),
+//                 ContactSection(
+//                   key: contactKey,
+//                   firstTime: widgetBooleans[3],
+//                   scrollController: _scrollController,
+//                 ),
+//                 Container(
+//                   color: Colors.white,
+//                   height: widgetHeight * 0.1,
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Positioned(
+//             top: 0.0,
+//             left: 0.0,
+//             right: 0.0,
+//             child: Stack(
+//               children: [
+//                 AnimatedBuilder(
+//                   animation: _scrollController,
+//                   builder: (context, child) {
+//                     return AnimatedOpacity(
+//                       opacity: _offset >= 200 ? 1.0 : 0.0,
+//                       duration: const Duration(milliseconds: 500),
+//                       child: Container(
+//                         height: 80.0,
+//                         width: double.infinity,
+//                         decoration: const BoxDecoration(
+//                           color: Colors.white,
+//                           boxShadow: [
+//                             BoxShadow(
+//                               color: Colors.black12,
+//                               blurRadius: 10,
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 ),
+//                 Positioned(
+//                   top: 20.0,
+//                   left: 0.0,
+//                   child: Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: () {
+//                           Get.back();
+//                         },
+//                         icon: const Icon(
+//                           FontAwesomeIcons.arrowLeft,
+//                           color: Colors.black,
+//                           size: 10,
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           scrollToWidgetCenter(welcomeKey);
+//                         },
+//                         child: Text(
+//                           'WEB',
+//                           style: TextStyle(
+//                             color: _offset >= 200 ? Colors.black : Colors.red,
+//                           ),
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           scrollToWidgetCenter(detailsKey);
+//                         },
+//                         child: Text(
+//                           'MOBILE',
+//                           style: TextStyle(
+//                             color: _offset >= 200 ? Colors.black : Colors.red,
+//                           ),
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           scrollToWidgetCenter(servicesKey);
+//                         },
+//                         child: Text(
+//                           'MARKETING',
+//                           style: TextStyle(
+//                             color: _offset >= 200 ? Colors.black : Colors.red,
+//                           ),
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           scrollToWidgetCenter(contactKey);
+//                         },
+//                         child: Text(
+//                           'CONTACT',
+//                           style: TextStyle(
+//                             color: _offset >= 200 ? Colors.black : Colors.red,
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

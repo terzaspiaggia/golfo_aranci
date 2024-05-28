@@ -194,12 +194,31 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                 Get.to(() => const MarketingSite());
                               },
                               style: ButtonStyle(
-                                overlayColor: WidgetStateProperty.all(
-                                  Colors.white.withOpacity(0.9),
+                                fixedSize: WidgetStateProperty.all(
+                                  Size(
+                                    responsiveValue(context,
+                                        defaultVal: 200,
+                                        mobileVal: 150,
+                                        tabletVal: 180,
+                                        desktopVal: 200),
+                                    responsiveValue(context,
+                                        defaultVal: 40,
+                                        mobileVal: 30,
+                                        tabletVal: 35,
+                                        desktopVal: 40),
+                                  ),
                                 ),
                                 backgroundColor: WidgetStateProperty.all(
-                                  Colors.white.withOpacity(0.9),
+                                  Colors.transparent,
                                 ),
+                                side: WidgetStateProperty.all(BorderSide(
+                                  color: Colors.grey[400]!,
+                                  width: 1,
+                                )),
+                                shape: WidgetStateProperty.all(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
                               ),
                               child: AnimatedTextKit(
                                 totalRepeatCount: 1,
@@ -208,22 +227,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     'CREATED BY ANTONIO',
                                     speed: const Duration(milliseconds: 100),
                                     textStyle: const TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 10,
                                       fontFamily: 'Open Sans',
                                       fontWeight: FontWeight.w200,
                                     ),
                                   ),
-                                  TyperAnimatedText(
-                                    'GUARDA I DETTAGLI',
-                                    speed: const Duration(milliseconds: 100),
-                                    textStyle: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 10,
-                                      fontFamily: 'Open Sans',
-                                      fontWeight: FontWeight.w200,
-                                    ),
-                                  ),
+                                  // TyperAnimatedText(
+                                  //   'GUARDA I DETTAGLI',
+                                  //   speed: const Duration(milliseconds: 100),
+                                  //   textStyle: const TextStyle(
+                                  //     color: Colors.white,
+                                  //     fontSize: 10,
+                                  //     fontFamily: 'Open Sans',
+                                  //     fontWeight: FontWeight.w200,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
