@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:terza_spiaggia_web/constants/dynalic_values.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/views/marketing/site_marketing.dart';
@@ -187,48 +188,44 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: TextButton(
-                              onPressed: () {
-                                Get.to(() => const MarketingSite());
-                              },
-                              style: ButtonStyle(
-                                fixedSize: WidgetStateProperty.all(
-                                  Size(
-                                    responsiveValue(context,
-                                        defaultVal: 200,
-                                        mobileVal: 150,
-                                        tabletVal: 180,
-                                        desktopVal: 200),
-                                    responsiveValue(context,
-                                        defaultVal: 40,
-                                        mobileVal: 30,
-                                        tabletVal: 35,
-                                        desktopVal: 40),
-                                  ),
-                                ),
-                                backgroundColor: WidgetStateProperty.all(
-                                  Colors.transparent,
-                                ),
-                                side: WidgetStateProperty.all(BorderSide(
-                                  color: Colors.grey[400]!,
-                                  width: 1,
-                                )),
-                                shape: WidgetStateProperty.all(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )),
+                          Container(
+                            margin: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(5),
+                            width: responsiveValue(context,
+                                defaultVal: 200,
+                                mobileVal: 150,
+                                tabletVal: 180,
+                                desktopVal: 200),
+                            height: responsiveValue(context,
+                                defaultVal: 40,
+                                mobileVal: 30,
+                                tabletVal: 35,
+                                desktopVal: 40),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: Colors.grey[400]!,
+                                width: 1,
                               ),
+                            ),
+                            child: Center(
                               child: AnimatedTextKit(
+                                onTap: () {
+                                  Get.to(() => const MarketingSite());
+                                },
                                 totalRepeatCount: 1,
                                 animatedTexts: [
                                   TyperAnimatedText(
                                     'CREATED BY ANTONIO',
                                     speed: const Duration(milliseconds: 100),
-                                    textStyle: const TextStyle(
+                                    textStyle: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 10,
+                                      fontSize: responsiveValue(context,
+                                          defaultVal: 10,
+                                          mobileVal: 12,
+                                          tabletVal: 15,
+                                          desktopVal: 19),
                                       fontFamily: 'Open Sans',
                                       fontWeight: FontWeight.w200,
                                     ),

@@ -251,10 +251,7 @@ class _HomeViewState extends State<MarketingSite>
                   firstTime: widgetBooleans[1],
                   scrollController: _scrollController,
                 ),
-                // ServicesSectiorn(
-                //   firstTime: widgetBooleans[2],
-                //   scrollController: _scrollController,
-                // ),
+             
                 ContactSection(
                   firstTime: widgetBooleans[2],
                   scrollController: _scrollController,
@@ -349,17 +346,7 @@ class _HomeViewState extends State<MarketingSite>
             ),
           ),
 
-          // Positioned(
-          //   top: -8,
-          //   left: 0,
-          //   right: 0,
-          //   child: _webMenu(context),
-          //   // WhenShownListener(
-          //   //   initOffset: widgetHeight * 0.1,
-          //   //   onWidgetShown: () => repeatOnce(),
-          //   //   child: _webMenu(context),
-          //   // ),
-          // ),
+        
         ],
       ),
     );
