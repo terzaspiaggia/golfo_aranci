@@ -24,14 +24,14 @@ class ConstStrings {
       'Creazione app per ristoranti, inviare e ricevere ordinazioni, controllare e gestione clienti. App ristorante dynamic.';
 
   static const body_6 =
-      'Creazione app gestionali, inviare e ricevere ordinazioni, controllare e gestione clienti. App gestionale dynamic. ';
+      'Creazione app gestionali, aggiungere prodotti, gestione ordini, gestione clienti, gestione orari';
 
   // static const body_10 = 'Vereinbaren Sie gerne einen Termin bei uns unter der';
   static const phoneNumber = 'Tel. 388 387 9487';
   static const callNumm =
       'Chiamami per un preventivo gratuito o per una consulenza';
 
-  static const address = 'Olbia, Sardegna';
+  static const address = 'Sardegna';
 
   static const continueStrsing = 'CONTINUE';
 
