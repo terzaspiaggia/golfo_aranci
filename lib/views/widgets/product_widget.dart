@@ -29,157 +29,133 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      constraints: BoxConstraints(
-        maxWidth: responsiveValue(
-          context,
-          defaultVal: 100,
-          mobileVal: 50,
-          tabletVal: 80,
-          desktopVal: 100,
-        ),
-      ),
-      duration: const Duration(microseconds: 2000),
-      curve: Curves.easeInOutBack,
-      height: responsiveValue(
-        context,
-        defaultVal: 200,
-        mobileVal: 160,
-        tabletVal: 225,
-        desktopVal: 283,
-      ),
+    return Card(
+      elevation: 5,
       margin: EdgeInsets.symmetric(
-        horizontal: responsiveValue(
-          context,
-          defaultVal: 20,
-          mobileVal: 10,
-          tabletVal: 40,
-          desktopVal: 275,
-        ),
-        vertical: responsiveValue(
-          context,
-          defaultVal: 10,
-          mobileVal: 0,
-          tabletVal: 10,
-          desktopVal: 10,
-        ),
+        horizontal: 20,
+        vertical: 10,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: responsiveValue(
-                  context,
-                  defaultVal: 200,
-                  mobileVal: 80,
-                  tabletVal: 115,
-                  desktopVal: 160,
-                ),
-                width: responsiveValue(
-                  context,
-                  defaultVal: 200,
-                  mobileVal: 80,
-                  tabletVal: 115,
-                  desktopVal: 160,
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+      color: Colors.grey[800],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: responsiveValue(
+                    context,
+                    defaultVal: 200,
+                    mobileVal: 40,
+                    tabletVal: 80,
+                    desktopVal: 160,
+                  ),
+                  width: responsiveValue(
+                    context,
+                    defaultVal: 200,
+                    mobileVal: 40,
+                    tabletVal: 80,
+                    desktopVal: 160,
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  fadeInDuration: const Duration(milliseconds: 500),
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.grey[500],
+                    fadeInDuration: const Duration(milliseconds: 500),
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.grey[500],
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () =>
-                    Get.to(() => const ProductDetails(), arguments: product),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Colors.transparent,
+                ElevatedButton(
+                  onPressed: () =>
+                      Get.to(() => const ProductDetails(), arguments: product),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      Colors.transparent,
+                    ),
+                    side: WidgetStateProperty.all(BorderSide(
+                      color: Colors.grey[400]!,
+                      width: 1,
+                    )),
+                    shape: WidgetStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
                   ),
-                  side: WidgetStateProperty.all(BorderSide(
-                    color: Colors.grey[400]!,
-                    width: 1,
-                  )),
-                  shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
+                  child: Text('DETTAGLIO',
+                      style: TextStyle(color: Colors.grey[400])),
                 ),
-                child: Text('DETTAGLIO',
-                    style: TextStyle(color: Colors.grey[400])),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    product.number,
-                    style: TextStyle(
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.number,
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: titleTextHeiht(context),
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.clip),
+                    ),
+                    const SizedBox(width: 15),
+                    Text(
+                      product.title,
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: titleTextHeiht(context),
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.clip),
+                    ),
+                    const Spacer(
+                      flex: 1,
+                    ),
+                    Text(
+                      '€ ${product.price.toStringAsFixed(2)}',
+                      style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: titleTextHeiht(context),
                         fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.clip),
-                  ),
-                  const SizedBox(width: 15),
-                  Text(
-                    product.title,
-                    style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: titleTextHeiht(context),
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.clip),
-                  ),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  Text(
-                    '€ ${product.price.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      color: Colors.grey[400],
-                      fontSize: titleTextHeiht(context),
-                      fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Divider(
-                color: Colors.grey[400],
-                thickness: 1,
-                height: 5,
-              ),
-              Text(
-                product.description,
-                maxLines: 5,
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                  ],
+                ),
+                Divider(
                   color: Colors.grey[400],
-                  fontSize: descriptionTextHeight(context),
+                  thickness: 1,
+                  height: 5,
                 ),
-              ),
-            ],
-          ),
-        ],
+                Text(
+                  product.description,
+                  maxLines: 5,
+                  textAlign: TextAlign.start,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: descriptionTextHeight(context),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
