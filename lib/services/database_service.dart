@@ -4,38 +4,38 @@ import 'package:terza_spiaggia_web/constants.dart';
 import 'package:terza_spiaggia_web/models/product_model.dart';
 
 class DatabaseService {
-  //  OLD METHOD - NOT USED ANYMORE
-  // Stream<List<ProductModel>> getProduct() {
-  //   return firebaseFirestore
-  //       .collection('products')
-  //       .where('isOnline', isEqualTo: true)
-  //       .orderBy('number')
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     return snapshot.docs
-  //         .map((doc) => ProductModel.fromJson(
-  //               doc.data(),
-  //               doc.id,
-  //             ))
-  //         .toList();
-  //   });
-  // }
-
-// NEW METHOD FOR FILTRING ONLINE PRODUCTS
+  //  method to get products from Firestore created index in firebase console
   Stream<List<ProductModel>> getProduct() {
     return firebaseFirestore
         .collection('products')
+        .where('isOnline', isEqualTo: true)
         .orderBy('number')
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
-          .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
-          .where((product) => product.isOnline == true) // ✅ Filter in Dart
+          .map((doc) => ProductModel.fromJson(
+                doc.data(),
+                doc.id,
+              ))
           .toList();
-      // ..sort((a, b) => a.number.compareTo(b.number)); // ✅ Sort in Dart
-      //  can be used with sort method to sort the list
     });
   }
+
+// NEW METHOD FOR FILTRING ONLINE PRODUCTS
+  // Stream<List<ProductModel>> getProduct() {
+  //   return firebaseFirestore
+  //       .collection('products')
+  //       .orderBy('number')
+  //       .snapshots()
+  //       .map((snapshot) {
+  //     return snapshot.docs
+  //         .map((doc) => ProductModel.fromJson(doc.data(), doc.id))
+  //         .where((product) => product.isOnline == true) // ✅ Filter in Dart
+  //         .toList();
+  // ..sort((a, b) => a.number.compareTo(b.number)); // ✅ Sort in Dart
+  //  can be used with sort
+  // });
+  // }
 
   Future<List<Map<String, dynamic>>> loadImagesFSFloorTrap() async {
     List<Map<String, dynamic>> files = [];
