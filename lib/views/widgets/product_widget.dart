@@ -29,167 +29,240 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
-      ),
-      color: Colors.grey[800],
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: responsiveValue(
-                    context,
-                    defaultVal: 200,
-                    mobileVal: 40,
-                    tabletVal: 80,
-                    desktopVal: 160,
-                  ),
-                  width: responsiveValue(
-                    context,
-                    defaultVal: 200,
-                    mobileVal: 40,
-                    tabletVal: 80,
-                    desktopVal: 160,
-                  ),
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    fadeInDuration: const Duration(milliseconds: 500),
-                    placeholder: (context, url) => Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () =>
-                      Get.to(() => const ProductDetails(), arguments: product),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all(
-                      Colors.transparent,
-                    ),
-                    side: WidgetStateProperty.all(BorderSide(
-                      color: Colors.grey[400]!,
-                      width: 1,
-                    )),
-                    shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-                  ),
-                  child: Text('DETTAGLIO',
-                      style: TextStyle(color: Colors.grey[400])),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.number,
-                      style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: titleTextHeiht(context),
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.clip),
-                    ),
-                    const SizedBox(width: 15),
-                    Text(
-                      product.title,
-                      style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: titleTextHeiht(context),
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.clip),
-                    ),
-                    const Spacer(
-                      flex: 1,
-                    ),
-                    Text(
-                      '€ ${product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: titleTextHeiht(context),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Divider(
-                  color: Colors.grey[400],
-                  thickness: 1,
-                  height: 5,
-                ),
-                Text(
-                  product.description,
-                  maxLines: 5,
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.all(25.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                product.number,
+                style: TextStyle(
                     color: Colors.grey[400],
-                    fontSize: descriptionTextHeight(context),
-                  ),
+                    fontSize: titleTextHeiht(context),
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.clip),
+              ),
+              SizedBox(
+                height: responsiveValue(
+                  context,
+                  defaultVal: 200,
+                  mobileVal: 40,
+                  tabletVal: 80,
+                  desktopVal: 70,
                 ),
-              ],
+                width: responsiveValue(
+                  context,
+                  defaultVal: 200,
+                  mobileVal: 40,
+                  tabletVal: 80,
+                  desktopVal: 70,
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  fadeInDuration: const Duration(milliseconds: 500),
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+            ],
+          ),
+          Text(
+            product.title,
+            style: TextStyle(
+                color: Colors.grey[400],
+                fontSize: titleTextHeiht(context),
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.clip),
+          ),
+          Text(
+            product.description,
+            maxLines: 5,
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.grey[400],
+              fontSize: descriptionTextHeight(context),
             ),
-          ],
-        ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '€ ${product.price.toStringAsFixed(2)}',
+                style: TextStyle(
+                  color: Colors.grey[400],
+                  fontSize: titleTextHeiht(context),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              ButtonDetails(product: product),
+            ],
+          ),
+        ],
       ),
+
+      // Column(
+      //   crossAxisAlignment: CrossAxisAlignment.start,
+      //   children: [
+      //     Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //       children: [
+      //         SizedBox(
+      //           height: responsiveValue(
+      //             context,
+      //             defaultVal: 200,
+      //             mobileVal: 40,
+      //             tabletVal: 80,
+      //             desktopVal: 160,
+      //           ),
+      //           width: responsiveValue(
+      //             context,
+      //             defaultVal: 200,
+      //             mobileVal: 40,
+      //             tabletVal: 80,
+      //             desktopVal: 160,
+      //           ),
+      //           child: CachedNetworkImage(
+      //             imageUrl: product.imageUrl,
+      //             imageBuilder: (context, imageProvider) => Container(
+      //               decoration: BoxDecoration(
+      //                 borderRadius: BorderRadius.circular(10),
+      //                 image: DecorationImage(
+      //                   image: imageProvider,
+      //                   fit: BoxFit.cover,
+      //                 ),
+      //               ),
+      //             ),
+      //             fadeInDuration: const Duration(milliseconds: 500),
+      //             placeholder: (context, url) => Center(
+      //               child: CircularProgressIndicator(
+      //                 color: Colors.grey[500],
+      //               ),
+      //             ),
+      //             errorWidget: (context, url, error) => const Icon(Icons.error),
+      //           ),
+      //         ),
+      //         ElevatedButton(
+      //           onPressed: () =>
+      //               Get.to(() => const ProductDetails(), arguments: product),
+      //           style: ButtonStyle(
+      //             backgroundColor: WidgetStateProperty.all(
+      //               Colors.transparent,
+      //             ),
+      //             side: WidgetStateProperty.all(BorderSide(
+      //               color: Colors.grey[400]!,
+      //               width: 1,
+      //             )),
+      //             shape: WidgetStateProperty.all(RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(10),
+      //             )),
+      //           ),
+      //           child:
+      //               Text('DI PIU', style: TextStyle(color: Colors.grey[400])),
+      //         ),
+      //       ],
+      //     ),
+      //     Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       mainAxisAlignment: MainAxisAlignment.start,
+      //       children: [
+      //         Row(
+      //           mainAxisAlignment: MainAxisAlignment.start,
+      //           children: [
+      //             Text(
+      //               product.number,
+      //               style: TextStyle(
+      //                   color: Colors.grey[400],
+      //                   fontSize: titleTextHeiht(context),
+      //                   fontWeight: FontWeight.bold,
+      //                   overflow: TextOverflow.clip),
+      //             ),
+      //             const SizedBox(width: 15),
+      //             Text(
+      //               product.title,
+      //               style: TextStyle(
+      //                   color: Colors.grey[400],
+      //                   fontSize: titleTextHeiht(context),
+      //                   fontWeight: FontWeight.bold,
+      //                   overflow: TextOverflow.clip),
+      //             ),
+      //             const Spacer(
+      //               flex: 1,
+      //             ),
+      //             Text(
+      //               '€ ${product.price.toStringAsFixed(2)}',
+      //               style: TextStyle(
+      //                 color: Colors.grey[400],
+      //                 fontSize: titleTextHeiht(context),
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         Divider(
+      //           color: Colors.grey[400],
+      //           thickness: 1,
+      //           height: 5,
+      //         ),
+      //         Text(
+      //           product.description,
+      //           maxLines: 5,
+      //           textAlign: TextAlign.start,
+      //           overflow: TextOverflow.ellipsis,
+      //           style: TextStyle(
+      //             color: Colors.grey[400],
+      //             fontSize: descriptionTextHeight(context),
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
 
+class ButtonDetails extends StatelessWidget {
+  const ButtonDetails({
+    super.key,
+    required this.product,
+  });
 
+  final ProductModel product;
 
-//  CachedNetworkImage(
-//               imageUrl: (product.imageUrl),
-//               imageBuilder: (context, imageProvider) => Container(
-//                     height: responsiveValue(
-//                       context,
-//                       defaultVal: 100,
-//                       mobileVal: 40,
-//                       tabletVal: 70,
-//                       desktopVal: 100,
-//                     ),
-//                     width: responsiveValue(
-//                       context,
-//                       defaultVal: 100,
-//                       mobileVal: 40,
-//                       tabletVal: 70,
-//                       desktopVal: 100,
-//                     ),
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(10),
-//                       image: DecorationImage(
-//                         image: imageProvider,
-//                         fit: BoxFit.cover,
-//                       ),
-//                     ),
-//                   ),
-//               placeholder: (context, url) =>
-//                   const Center(child: CircularProgressIndicator()),
-//               errorWidget: (context, url, error) => const SizedBox.shrink()
-//               // Image.asset("PathToImage"),
-//               ),
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => Get.to(() => const ProductDetails(), arguments: product),
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(
+          Colors.transparent,
+        ),
+        side: WidgetStateProperty.all(BorderSide(
+          color: Colors.grey[400]!,
+          width: 1,
+        )),
+        shape: WidgetStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        )),
+      ),
+      child: Text('DI PIU', style: TextStyle(color: Colors.grey[400])),
+    );
+  }
+}

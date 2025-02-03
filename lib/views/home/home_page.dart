@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:responsive_framework/responsive_framework.dart';
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/views/marketing/site_marketing.dart';
 import 'package:terza_spiaggia_web/views/widgets/product_widget.dart';
@@ -49,30 +49,73 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       height: screenHeight,
       color: Colors.grey[900], // Background color
       padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
-          const Text(
-            "Chi siamo",
-            style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
           const SizedBox(height: 10),
+
+          SizedBox(
+            height: 200,
+            width: screenWidth,
+            child: Card(
+              color: Colors.grey[800],
+              child: const Text(
+                "LOREM IPSUM",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
           const Divider(color: Colors.grey),
+          SizedBox(
+            height: 200,
+            width: screenWidth,
+            child: Card(
+              color: Colors.grey[800],
+              child: const Text(
+                "LOREM IPSUM",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+          const Divider(color: Colors.grey),
+          SizedBox(
+            height: 200,
+            width: screenWidth,
+            child: Card(
+              color: Colors.grey[800],
+              child: const Text(
+                "LOREM IPSUM",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
           const Spacer(),
-          const Text("Additional Content",
-              style: TextStyle(color: Colors.white, fontSize: 16)),
+          // const Text(
+          //   "Additional Content",
+          //   style: TextStyle(
+          //     color: Colors.white,
+          //     fontSize: 16,
+          //   ),
+          // ),
         ],
       ),
     );
   }
 
-  /// 🔥 Product List with Filter
   Widget _buildProductList() {
     return Obx(() {
-      final products = productController.products
-          .where((p) => !showOnlyOnline || p.isOnline)
-          .toList();
+      final products = productController.products.toList();
 
       if (products.isEmpty) {
         return const Center(
@@ -80,20 +123,37 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white)));
       }
 
-      return ListView.builder(
-        controller: _scrollController,
-        itemCount: products.length + 2,
-        itemBuilder: (context, index) {
-          if (index == 0) return _buildHeader();
-          if (index == products.length + 1) return _buildFooter();
+      final totalItems = products.length + 2; // ✅ Includes header + footer
 
-          return AnimatedOpacity(
-            duration: const Duration(milliseconds: 500),
-            opacity: 1,
-            child: ProductWidget(
-                height: screenHeight, product: products[index - 1]),
-          );
-        },
+      return Scrollbar(
+        controller: _scrollController,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: MasonryGridView.count(
+            controller: _scrollController,
+            crossAxisCount: screenWidth > 1200
+                ? 4
+                : screenWidth > 800
+                    ? 3
+                    : 2, // ✅ Fully responsive
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            itemCount: totalItems,
+            itemBuilder: (context, index) {
+              if (index == 0) return _buildHeader();
+              if (index == totalItems - 1) return _buildFooter();
+
+              final productIndex = index - 1; // ✅ Adjusted for correct indexing
+
+              return AnimatedOpacity(
+                duration: const Duration(milliseconds: 500),
+                opacity: 1,
+                child: ProductWidget(
+                    height: screenHeight, product: products[productIndex]),
+              );
+            },
+          ),
+        ),
       );
     });
   }
@@ -167,7 +227,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Stack(
             children: [
               Scrollbar(
-                  controller: _scrollController, child: _buildProductList()),
+                controller: _scrollController,
+                child: _buildProductList(),
+              ),
               _buildAnimatedHeader(),
             ],
           ),
@@ -195,7 +257,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
-            const Divider(color: Colors.grey, thickness: 1),
+            const Divider(
+              color: Colors.grey,
+              thickness: 1,
+            ),
           ],
         ),
       ),
