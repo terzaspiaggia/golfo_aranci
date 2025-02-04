@@ -19,221 +19,111 @@ class ProductWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return responsiveValue(context,
-        defaultVal: 14, mobileVal: 14, tabletVal: 18, desktopVal: 20);
+        defaultVal: 14, mobileVal: 10, tabletVal: 12, desktopVal: 18);
   }
 
   titleTextHeiht(BuildContext context) {
     return responsiveValue(context,
-        defaultVal: 20, mobileVal: 14, tabletVal: 20, desktopVal: 22);
+        defaultVal: 20, mobileVal: 10, tabletVal: 16, desktopVal: 20);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                product.number,
-                style: TextStyle(
-                    color: Colors.grey[400],
-                    fontSize: titleTextHeiht(context),
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.clip),
-              ),
-              SizedBox(
-                height: responsiveValue(
-                  context,
-                  defaultVal: 200,
-                  mobileVal: 40,
-                  tabletVal: 80,
-                  desktopVal: 70,
+    return Card(
+      color: Colors.grey[900],
+      borderOnForeground: true,
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    product.number,
+                    style: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: titleTextHeiht(context),
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.clip),
+                  ),
                 ),
-                width: responsiveValue(
-                  context,
-                  defaultVal: 200,
-                  mobileVal: 40,
-                  tabletVal: 80,
-                  desktopVal: 70,
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: product.imageUrl,
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+                SizedBox(
+                  height: responsiveValue(
+                    context,
+                    defaultVal: 200,
+                    mobileVal: 40,
+                    tabletVal: 80,
+                    desktopVal: 70,
+                  ),
+                  width: responsiveValue(
+                    context,
+                    defaultVal: 200,
+                    mobileVal: 40,
+                    tabletVal: 80,
+                    desktopVal: 70,
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: product.imageUrl,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  fadeInDuration: const Duration(milliseconds: 500),
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.grey[500],
+                    fadeInDuration: const Duration(milliseconds: 500),
+                    placeholder: (context, url) => Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.grey[500],
+                      ),
                     ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              ),
-            ],
-          ),
-          Text(
-            product.title,
-            style: TextStyle(
-                color: Colors.grey[400],
-                fontSize: titleTextHeiht(context),
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.clip),
-          ),
-          Text(
-            product.description,
-            maxLines: 5,
-            textAlign: TextAlign.start,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: Colors.grey[400],
-              fontSize: descriptionTextHeight(context),
+              ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '€ ${product.price.toStringAsFixed(2)}',
-                style: TextStyle(
+            Text(
+              product.title,
+              style: TextStyle(
                   color: Colors.grey[400],
                   fontSize: titleTextHeiht(context),
                   fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.clip),
+            ),
+            // Text(
+            //   product.description,
+            //   maxLines: 5,
+            //   textAlign: TextAlign.start,
+            //   overflow: TextOverflow.ellipsis,
+            //   style: TextStyle(
+            //     color: Colors.grey[400],
+            //     fontSize: descriptionTextHeight(context),
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '€ ${product.price.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: titleTextHeiht(context),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              ButtonDetails(product: product),
-            ],
-          ),
-        ],
+                ButtonDetails(product: product),
+              ],
+            ),
+          ],
+        ),
       ),
-
-      // Column(
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //       children: [
-      //         SizedBox(
-      //           height: responsiveValue(
-      //             context,
-      //             defaultVal: 200,
-      //             mobileVal: 40,
-      //             tabletVal: 80,
-      //             desktopVal: 160,
-      //           ),
-      //           width: responsiveValue(
-      //             context,
-      //             defaultVal: 200,
-      //             mobileVal: 40,
-      //             tabletVal: 80,
-      //             desktopVal: 160,
-      //           ),
-      //           child: CachedNetworkImage(
-      //             imageUrl: product.imageUrl,
-      //             imageBuilder: (context, imageProvider) => Container(
-      //               decoration: BoxDecoration(
-      //                 borderRadius: BorderRadius.circular(10),
-      //                 image: DecorationImage(
-      //                   image: imageProvider,
-      //                   fit: BoxFit.cover,
-      //                 ),
-      //               ),
-      //             ),
-      //             fadeInDuration: const Duration(milliseconds: 500),
-      //             placeholder: (context, url) => Center(
-      //               child: CircularProgressIndicator(
-      //                 color: Colors.grey[500],
-      //               ),
-      //             ),
-      //             errorWidget: (context, url, error) => const Icon(Icons.error),
-      //           ),
-      //         ),
-      //         ElevatedButton(
-      //           onPressed: () =>
-      //               Get.to(() => const ProductDetails(), arguments: product),
-      //           style: ButtonStyle(
-      //             backgroundColor: WidgetStateProperty.all(
-      //               Colors.transparent,
-      //             ),
-      //             side: WidgetStateProperty.all(BorderSide(
-      //               color: Colors.grey[400]!,
-      //               width: 1,
-      //             )),
-      //             shape: WidgetStateProperty.all(RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.circular(10),
-      //             )),
-      //           ),
-      //           child:
-      //               Text('DI PIU', style: TextStyle(color: Colors.grey[400])),
-      //         ),
-      //       ],
-      //     ),
-      //     Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       mainAxisAlignment: MainAxisAlignment.start,
-      //       children: [
-      //         Row(
-      //           mainAxisAlignment: MainAxisAlignment.start,
-      //           children: [
-      //             Text(
-      //               product.number,
-      //               style: TextStyle(
-      //                   color: Colors.grey[400],
-      //                   fontSize: titleTextHeiht(context),
-      //                   fontWeight: FontWeight.bold,
-      //                   overflow: TextOverflow.clip),
-      //             ),
-      //             const SizedBox(width: 15),
-      //             Text(
-      //               product.title,
-      //               style: TextStyle(
-      //                   color: Colors.grey[400],
-      //                   fontSize: titleTextHeiht(context),
-      //                   fontWeight: FontWeight.bold,
-      //                   overflow: TextOverflow.clip),
-      //             ),
-      //             const Spacer(
-      //               flex: 1,
-      //             ),
-      //             Text(
-      //               '€ ${product.price.toStringAsFixed(2)}',
-      //               style: TextStyle(
-      //                 color: Colors.grey[400],
-      //                 fontSize: titleTextHeiht(context),
-      //                 fontWeight: FontWeight.bold,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //         Divider(
-      //           color: Colors.grey[400],
-      //           thickness: 1,
-      //           height: 5,
-      //         ),
-      //         Text(
-      //           product.description,
-      //           maxLines: 5,
-      //           textAlign: TextAlign.start,
-      //           overflow: TextOverflow.ellipsis,
-      //           style: TextStyle(
-      //             color: Colors.grey[400],
-      //             fontSize: descriptionTextHeight(context),
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
@@ -248,21 +138,26 @@ class ButtonDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => Get.to(() => const ProductDetails(), arguments: product),
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(
-          Colors.transparent,
-        ),
-        side: WidgetStateProperty.all(BorderSide(
-          color: Colors.grey[400]!,
-          width: 1,
-        )),
-        shape: WidgetStateProperty.all(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        )),
-      ),
-      child: Text('DI PIU', style: TextStyle(color: Colors.grey[400])),
-    );
+    return TextButton(
+        onPressed: () =>
+            Get.to(() => const ProductDetails(), arguments: product),
+        child: Text('allergeni'));
+
+    // ElevatedButton(
+    //   onPressed: () => Get.to(() => const ProductDetails(), arguments: product),
+    //   style: ButtonStyle(
+    //     backgroundColor: WidgetStateProperty.all(
+    //       Colors.transparent,
+    //     ),
+    //     side: WidgetStateProperty.all(BorderSide(
+    //       color: Colors.grey[400]!,
+    //       width: 1,
+    //     )),
+    //     shape: WidgetStateProperty.all(RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(10),
+    //     )),
+    //   ),
+    //   child: Text('DI PIU', style: TextStyle(color: Colors.grey[400])),
+    // );
   }
 }

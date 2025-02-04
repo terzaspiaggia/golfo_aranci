@@ -123,35 +123,43 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white)));
       }
 
-      final totalItems = products.length + 2; // ✅ Includes header + footer
-
       return Scrollbar(
         controller: _scrollController,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: MasonryGridView.count(
-            controller: _scrollController,
-            crossAxisCount: screenWidth > 1200
-                ? 4
-                : screenWidth > 800
-                    ? 3
-                    : 2, // ✅ Fully responsive
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            itemCount: totalItems,
-            itemBuilder: (context, index) {
-              if (index == 0) return _buildHeader();
-              if (index == totalItems - 1) return _buildFooter();
+          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+          child: Column(
+            children: [
+              // ✅ Keep Header Outside Grid
+              _buildHeader(),
 
-              final productIndex = index - 1; // ✅ Adjusted for correct indexing
+              // ✅ Masonry Grid for Products
+              Expanded(
+                child: MasonryGridView.count(
+                  controller: _scrollController,
+                  crossAxisCount: screenWidth > 1200
+                      ? 4
+                      : screenWidth > 900
+                          ? 3
+                          : 2, // ✅ Fully responsive
+                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 10,
+                  itemCount: products.length + 1, // ✅ Only products + Footer
+                  itemBuilder: (context, index) {
+                    // ✅ Footer at Last Position
+                    if (index == products.length) return _buildFooter();
 
-              return AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity: 1,
-                child: ProductWidget(
-                    height: screenHeight, product: products[productIndex]),
-              );
-            },
+                    return AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: 1,
+                      child: ProductWidget(
+                        height: screenHeight,
+                        product: products[index], // ✅ Corrected index
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -161,18 +169,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   /// 🔥 Header
   Widget _buildHeader() {
     return SizedBox(
-      height: 160,
+      height: screenHeight * 0.10,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(
-            'Menu Sushi',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[400]),
-          ),
+          // Text(
+          //   'Menu Sushi',
+          //   textAlign: TextAlign.center,
+          //   style: TextStyle(
+          //       fontSize: 40,
+          //       fontWeight: FontWeight.bold,
+          //       color: Colors.grey[400]),
+          // ),
         ],
       ),
     );
@@ -271,7 +279,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton:
-          _offset < 100 || _offset > 3000 ? const DownloadButton() : null,
+          _offset < 100 || _offset > 900 ? const DownloadButton() : null,
       backgroundColor: Colors.black,
       body: _buildMainContent(),
     );
@@ -283,26 +291,29 @@ class DownloadButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              backgroundColor: Colors.transparent,
-              onPressed: () {
-                Future.delayed(const Duration(seconds: 3), () {
-                  downloadController.generatePdfAndDownload();
-                });
-              },
-              child: downloadController.isLoading.value
-                  ? const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-                  : const Icon(Icons.download, color: Colors.white),
-            ),
-            Text(
+    return Obx(
+      () => Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            onPressed: () {
+              Future.delayed(const Duration(seconds: 3), () {
+                downloadController.generatePdfAndDownload();
+              });
+            },
+            child: Text(
               downloadController.isLoading.value ? 'scaricando' : 'scarica',
               style: const TextStyle(color: Colors.grey),
             ),
-          ],
-        ));
+
+            //   downloadController.isLoading.value
+            //       ? const CircularProgressIndicator(
+            //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
+            //       : const Icon(Icons.download, color: Colors.white),
+          ),
+        ],
+      ),
+    );
   }
 }
