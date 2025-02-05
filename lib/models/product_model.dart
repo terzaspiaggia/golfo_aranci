@@ -12,6 +12,7 @@ class ProductModel extends Equatable {
   late double price;
   final String allergens;
   final bool isOnline;
+  final String category;
 
   ProductModel({
     this.id,
@@ -22,6 +23,7 @@ class ProductModel extends Equatable {
     required this.price,
     required this.allergens,
     required this.isOnline,
+    required this.category,
   });
 
   static ProductModel fromJson(
@@ -37,6 +39,7 @@ class ProductModel extends Equatable {
       price: json['price'],
       allergens: json['allergens'],
       isOnline: json['isOnline'],
+      category: json['category'],
     );
     return product;
   }
@@ -52,6 +55,7 @@ class ProductModel extends Equatable {
       price,
       allergens,
       isOnline,
+      category,
     ];
   }
 
@@ -65,6 +69,7 @@ class ProductModel extends Equatable {
       'price': price,
       'allergens': allergens,
       'isOnline': isOnline,
+      'category': category,
     };
   }
 
@@ -72,6 +77,6 @@ class ProductModel extends Equatable {
 
   @override
   String toString() {
-    return 'Product { id: $id, number: $number, title: $title, description: $description, imageUrl: $imageUrl, price: $price, allergens: $allergens, isOnline: $isOnline }';
+    return 'Product { id: $id, number: $number, title: $title, description: $description, imageUrl: $imageUrl, price: $price, allergens: $allergens, isOnline: $isOnline, category: $category }';
   }
 }

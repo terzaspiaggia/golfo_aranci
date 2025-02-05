@@ -43,7 +43,7 @@ class ProductWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    product.number,
+                    'n. ${product.number}',
                     style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: titleTextHeiht(context),

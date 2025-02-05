@@ -13,7 +13,7 @@ class MySplashSreen extends StatelessWidget {
   final ProductController productController = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
-    productController.loadProductsAndNavigate();
+    productController.filteredProducts();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

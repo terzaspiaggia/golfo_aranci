@@ -56,4 +56,11 @@ class DatabaseService {
 
     return files;
   }
+
+  /// 🔥 Fetch Categories from Firestore
+  Stream<List<String>> getCategories() {
+    return firebaseFirestore.collection('products').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => doc['category'].toString()).toList();
+    });
+  }
 }

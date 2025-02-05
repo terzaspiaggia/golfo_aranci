@@ -43,28 +43,11 @@ class SearchControler extends GetxController {
     }
     update();
   }
+
+
+  void clearSearch() {
+    sercheTextEditing.clear();
+    searchList.value = products;
+    update();
+  }
 }
-
-
-  // searchProductByEAN(String query) {
-  //   List<ProductModel> result = <ProductModel>[];
-  //   result.clear();
-  //   if (query.isEmpty) {
-  //     result = _products;
-  //   } else {
-  //     result = _products
-  //         .where((ProductModel product) =>
-  //             product.number
-  //                 .replaceAll(' ', '')
-  //                 .toLowerCase()
-  //                 .contains(query.toLowerCase()) ||
-  //             product.description
-  //                 .trim()
-  //                 .toLowerCase()
-  //                 .contains(query.replaceAll(' ', '').toLowerCase()) ||
-  //             product.title.trim().toLowerCase().contains(query.toLowerCase()))
-  //         .toList();
-  //     searchList.value = result;
-  //     update();
-  //   }
-

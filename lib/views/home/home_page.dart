@@ -44,78 +44,70 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   /// 🔥 Responsive Side Container (Hides on Mobile)
   Widget _buildSideContainer() {
-    return Container(
-      width: 250, // Fixed width for sidebar
-      height: screenHeight,
-      color: Colors.grey[900], // Background color
-      padding: const EdgeInsets.all(16),
-      child: ListView(
-        children: [
-          const SizedBox(height: 10),
+    return Obx(
+      () => Container(
+        width: 250, // Fixed width for sidebar
+        height: screenHeight,
+        color: Colors.grey[900], // Background color
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Text(
+                "Categorie",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  /// 🔥 "All Products" Button
+                  ListTile(
+                    title: const Text("Tutti",
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
+                    leading: const Icon(Icons.grid_view, color: Colors.white),
+                    tileColor:
+                        productController.selectedCategory.value == 'Tutti'
+                            ? Colors.grey[800]
+                            : null,
+                    onTap: () =>
+                        productController.filterProductsByCategory('Tutti'),
+                  ),
+                  const Divider(color: Colors.grey),
 
-          SizedBox(
-            height: 200,
-            width: screenWidth,
-            child: Card(
-              color: Colors.grey[800],
-              child: const Text(
-                "LOREM IPSUM",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
+                  /// 🔥 Display Categories Dynamically
+                  ...productController.categories.toSet().map(
+                        (category) => ListTile(
+                          title: Text(category,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 16)),
+                          leading:
+                              const Icon(Icons.category, color: Colors.white),
+                          tileColor: productController.selectedCategory.value ==
+                                  category
+                              ? Colors.white
+                              : null,
+                          onTap: () => productController
+                              .filterProductsByCategory(category),
+                        ),
+                      ),
+                ],
               ),
             ),
-          ),
-          const Divider(color: Colors.grey),
-          SizedBox(
-            height: 200,
-            width: screenWidth,
-            child: Card(
-              color: Colors.grey[800],
-              child: const Text(
-                "LOREM IPSUM",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          const Divider(color: Colors.grey),
-          SizedBox(
-            height: 200,
-            width: screenWidth,
-            child: Card(
-              color: Colors.grey[800],
-              child: const Text(
-                "LOREM IPSUM",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          const Spacer(),
-          // const Text(
-          //   "Additional Content",
-          //   style: TextStyle(
-          //     color: Colors.white,
-          //     fontSize: 16,
-          //   ),
-          // ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildProductList() {
     return Obx(() {
-      final products = productController.products.toList();
+      final products = productController.filteredProducts.toList();
 
       if (products.isEmpty) {
         return const Center(
