@@ -111,8 +111,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
       if (products.isEmpty) {
         return const Center(
-            child: Text("No products found",
-                style: TextStyle(color: Colors.white)));
+          child: Text(
+            "No products found",
+            style: TextStyle(color: Colors.white),
+          ),
+        );
       }
 
       return Scrollbar(
@@ -121,10 +124,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 8),
           child: Column(
             children: [
-              // ✅ Keep Header Outside Grid
+              // ✅ Header (Outside Grid)
               _buildHeader(),
 
-              // ✅ Masonry Grid for Products
+              // ✅ Product Grid (Takes available space)
               Expanded(
                 child: MasonryGridView.count(
                   controller: _scrollController,
@@ -135,11 +138,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           : 2, // ✅ Fully responsive
                   mainAxisSpacing: 15,
                   crossAxisSpacing: 10,
-                  itemCount: products.length + 1, // ✅ Only products + Footer
+                  itemCount: products.length, // ✅ Only products
                   itemBuilder: (context, index) {
-                    // ✅ Footer at Last Position
-                    if (index == products.length) return _buildFooter();
-
                     return AnimatedOpacity(
                       duration: const Duration(milliseconds: 500),
                       opacity: 1,
@@ -150,6 +150,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     );
                   },
                 ),
+              ),
+
+              // ✅ Footer (Always at Bottom)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  _buildFooter(),
+                ],
               ),
             ],
           ),
@@ -181,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   /// 🔥 Footer
   Widget _buildFooter() {
     return SizedBox(
-      height: 100,
+      height: 80,
       child: Center(
         child: GestureDetector(
           onTap: () => Get.to(() => const MarketingSite()),
