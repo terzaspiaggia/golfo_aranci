@@ -19,7 +19,7 @@ class ProductWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return responsiveValue(context,
-        defaultVal: 14, mobileVal: 10, tabletVal: 12, desktopVal: 18);
+        defaultVal: 14, mobileVal: 7, tabletVal: 8, desktopVal: 18);
   }
 
   titleTextHeiht(BuildContext context) {

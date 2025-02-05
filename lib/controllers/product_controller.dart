@@ -19,6 +19,16 @@ class ProductController extends GetxController {
     _loadCategories();
   }
 
+  Future<void> loadProductsAndNavigate() async {
+   
+    // Wait for the product stream to populate the products list
+    await products.stream.firstWhere((productList) => productList.isNotEmpty);
+    // Navigate to MyHomePage once products are loaded
+  
+    Get.offAll(() => const MyHomePage());
+  }
+
+
   /// 🔥 Load All Products
   void _loadProducts() {
     dbService.getProduct().listen((productList) {

@@ -12,7 +12,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.splasScreen,
-      page: () => MySplashSreen(),
+      page: () => MySplashScreen(),
     ),
     GetPage(
       name: _Paths.home,
