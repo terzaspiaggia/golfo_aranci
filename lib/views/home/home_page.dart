@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+
 import 'package:terza_spiaggia_web/controllers/controllers_esports.dart';
 import 'package:terza_spiaggia_web/views/marketing/site_marketing.dart';
 import 'package:terza_spiaggia_web/views/widgets/product_widget.dart';
@@ -16,10 +17,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   late AnimationController _controller;
-  bool showOnlyOnline = false; // 🔥 Filter for online products
+  double _offset = 0;
 
-  double get _offset =>
-      _scrollController.hasClients ? _scrollController.offset : 0;
   double get screenHeight => MediaQuery.of(context).size.height;
   double get screenWidth => MediaQuery.of(context).size.width;
 
@@ -32,7 +31,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 
   void _onScrollOffsetChanged() {
-    setState(() {}); // Rebuild UI on scroll
+    setState(() {
+      _offset = _scrollController.offset;
+    });
   }
 
   @override
@@ -42,180 +43,212 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  /// 🔥 Responsive Side Container (Hides on Mobile)
+  /// 🔥 Responsive Side Container (Only for Desktop & Tablets)
   Widget _buildSideContainer() {
+    if (screenWidth < 800) return const SizedBox(); // Hide on mobile
     return Obx(
       () => Container(
-        width: 250, // Fixed width for sidebar
+        width: 250,
         height: screenHeight,
-        color: Colors.grey[900], // Background color
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Text(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+          ),
+          color: Colors.grey[900],
+        ),
+        padding: EdgeInsets.all(16),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(50),
+              ),
+              color: Colors.black),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
                 "Categorie",
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  /// 🔥 "All Products" Button
-                  ListTile(
-                    title: const Text("Tutti",
-                        style: TextStyle(color: Colors.white, fontSize: 16)),
-                    leading: const Icon(Icons.grid_view, color: Colors.white),
-                    tileColor:
-                        productController.selectedCategory.value == 'Tutti'
-                            ? Colors.grey[800]
-                            : null,
-                    onTap: () =>
-                        productController.filterProductsByCategory('Tutti'),
-                  ),
-                  const Divider(color: Colors.grey),
-
-                  /// 🔥 Display Categories Dynamically
-                  ...productController.categories.toSet().map(
-                        (category) => ListTile(
-                          title: Text(category,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 16)),
-                          leading:
-                              const Icon(Icons.category, color: Colors.white),
-                          tileColor: productController.selectedCategory.value ==
-                                  category
-                              ? Colors.white
-                              : null,
-                          onTap: () => productController
-                              .filterProductsByCategory(category),
-                        ),
-                      ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductList() {
-    return Obx(() {
-      final products = productController.filteredProducts.toList();
-
-      if (products.isEmpty) {
-        return const Center(
-          child: Text(
-            "No products found",
-            style: TextStyle(color: Colors.white),
-          ),
-        );
-      }
-
-      return Scrollbar(
-        controller: _scrollController,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-          child: Column(
-            children: [
-              // ✅ Header (Outside Grid)
-              _buildHeader(),
-
-              // ✅ Product Grid (Takes available space)
+              const SizedBox(height: 10),
               Expanded(
-                child: MasonryGridView.count(
-                  controller: _scrollController,
-                  crossAxisCount: screenWidth > 1200
-                      ? 4
-                      : screenWidth > 900
-                          ? 3
-                          : 2, // ✅ Fully responsive
-                  mainAxisSpacing: 15,
-                  crossAxisSpacing: 10,
-                  itemCount: products.length, // ✅ Only products
-                  itemBuilder: (context, index) {
-                    return AnimatedOpacity(
-                      duration: const Duration(milliseconds: 500),
-                      opacity: 1,
-                      child: ProductWidget(
-                        height: screenHeight,
-                        product: products[index], // ✅ Corrected index
-                      ),
-                    );
-                  },
+                child: ListView(
+                  children: [
+                    _categoryTile("Tutti", Icons.grid_view),
+                    const Divider(color: Colors.grey),
+                    ...productController.categories
+                        .toSet()
+                        .toList(growable: false)
+                        .map((category) =>
+                            _categoryTile(category, Icons.category)),
+                    SideButton(
+                        onPressed: () {
+                          Get.to(() => const MarketingSite());
+                        },
+                        text: "il nostro sito")
+                  ],
                 ),
               ),
-
-              // ✅ Footer (Always at Bottom)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _buildFooter(),
-                ],
+              Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+                ),
+                child: TextButton(
+                    onPressed: () {
+                      downloadController.generatePdfAndDownload();
+                    },
+                    child: Text(
+                      "MENU PDF",
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                    )),
               ),
             ],
           ),
         ),
-      );
-    });
-  }
-
-  /// 🔥 Header
-  Widget _buildHeader() {
-    return SizedBox(
-      height: screenHeight * 0.10,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          // Text(
-          //   'Menu Sushi',
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(
-          //       fontSize: 40,
-          //       fontWeight: FontWeight.bold,
-          //       color: Colors.grey[400]),
-          // ),
-        ],
       ),
     );
   }
 
+  /// 🔥 Category Tile (Reusable)
+  Widget _categoryTile(String category, IconData icon) {
+    String getFirstProductImage(String category) {
+      // Find the first product that matches the category
+      final product = productController.allProducts.firstWhere(
+        (p) => p.category == category,
+      );
+
+      return product.imageUrl;
+    }
+
+    final isSelected = productController.selectedCategory.value == category;
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey[800]!, width: 1),
+      ),
+      child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: category == "Tutti"
+                ? null
+                : DecorationImage(
+                    image: NetworkImage(getFirstProductImage(category)),
+                    fit: BoxFit.contain,
+                  ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  // color: Colors.grey.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  category,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListTile(
+                  leading: Icon(
+                    icon,
+                    color: Colors.white,
+                  ),
+                  trailing: isSelected
+                      ? const Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        )
+                      : null,
+                  tileColor: isSelected ? Colors.grey[800] : null,
+                  onTap: () {
+                    productController.filterProductsByCategory(category);
+                    if (screenWidth < 800) Get.back();
+                  },
+                ),
+              ),
+            ],
+          )),
+    );
+  }
+
+  /// 🔥 Product Grid
+  Widget _buildProductList() {
+    return Obx(() {
+      final products = productController.filteredProducts.toList();
+      if (products.isEmpty) {
+        return const Center(
+            child: Text("No products found",
+                style: TextStyle(color: Colors.white)));
+      }
+
+      return Column(
+        children: [
+          Expanded(
+            child: MasonryGridView.count(
+              controller: _scrollController,
+              crossAxisCount: screenWidth > 1200
+                  ? 4
+                  : screenWidth > 900
+                      ? 3
+                      : 2,
+              mainAxisSpacing: 15,
+              crossAxisSpacing: 10,
+              itemCount: products.length,
+              itemBuilder: (context, index) => AnimatedOpacity(
+                duration: const Duration(milliseconds: 500),
+                opacity: 1,
+                child: ProductWidget(
+                    height: screenHeight, product: products[index]),
+              ),
+            ),
+          ),
+          // _buildFooter(), // ✅ Keep Footer Always at the Bottom
+        ],
+      );
+    });
+  }
+
   /// 🔥 Footer
   Widget _buildFooter() {
-    return SizedBox(
-      height: 80,
-      child: Center(
-        child: GestureDetector(
-          onTap: () => Get.to(() => const MarketingSite()),
-          child: Container(
-            margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.all(5),
-            width: 200,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey[400]!, width: 1),
-            ),
-            child: Center(
-              child: AnimatedTextKit(
-                totalRepeatCount: 1,
-                animatedTexts: [
-                  TyperAnimatedText(
-                    'CREATED BY ANTONIO',
-                    speed: const Duration(milliseconds: 100),
-                    textStyle: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w200),
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: GestureDetector(
+        onTap: () => Get.to(() => const MarketingSite()),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.grey[400]!, width: 1),
+          ),
+          child: Center(
+            child: AnimatedTextKit(
+              totalRepeatCount: 1,
+              animatedTexts: [
+                TyperAnimatedText(
+                  'CREATED BY ANTONIO',
+                  speed: const Duration(milliseconds: 100),
+                  textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w200),
+                ),
+              ],
             ),
           ),
         ),
@@ -227,61 +260,104 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget _buildMainContent() {
     return Row(
       children: [
-        // 🔥 Side Container (Only on Tablet/Desktop)
         if (screenWidth > 800) _buildSideContainer(),
-
-        // 🔥 Main Product List (Takes remaining space)
-        Expanded(
-          child: Stack(
-            children: [
-              Scrollbar(
-                controller: _scrollController,
-                child: _buildProductList(),
-              ),
-              _buildAnimatedHeader(),
-            ],
-          ),
-        ),
+        Expanded(child: _buildProductList()),
       ],
-    );
-  }
-
-  /// 🔥 Floating Header
-  Widget _buildAnimatedHeader() {
-    return AnimatedOpacity(
-      duration: const Duration(milliseconds: 500),
-      opacity: _offset < 100 ? 1 : 0,
-      child: Container(
-        color: Colors.black.withOpacity(0.8),
-        width: double.infinity,
-        height: screenHeight * 0.10,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Terza Spiaggia',
-              style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            const Divider(
-              color: Colors.grey,
-              thickness: 1,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          _offset < 100 || _offset > 900 ? const DownloadButton() : null,
-      backgroundColor: Colors.black,
-      body: _buildMainContent(),
+        appBar: AppBar(
+          title: const Text(
+            "Terza Spiaggia",
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+          actions: [
+            if (screenWidth < 800)
+              IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: _showBottomSheet,
+              ),
+          ],
+          backgroundColor: Colors.transparent,
+        ),
+        backgroundColor: Colors.black,
+        body: _buildMainContent());
+    //   floatingActionButton:
+    //       _offset < 100 || _offset > 900 ? const DownloadButton() : null,
+    // );
+  }
+
+  /// 🔥 Bottom Sheet for Mobile Navigation
+  void _showBottomSheet() {
+    Get.bottomSheet(
+      Container(
+        height: 300,
+        decoration: const BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("Categorie",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  _categoryTile("Tutti", Icons.grid_view),
+                  const Divider(color: Colors.grey),
+                  ...productController.categories
+                      .toSet()
+                      .toList(growable: false)
+                      .map((category) =>
+                          _categoryTile(category, Icons.category)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      isScrollControlled: true,
+    );
+  }
+}
+
+class SideButton extends StatelessWidget {
+  const SideButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+  });
+
+  final VoidCallback onPressed;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey[800]!, width: 1),
+      ),
+      child: TextButton(
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+        ),
+      ),
     );
   }
 }
@@ -292,27 +368,14 @@ class DownloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            backgroundColor: Colors.transparent,
-            onPressed: () {
-              Future.delayed(const Duration(seconds: 3), () {
-                downloadController.generatePdfAndDownload();
-              });
-            },
-            child: Text(
-              downloadController.isLoading.value ? 'scaricando' : 'scarica',
-              style: const TextStyle(color: Colors.grey),
-            ),
-
-            //   downloadController.isLoading.value
-            //       ? const CircularProgressIndicator(
-            //           valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
-            //       : const Icon(Icons.download, color: Colors.white),
-          ),
-        ],
+      () => FloatingActionButton(
+        backgroundColor: Colors.transparent,
+        onPressed: () => Future.delayed(const Duration(seconds: 3),
+            downloadController.generatePdfAndDownload),
+        child: Text(
+          downloadController.isLoading.value ? 'scaricando' : 'scarica il menu',
+          style: const TextStyle(color: Colors.grey),
+        ),
       ),
     );
   }

@@ -16,10 +16,10 @@ class WelcomeSection extends StatefulWidget {
   final ScrollController? scrollController;
 
   const WelcomeSection({
-    Key? key,
+    super.key,
     required this.firstTime,
     this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   State<WelcomeSection> createState() => _WelcomeSectionState();
@@ -113,7 +113,6 @@ class _WelcomeSectionState extends State<WelcomeSection>
                           text: ConstStrings.welcome,
                           colour: CustomColors.kDentalColor,
                           alignment: TextAlign.center,
-                          
                         ),
                         SizedBox(
                           height: 50,
