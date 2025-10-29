@@ -117822,7 +117822,7 @@ r=t.D
 return A.fW(A.a([A.fW(A.a([B.b0O,A.lD(q,q,A.uL(B.vQ,q,q,q),q,q,new A.aLb(),q,q,q)],r),B.ag,B.ar,B.am),A.cy("Ciao, "+s,q,q,q,B.N5,q,q)],r),B.ag,B.ar,B.am)}return A.fW(A.a([A.cy("Scan",q,q,q,A.dW(q,q,B.M,q,q,q,q,q,q,q,q,14,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),q,q),B.iJ,A.lD(q,q,A.uL(B.vQ,q,q,q),q,q,new A.aLc(),q,q,q)],t.D),B.ag,B.ar,B.am)},
 $S:144}
 A.aLb.prototype={
-$0(){var s,r,q=null,p="https://terzaspiaggia.github.io/golfo_aranci/?id="+A.n($.dN().db.gp(0))+"&num="+A.n($.dN().cy.gp(0))
+$0(){var s,r,q=null,p="https://terzaspiaggia.github.io/sushi/?id="+A.n($.dN().db.gp(0))+"&num="+A.n($.dN().cy.gp(0))
 $.abT().ER("QR URL: "+p)
 s=$.aA()
 r=A.cy("QR Tavolo "+A.n($.dN().cy.gp(0)),q,q,q,q,q,q)
